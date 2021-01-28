@@ -40,6 +40,7 @@
         <module>springx-boot-log</module>
         <module>springx-boot-utils</module>
         <module>springx-boot-starter-gui</module>
+        <module>springx-boot-gui-miglayout</module>
     </modules>
 
     <properties>
