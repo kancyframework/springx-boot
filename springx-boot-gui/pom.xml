@@ -51,6 +51,12 @@
             <groupId>com.github.kancyframework</groupId>
             <artifactId>springx-boot-utils</artifactId>
         </dependency>
+        <!-- miglayout -->
+        <dependency>
+            <groupId>com.github.kancyframework</groupId>
+            <artifactId>springx-boot-gui-miglayout</artifactId>
+            <scope>provided</scope>
+        </dependency>
         <!-- 语法高亮 -->
         <dependency>
             <groupId>com.fifesoft</groupId>
@@ -58,7 +64,6 @@
             <version>3.1.1</version>
             <scope>provided</scope>
         </dependency>
-
         <!-- 皮肤包 -->
         <dependency>
             <groupId>org.jvnet.substance</groupId>
