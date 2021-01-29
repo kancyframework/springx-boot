@@ -30,6 +30,11 @@
             <artifactId>springx-boot-starter-gui</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.kancyframework</groupId>
+            <artifactId>springx-boot-gui-miglayout</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
         <!-- 语法高亮 -->
         <dependency>
             <groupId>com.fifesoft</groupId>
