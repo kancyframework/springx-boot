@@ -49,6 +49,11 @@ public interface SwingApplication<T extends JFrame> extends ApplicationRunner, S
                 ReflectionUtils.makeAccessible(field);
                 Class<?> fieldType = field.getType();
                 Object fieldValue = field.get(frame);
+
+                if (Objects.isNull(fieldValue)){
+                    return;
+                }
+
                 Method method = ReflectionUtils.findMethod(fieldType, "addActionListener", ActionListener.class);
                 if (Objects.nonNull(method)){
                     try {
