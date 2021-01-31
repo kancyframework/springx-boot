@@ -14,22 +14,20 @@
         <java.version>8</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-
-        <final.package.name>${artifactId}-${version}</final.package.name>
         <startup.class.name>com.kancy.swing.Application</startup.class.name>
-
+        <springx.boot.version>0.0.1-SNAPSHOT</springx.boot.version>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>com.kancy</groupId>
-            <artifactId>miglayout-core</artifactId>
-            <version>1.0.0</version>
+            <groupId>com.github.kancyframework</groupId>
+            <artifactId>springx-boot-starter-gui</artifactId>
+            <version>${springx.boot.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.kancy</groupId>
-            <artifactId>miglayout-swing</artifactId>
-            <version>1.0.0</version>
+            <groupId>com.github.kancyframework</groupId>
+            <artifactId>springx-boot-gui-miglayout</artifactId>
+            <version>${springx.boot.version}</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -61,7 +59,7 @@
 
 
     <build>
-        <finalName>${final.package.name}.jar</finalName>
+        <finalName>${artifactId}-${version}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
