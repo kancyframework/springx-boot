@@ -1,5 +1,6 @@
 package com.github.kancyframework.springx.demo.listener;
 
+import com.github.kancyframework.springx.context.annotation.Autowired;
 import com.github.kancyframework.springx.context.annotation.Component;
 import com.github.kancyframework.springx.demo.ui.DemoFrame;
 import com.github.kancyframework.springx.swing.Swing;
@@ -13,6 +14,9 @@ import java.awt.event.ActionEvent;
 @Action({"落","花","不","是","无","情","物"})
 @Component
 public class BottonsActionListener extends AbstractActionApplicationListener<ActionApplicationEvent<DemoFrame>> {
+
+    @Autowired
+    private JFrame frame;
 
     /**
      * 处理事件
