@@ -1,0 +1,122 @@
+JFDML JFormDesigner: "7.0.0.6.255" Java: "11.0.3" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+			name: "this"
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+				"$layoutConstraints": "hidemode 3"
+				"$columnConstraints": "[fill][fill][fill][fill][fill][fill][fill]"
+				"$rowConstraints": "[]"
+			} ) {
+				name: "panel"
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "button1"
+					"text": "落"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 0,dock center"
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "button2"
+					"text": "花"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 1 0,dock center"
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "button3"
+					"text": "不"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 2 0,dock center"
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "button4"
+					"text": "是"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 3 0,dock center"
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "button5"
+					"text": "无"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 4 0,dock center"
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "button6"
+					"text": "情"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 5 0,dock center"
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "button7"
+					"text": "物"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 6 0,dock center"
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "South"
+			} )
+			add( new FormContainer( "com.github.kancyframework.springx.swing.rsyntax.RSyntaxTextComponent", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "syntaxTextComponent"
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "Center"
+			} )
+			menuBar: new FormContainer( "javax.swing.JMenuBar", new FormLayoutManager( class javax.swing.JMenuBar ) ) {
+				name: "menuBar1"
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "menu1"
+					"text": "菜单"
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItem1"
+						"text": "关于"
+					} )
+					add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
+						name: "separator1"
+					} )
+					add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+						name: "menu2"
+						"text": "子菜单"
+						add( new FormComponent( "javax.swing.JMenuItem" ) {
+							name: "menuItem2"
+							"text": "动作1"
+						} )
+						add( new FormComponent( "javax.swing.JMenuItem" ) {
+							name: "menuItem3"
+							"text": "动作2"
+						} )
+					} )
+				} )
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "menu3"
+					"text": "设置"
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItem4"
+						"text": "设置样式"
+					} )
+					add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+						name: "menu4"
+						"text": "功能开关"
+						add( new FormComponent( "javax.swing.JRadioButtonMenuItem" ) {
+							name: "radioButtonMenuItem1"
+							"text": "开"
+							"$buttonGroup": new FormReference( "buttonGroup1" )
+						} )
+						add( new FormComponent( "javax.swing.JRadioButtonMenuItem" ) {
+							name: "radioButtonMenuItem2"
+							"text": "关"
+							"$buttonGroup": new FormReference( "buttonGroup1" )
+						} )
+					} )
+				} )
+			}
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 600, 310 )
+		} )
+		add( new FormNonVisual( "javax.swing.ButtonGroup" ) {
+			name: "buttonGroup1"
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 326 )
+		} )
+	}
+}

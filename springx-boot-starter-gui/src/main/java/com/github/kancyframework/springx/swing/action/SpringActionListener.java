@@ -1,6 +1,11 @@
 package com.github.kancyframework.springx.swing.action;
 
+import com.github.kancyframework.springx.log.Logger;
+import com.github.kancyframework.springx.log.LoggerFactory;
+import com.github.kancyframework.springx.swing.dialog.MessageDialog;
+import com.github.kancyframework.springx.swing.exception.AlertException;
 import com.github.kancyframework.springx.utils.SpringUtils;
+import com.github.kancyframework.springx.utils.StringUtils;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -16,7 +21,7 @@ import java.util.stream.Collectors;
  * @date 2020/12/13 1:22
  */
 public interface SpringActionListener extends ActionListener {
-
+    Logger log = LoggerFactory.getLogger(SpringActionListener.class);
     /**
      * Invoked when an action occurs.
      *
@@ -24,19 +29,46 @@ public interface SpringActionListener extends ActionListener {
      */
     @Override
     default void actionPerformed(ActionEvent e) {
-        Map<String, ActionApplicationListener> actionMap = SpringUtils.getBeansOfType(ActionApplicationListener.class);
         ActionApplicationEvent<?> event = new ActionApplicationEvent<>(getSource(e.getActionCommand()), e);
-        List<ActionApplicationListener> actionList = actionMap.values().stream()
-                .filter(action -> action.isSupport(e))
-                .collect(Collectors.toList());
-        if (actionList.isEmpty()){
+        try {
+            Map<String, ActionApplicationListener> actionMap = SpringUtils.getBeansOfType(ActionApplicationListener.class);
+            List<ActionApplicationListener> actionList = actionMap.values().stream()
+                    .filter(action -> action.isSupport(e))
+                    .collect(Collectors.toList());
+            if (actionList.isEmpty()){
+                JComponent component = null;
+                if (event.getSource() instanceof JComponent){
+                    component = JComponent.class.cast(event.getSource());
+                }
+                MessageDialog messageDialog = new MessageDialog(component, "\u8be5\u529f\u80fd\u6682\u4e0d\u652f\u6301\uff01");
+                messageDialog.show();
+            } else {
+                actionList.forEach(action -> action.onApplicationEvent(event));
+            }
+        } catch (Exception exception) {
+            String message = "";
+            if (exception instanceof IllegalArgumentException){
+                log.warn(exception.getMessage());
+                message = exception.getMessage();
+                if (StringUtils.isBlank(message)){
+                    message = "\u53c2\u6570\u9519\u8bef\uff01";
+                }
+            } else if (exception instanceof AlertException){
+                log.warn(exception.getMessage());
+                message = AlertException.class.cast(exception).getFriendlyMessage();
+            } else {
+                log.error(String.format("\u64cd\u4f5c\u5f02\u5e38\uff1a%s", exception.getMessage()), exception);
+                MessageDialog messageDialog = new MessageDialog("\u64cd\u4f5c\u5f02\u5e38\uff01");
+                messageDialog.show();
+                return;
+            }
+
             JComponent component = null;
             if (event.getSource() instanceof JComponent){
                 component = JComponent.class.cast(event.getSource());
             }
-            JOptionPane.showMessageDialog(component, "\u8be5\u529f\u80fd\u6682\u4e0d\u652f\u6301\uff01");
-        } else {
-            actionList.forEach(action -> action.onApplicationEvent(event));
+            MessageDialog messageDialog = new MessageDialog(component, message);
+            messageDialog.show();
         }
     }
 

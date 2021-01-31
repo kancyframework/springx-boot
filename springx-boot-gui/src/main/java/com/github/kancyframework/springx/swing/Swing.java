@@ -3,14 +3,14 @@ package com.github.kancyframework.springx.swing;
 import com.github.kancyframework.springx.log.Log;
 import com.github.kancyframework.springx.swing.dialog.MessageDialog;
 import com.github.kancyframework.springx.swing.themes.Themes;
+import com.github.kancyframework.springx.utils.StringUtils;
 
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Enumeration;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Swing
@@ -44,6 +44,14 @@ public class Swing {
     public static void startUp(JFrame frame){
         // frame.setAlwaysOnTop(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        if (frame.getWidth() < 200 || frame.getHeight() < 150){
+            frame.setSize(new Dimension(600, 400));
+        }
+        if (StringUtils.isBlank(frame.getTitle())){
+            SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
+            String title = String.format("%s v1.0 by kancy at %s", frame.getClass().getSimpleName(), df.format(new Date()));
+            frame.setTitle(title);
+        }
         frame.setLocationRelativeTo(null);
         setUIManager();
         if (!frame.isVisible()){

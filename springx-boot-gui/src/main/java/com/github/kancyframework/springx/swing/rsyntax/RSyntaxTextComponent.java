@@ -28,11 +28,6 @@ public class RSyntaxTextComponent extends RTextScrollPane {
         init();
     }
 
-    public RSyntaxTextComponent(int width, int height) {
-        init();
-        setSize(width, height);
-    }
-
     private void init() {
         textArea = new RSyntaxTextArea();
         textArea.setCodeFoldingEnabled(true);
@@ -113,6 +108,7 @@ public class RSyntaxTextComponent extends RTextScrollPane {
                 return;
             }
             JRadioButtonMenuItem item = new JRadioButtonMenuItem(action);
+            item.setSelected(key.contains("(System Selection)"));
             item.setText(key);
             item.setActionCommand(value);
             bg.add(item);
@@ -158,7 +154,7 @@ public class RSyntaxTextComponent extends RTextScrollPane {
      * @param width
      * @param height
      */
-    public void setSize(int width, int height) {
+    public void setTextAreaSize(int width, int height) {
         textArea.setSize(new Dimension(width, height));
     }
 
