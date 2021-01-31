@@ -138,11 +138,7 @@ public abstract class ObjectUtils {
                     returnValue = LocalDateTime.parse(stringValue, DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
                 }
             }  else if (LocalTime.class.equals(type)){
-                try {
-                    returnValue = LocalTime.parse(stringValue, DateTimeFormatter.ofPattern("HH:mm:ss"));
-                } catch (Exception e) {
-                    returnValue = LocalTime.parse(stringValue, DateTimeFormatter.ofPattern("HH:mm:ss"));
-                }
+                returnValue = LocalTime.parse(stringValue, DateTimeFormatter.ofPattern("HH:mm:ss"));
             } else {
                 return defaultValue;
             }
