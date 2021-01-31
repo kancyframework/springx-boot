@@ -3,6 +3,10 @@ package com.github.kancyframework.springx.utils;
 import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
@@ -81,6 +85,7 @@ public abstract class ObjectUtils {
 
     /**
      * 对象转换类型
+     * 无法转换时设置为默认值
      * @param value
      * @param type
      * @param defaultValue
@@ -97,29 +102,51 @@ public abstract class ObjectUtils {
 
         Object returnValue = null;
         String stringValue = String.valueOf(value);
-        if (String.class.equals(type)){
-            returnValue = stringValue;
-        } else if (StringBuffer.class.equals(type)){
-            returnValue = new StringBuffer(stringValue);
-        } else if (StringBuilder.class.equals(type)){
-            returnValue = new StringBuilder(stringValue);
-        } else if (BigDecimal.class.equals(type)){
-            returnValue = new BigDecimal(stringValue);
-        } else if (Integer.class.equals(type) || int.class.equals(type)){
-            returnValue = Integer.parseInt(stringValue);
-        } else if (Double.class.equals(type) || double.class.equals(type)){
-            returnValue = Double.parseDouble(stringValue);
-        } else if (Long.class.equals(type) || long.class.equals(type)){
-            returnValue = Long.parseLong(stringValue);
-        } else if (Float.class.equals(type) || float.class.equals(type)){
-            returnValue = Float.parseFloat(stringValue);
-        } else if (Short.class.equals(type) || short.class.equals(type)){
-            returnValue = Short.parseShort(stringValue);
-        } else if (Boolean.class.equals(type) || boolean.class.equals(type)){
-            returnValue = Boolean.parseBoolean(stringValue);
-        } else if (Duration.class.equals(type)){
-            returnValue = Duration.parse(stringValue);
-        } else {
+        try {
+            if (String.class.equals(type)){
+                returnValue = stringValue;
+            } else if (StringBuffer.class.equals(type)){
+                returnValue = new StringBuffer(stringValue);
+            } else if (StringBuilder.class.equals(type)){
+                returnValue = new StringBuilder(stringValue);
+            } else if (BigDecimal.class.equals(type)){
+                returnValue = new BigDecimal(stringValue);
+            } else if (Integer.class.equals(type) || int.class.equals(type)){
+                returnValue = Integer.parseInt(stringValue);
+            } else if (Double.class.equals(type) || double.class.equals(type)){
+                returnValue = Double.parseDouble(stringValue);
+            } else if (Long.class.equals(type) || long.class.equals(type)){
+                returnValue = Long.parseLong(stringValue);
+            } else if (Float.class.equals(type) || float.class.equals(type)){
+                returnValue = Float.parseFloat(stringValue);
+            } else if (Short.class.equals(type) || short.class.equals(type)){
+                returnValue = Short.parseShort(stringValue);
+            } else if (Boolean.class.equals(type) || boolean.class.equals(type)){
+                returnValue = Boolean.parseBoolean(stringValue);
+            } else if (Duration.class.equals(type)){
+                returnValue = Duration.parse(stringValue);
+            } else if (LocalDate.class.equals(type)){
+                try {
+                    returnValue = LocalDate.parse(stringValue, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                } catch (Exception e) {
+                    returnValue = LocalDate.parse(stringValue, DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+                }
+            } else if (LocalDateTime.class.equals(type)){
+                try {
+                    returnValue = LocalDateTime.parse(stringValue, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                } catch (Exception e) {
+                    returnValue = LocalDateTime.parse(stringValue, DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
+                }
+            }  else if (LocalTime.class.equals(type)){
+                try {
+                    returnValue = LocalTime.parse(stringValue, DateTimeFormatter.ofPattern("HH:mm:ss"));
+                } catch (Exception e) {
+                    returnValue = LocalTime.parse(stringValue, DateTimeFormatter.ofPattern("HH:mm:ss"));
+                }
+            } else {
+                return defaultValue;
+            }
+        } catch (Exception e) {
             return defaultValue;
         }
         return (T) returnValue;
