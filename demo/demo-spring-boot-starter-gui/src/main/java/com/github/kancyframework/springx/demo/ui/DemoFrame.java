@@ -41,6 +41,8 @@ public class DemoFrame extends JFrame {
         menu4 = new JMenu();
         radioButtonMenuItem1 = new JRadioButtonMenuItem();
         radioButtonMenuItem2 = new JRadioButtonMenuItem();
+        menu5 = new JMenu();
+        menuItem5 = new JMenuItem();
         panel = new JPanel();
         button1 = new JButton();
         button2 = new JButton();
@@ -106,6 +108,16 @@ public class DemoFrame extends JFrame {
                 menu3.add(menu4);
             }
             menuBar1.add(menu3);
+
+            //======== menu5 ========
+            {
+                menu5.setText("\u6d4b\u8bd5");
+
+                //---- menuItem5 ----
+                menuItem5.setText("\u5f02\u5e38\u6d4b\u8bd5");
+                menu5.add(menuItem5);
+            }
+            menuBar1.add(menu5);
         }
         setJMenuBar(menuBar1);
 
@@ -176,6 +188,8 @@ public class DemoFrame extends JFrame {
     private JMenu menu4;
     private JRadioButtonMenuItem radioButtonMenuItem1;
     private JRadioButtonMenuItem radioButtonMenuItem2;
+    private JMenu menu5;
+    private JMenuItem menuItem5;
     private JPanel panel;
     private JButton button1;
     private JButton button2;
