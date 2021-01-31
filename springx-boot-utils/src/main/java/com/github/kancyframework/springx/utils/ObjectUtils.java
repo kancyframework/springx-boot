@@ -1,6 +1,8 @@
 package com.github.kancyframework.springx.utils;
 
 import java.lang.reflect.Array;
+import java.math.BigDecimal;
+import java.time.Duration;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
@@ -65,5 +67,61 @@ public abstract class ObjectUtils {
      */
     public static boolean isNotBlank(Object object){
         return !isBlank(object);
+    }
+    /**
+     * 对象转换类型
+     * @param value
+     * @param type
+     * @param <T>
+     * @return
+     */
+    public static <T> T cast(Object value, Class<T> type) {
+        return cast(value, type, null);
+    }
+
+    /**
+     * 对象转换类型
+     * @param value
+     * @param type
+     * @param defaultValue
+     * @param <T>
+     * @return
+     */
+    public static <T> T cast(Object value, Class<T> type, T defaultValue) {
+        if (Objects.isNull(value)){
+            return defaultValue;
+        }
+        if (type.isInstance(value)){
+            return type.cast(value);
+        }
+
+        Object returnValue = null;
+        String stringValue = String.valueOf(value);
+        if (String.class.equals(type)){
+            returnValue = stringValue;
+        } else if (StringBuffer.class.equals(type)){
+            returnValue = new StringBuffer(stringValue);
+        } else if (StringBuilder.class.equals(type)){
+            returnValue = new StringBuilder(stringValue);
+        } else if (BigDecimal.class.equals(type)){
+            returnValue = new BigDecimal(stringValue);
+        } else if (Integer.class.equals(type) || int.class.equals(type)){
+            returnValue = Integer.parseInt(stringValue);
+        } else if (Double.class.equals(type) || double.class.equals(type)){
+            returnValue = Double.parseDouble(stringValue);
+        } else if (Long.class.equals(type) || long.class.equals(type)){
+            returnValue = Long.parseLong(stringValue);
+        } else if (Float.class.equals(type) || float.class.equals(type)){
+            returnValue = Float.parseFloat(stringValue);
+        } else if (Short.class.equals(type) || short.class.equals(type)){
+            returnValue = Short.parseShort(stringValue);
+        } else if (Boolean.class.equals(type) || boolean.class.equals(type)){
+            returnValue = Boolean.parseBoolean(stringValue);
+        } else if (Duration.class.equals(type)){
+            returnValue = Duration.parse(stringValue);
+        } else {
+            return defaultValue;
+        }
+        return (T) returnValue;
     }
 }

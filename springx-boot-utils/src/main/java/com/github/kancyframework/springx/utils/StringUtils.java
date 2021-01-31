@@ -79,6 +79,30 @@ public abstract class StringUtils {
         return !isBlank(object);
     }
 
+
+    /**
+     * 是否所有空白
+     * @param objects
+     * @return
+     */
+    public static boolean isAllBlank(String ... objects){
+        for (String object : objects) {
+            if (!isBlank(object)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 是否不是所有空白
+     * @param object
+     * @return
+     */
+    public static boolean isNotAllBlank(String ... object){
+        return !isAllBlank(object);
+    }
+
     /**
      * 添加字符串到字符数组
      * @param array

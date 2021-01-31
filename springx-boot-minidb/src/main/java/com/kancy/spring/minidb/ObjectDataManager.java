@@ -53,7 +53,7 @@ public class ObjectDataManager {
             synchronized (object){
                 if (ObjectDataService.isProxy(object)){
                     Class<ObjectData> superclass = (Class<ObjectData>) object.getClass().getSuperclass();
-                    ObjectData newObject = BeanUtils.copy(object, superclass);
+                    ObjectData newObject = BeanUtils.copyProperties(object, superclass);
                     OBJECT_DATA_SERIALIZER.write(newObject, new FileOutputStream(dataFile));
                 } else {
                     OBJECT_DATA_SERIALIZER.write(object, new FileOutputStream(dataFile));
@@ -88,7 +88,7 @@ public class ObjectDataManager {
                 // 如果使用代理模式
                 if (ObjectDataService.isUseProxy(dataClass)){
                     T proxyData = ObjectDataService.initObjectData(dataClass);
-                    BeanUtils.copy(data, proxyData);
+                    BeanUtils.copyProperties(data, proxyData);
                     data = proxyData;
                 }
             } else {

@@ -65,4 +65,26 @@ public abstract class Assert {
         }
     }
 
+    /**
+     * 断言 object isBlank
+     * @param object
+     * @param message
+     */
+    public static void isBlank(Object object, String message){
+        if (ObjectUtils.isBlank(object)){
+            throw new IllegalArgumentException(message);
+        }
+    }
+
+    /**
+     * 断言 object isNotBlank
+     * @param object
+     * @param message
+     */
+    public static void isNotBlank(Object object, String message){
+        if (ObjectUtils.isNotBlank(object)){
+            throw new IllegalArgumentException(message);
+        }
+    }
+
 }
