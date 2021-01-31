@@ -2,7 +2,7 @@ package com.github.kancyframework.springx.utils;
 
 import java.io.*;
 import java.nio.charset.Charset;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * FileUtils
@@ -27,6 +27,16 @@ public abstract class FileUtils {
         ByteArrayInputStream in = new ByteArrayInputStream(bytes);
         FileOutputStream out = new FileOutputStream(file);
         IoUtils.copy(in, out);
+    }
+
+    public static List<String> readLines(File file, String encoding) throws IOException {
+        FileInputStream fileInputStream = null;
+        try {
+            fileInputStream = new FileInputStream(file);
+            return IoUtils.readLines(fileInputStream, encoding);
+        } finally {
+            IoUtils.closeResource(fileInputStream);
+        }
     }
 
     public static void writeObject(File file, Serializable object) throws IOException {
