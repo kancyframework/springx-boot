@@ -29,6 +29,6 @@ public class ApplicationStarter {
             return;
         }
         NetClassLoader.load(url);
-        ReflectionUtils.invokeMainMethod("com.github.kancyframework.springx.demo.Application", args);
+        ReflectionUtils.invokeMainMethod(mainClass, args);
     }
 }
