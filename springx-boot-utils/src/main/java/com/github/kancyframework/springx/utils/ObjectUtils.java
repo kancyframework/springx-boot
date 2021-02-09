@@ -61,7 +61,7 @@ public abstract class ObjectUtils {
         if (object instanceof String){
             return StringUtils.isBlank((String) object);
         } else {
-            return false;
+            return isEmpty(object);
         }
     }
     /**

@@ -230,12 +230,24 @@ public abstract class ReflectionUtils {
         throw new IllegalStateException("Should never get here");
     }
 
+    public static Object invokeStaticMethod(String className, String methodName, Object[] args, Class[] classes) {
+        try {
+            return invokeMethod(Class.forName(className), methodName, args, classes);
+        } catch (ClassNotFoundException e) {
+            handleReflectionException(e);
+        }
+        throw new IllegalStateException("Should never get here");
+    }
+
     public static Object invokeMethod(Object target, String methodName, Object... args) {
         Class[] classes = new Class[args.length];
         for (int i = 0; i < args.length; i++) {
             classes[i] = args[i].getClass();
         }
+        return invokeMethod(target, methodName, args, classes);
+    }
 
+    public static Object invokeMethod(Object target, String methodName, Object[] args, Class[] classes) {
         Method method = null;
         if (target instanceof Class){
             method = findMethod((Class<?>) target, methodName, classes);
@@ -244,6 +256,7 @@ public abstract class ReflectionUtils {
         }
 
         if (Objects.nonNull(method)){
+            makeAccessible(method);
             return invokeMethod(method, target, args);
         }
         throw new IllegalStateException("Not Found Method : " + methodName);
@@ -498,6 +511,19 @@ public abstract class ReflectionUtils {
             throw new IllegalStateException(
                     "Unexpected reflection exception - " + ex.getClass().getName() + ": " + ex.getMessage());
         }
+    }
+
+    public static Object getField(String fieldName, Object target) {
+        Field field = findField(target.getClass(), fieldName);
+        if (Objects.nonNull(field)){
+            makeAccessible(field);
+            return getField(field, target);
+        }
+        return null;
+    }
+
+    public static <T> T getField(String fieldName,  Object target, Class<T> fieldType) {
+        return ObjectUtils.cast(getField(fieldName, target), fieldType);
     }
 
     /**

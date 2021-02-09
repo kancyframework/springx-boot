@@ -71,7 +71,7 @@ public abstract class Assert {
      * @param message
      */
     public static void isBlank(Object object, String message){
-        if (ObjectUtils.isBlank(object)){
+        if (ObjectUtils.isNotBlank(object)){
             throw new IllegalArgumentException(message);
         }
     }
@@ -82,7 +82,7 @@ public abstract class Assert {
      * @param message
      */
     public static void isNotBlank(Object object, String message){
-        if (ObjectUtils.isNotBlank(object)){
+        if (ObjectUtils.isBlank(object)){
             throw new IllegalArgumentException(message);
         }
     }

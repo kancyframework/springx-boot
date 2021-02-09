@@ -1,4 +1,5 @@
 package com.github.kancyframework.springx.utils;
+
 import javax.net.ssl.*;
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -24,6 +25,51 @@ public class JdkHttpUtils {
     private static final ThreadLocal<Integer> CONNECT_TIMEOUT = ThreadLocal.withInitial(() -> 5000);
     private static final ThreadLocal<Integer> READ_TIMEOUT = ThreadLocal.withInitial(() -> 10000);
     private static final ThreadLocal<String> CHARSET = ThreadLocal.withInitial(() -> CHARSET_UTF_8);
+
+    /**
+     * 下载文件
+     * @param url
+     * @param filePath
+     * @throws IOException
+     */
+    public static void downloadFile(String url, String filePath) throws IOException {
+        downloadFile(url, new File(filePath));
+    }
+
+    /**
+     * 下载文件
+     * @param httpUrl
+     * @param file
+     * @throws IOException
+     */
+    public static void downloadFile(String httpUrl, File file) throws IOException {
+        BufferedInputStream  bis = null;
+        BufferedOutputStream bos= null;
+        try {
+            URL url = new URL(httpUrl);
+            HttpURLConnection connection =  (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setRequestProperty("Content-Type", "application/octet-stream");
+            connection.setDoOutput(true);
+            connection.setDoInput(true);
+            connection.setRequestProperty("Connection", "Keep-Alive");
+            connection.connect();
+
+            int contentLength = connection.getContentLength();
+            if (contentLength>32) {
+                bis = new BufferedInputStream(connection.getInputStream());
+                bos = new BufferedOutputStream(new FileOutputStream(FileUtils.createNewFile(file.getAbsolutePath())));
+                int len = 0;
+                byte[] byArr = new byte[1024];
+                while((len = bis.read(byArr))!=-1){
+                    bos.write(byArr, 0, len);
+                }
+            }
+        } finally{
+            IoUtils.closeResource(bis);
+            IoUtils.closeResource(bos);
+        }
+    }
 
     /**
      *
