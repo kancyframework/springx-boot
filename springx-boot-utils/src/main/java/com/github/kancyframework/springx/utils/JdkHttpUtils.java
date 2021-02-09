@@ -1,5 +1,8 @@
 package com.github.kancyframework.springx.utils;
 
+import com.github.kancyframework.springx.log.Logger;
+import com.github.kancyframework.springx.log.LoggerFactory;
+
 import javax.net.ssl.*;
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -18,9 +21,11 @@ import java.util.Set;
  * @date 2021/1/7 12:16
  */
 public class JdkHttpUtils {
+    private static final Logger log = LoggerFactory.getLogger(JdkHttpUtils.class);
     private static final String CHARSET_UTF_8 = "utf-8";
     private static final String C_TYPE_FORM_FORMAT = "application/x-www-form-urlencoded;charset=%s";
     private static final String C_TYPE_JSON_FORMAT = "application/json; charset=%s";
+    private static final String C_TYPE_STREAM_FORMAT = "application/octet-stream";
 
     private static final ThreadLocal<Integer> CONNECT_TIMEOUT = ThreadLocal.withInitial(() -> 5000);
     private static final ThreadLocal<Integer> READ_TIMEOUT = ThreadLocal.withInitial(() -> 10000);
@@ -28,12 +33,12 @@ public class JdkHttpUtils {
 
     /**
      * 下载文件
-     * @param url
+     * @param httpUrl
      * @param filePath
      * @throws IOException
      */
-    public static void downloadFile(String url, String filePath) throws IOException {
-        downloadFile(url, new File(filePath));
+    public static void downloadFile(String httpUrl, String filePath) throws IOException {
+        downloadFile(httpUrl, new File(filePath));
     }
 
     /**
@@ -43,32 +48,55 @@ public class JdkHttpUtils {
      * @throws IOException
      */
     public static void downloadFile(String httpUrl, File file) throws IOException {
-        BufferedInputStream  bis = null;
-        BufferedOutputStream bos= null;
+        BufferedInputStream bis = null;
+        BufferedOutputStream bos = null;
         try {
             URL url = new URL(httpUrl);
-            HttpURLConnection connection =  (HttpURLConnection) url.openConnection();
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
-            connection.setRequestProperty("Content-Type", "application/octet-stream");
+            connection.setRequestProperty("Content-Type", C_TYPE_STREAM_FORMAT);
             connection.setDoOutput(true);
             connection.setDoInput(true);
             connection.setRequestProperty("Connection", "Keep-Alive");
             connection.connect();
 
             int contentLength = connection.getContentLength();
-            if (contentLength>32) {
+            if (contentLength > 32) {
                 bis = new BufferedInputStream(connection.getInputStream());
                 bos = new BufferedOutputStream(new FileOutputStream(FileUtils.createNewFile(file.getAbsolutePath())));
                 int len = 0;
-                byte[] byArr = new byte[1024];
-                while((len = bis.read(byArr))!=-1){
-                    bos.write(byArr, 0, len);
+                byte[] buff = new byte[1024];
+                while ((len = bis.read(buff)) != -1) {
+                    bos.write(buff, 0, len);
                 }
             }
-        } finally{
+            log.info("成功下载文件：{} , 总大小：{}k ({})", PathUtils.format(file), contentLength/1024 , contentLength);
+        } finally {
             IoUtils.closeResource(bis);
             IoUtils.closeResource(bos);
         }
+    }
+
+    /**
+     * 下载文件
+     * @param httpUrl
+     * @throws IOException
+     */
+    public static InputStream download(String httpUrl) throws IOException {
+        URL url = new URL(httpUrl);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+        connection.setRequestProperty("Content-Type", C_TYPE_STREAM_FORMAT);
+        connection.setDoOutput(true);
+        connection.setDoInput(true);
+        connection.setRequestProperty("Connection", "Keep-Alive");
+        connection.connect();
+
+        int contentLength = connection.getContentLength();
+        if (contentLength > 32) {
+            return new BufferedInputStream(connection.getInputStream());
+        }
+        return connection.getInputStream();
     }
 
     /**
