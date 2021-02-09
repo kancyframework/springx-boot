@@ -12,6 +12,7 @@ import java.util.Objects;
 public interface SystemTrayCreator {
     /**
      * 获取托盘菜单
+     * 乱码问题：-Dfile.encoding=gbk
      * @param frame
      * @return
      */
