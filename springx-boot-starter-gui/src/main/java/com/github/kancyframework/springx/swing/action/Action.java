@@ -1,7 +1,5 @@
 package com.github.kancyframework.springx.swing.action;
 
-import com.github.kancyframework.springx.context.annotation.Component;
-
 import java.lang.annotation.*;
 
 /**
@@ -12,7 +10,6 @@ import java.lang.annotation.*;
  */
 @Target({ElementType.TYPE, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-@Component
 @Documented
 public @interface Action {
     /**
