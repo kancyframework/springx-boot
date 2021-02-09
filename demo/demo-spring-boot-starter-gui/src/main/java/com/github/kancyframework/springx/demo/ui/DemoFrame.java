@@ -43,6 +43,7 @@ public class DemoFrame extends JFrame {
         radioButtonMenuItem2 = new JRadioButtonMenuItem();
         menu5 = new JMenu();
         menuItem5 = new JMenuItem();
+        menuItem6 = new JMenuItem();
         panel = new JPanel();
         button1 = new JButton();
         button2 = new JButton();
@@ -116,6 +117,11 @@ public class DemoFrame extends JFrame {
                 //---- menuItem5 ----
                 menuItem5.setText("\u5f02\u5e38\u6d4b\u8bd5");
                 menu5.add(menuItem5);
+                menu5.addSeparator();
+
+                //---- menuItem6 ----
+                menuItem6.setText("\u7cfb\u7edf\u5c5e\u6027");
+                menu5.add(menuItem6);
             }
             menuBar1.add(menu5);
         }
@@ -190,6 +196,7 @@ public class DemoFrame extends JFrame {
     private JRadioButtonMenuItem radioButtonMenuItem2;
     private JMenu menu5;
     private JMenuItem menuItem5;
+    private JMenuItem menuItem6;
     private JPanel panel;
     private JButton button1;
     private JButton button2;
