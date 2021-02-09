@@ -5,12 +5,14 @@ import com.github.kancyframework.springx.context.annotation.Component;
 import com.github.kancyframework.springx.swing.action.AbstractActionApplicationListener;
 import com.github.kancyframework.springx.swing.action.Action;
 import com.github.kancyframework.springx.swing.action.ActionApplicationEvent;
+import com.github.kancyframework.springx.swing.action.KeyStroke;
 import com.github.kancyframework.springx.swing.dialog.SystemPropertiesDialog;
 
 import javax.swing.*;
 
 @Component
-@Action({"系统属性"})
+@KeyStroke("ctrl 2")
+@Action(value = "系统属性")
 public class SystemPropertiesListener extends AbstractActionApplicationListener<ActionApplicationEvent> {
 
     @Autowired
@@ -23,6 +25,7 @@ public class SystemPropertiesListener extends AbstractActionApplicationListener<
      */
     @Override
     public void onApplicationEvent(ActionApplicationEvent event) {
+        JMenuItem jMenuItem = null;
         SystemPropertiesDialog dialog = new SystemPropertiesDialog(frame);
         dialog.setVisible(true);
     }

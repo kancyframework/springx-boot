@@ -14,7 +14,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Component
 @Documented
-public @interface Action {
+public @interface ActionCommand {
     /**
      * beanName
      * @return

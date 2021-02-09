@@ -40,4 +40,14 @@ public interface ActionApplicationListener<E extends ApplicationEvent> extends A
     default String getSupportActionCommands(){
         return StringUtils.empty();
     }
+
+    /**
+     * 快捷键
+     * 例如：ctrl alt shift 1 - > KeyStroke.getKeyStroke(KeyEvent.VK_1, KeyEvent.CTRL_MASK|KeyEvent.ALT_MASK|KeyEvent.SHIFT_MASK)
+     * @param actionCommand
+     * @return
+     */
+    default javax.swing.KeyStroke getAccelerator(String actionCommand) {
+        return null;
+    }
 }

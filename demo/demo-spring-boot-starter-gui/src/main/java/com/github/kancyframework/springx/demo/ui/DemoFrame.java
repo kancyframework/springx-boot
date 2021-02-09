@@ -5,6 +5,7 @@
 package com.github.kancyframework.springx.demo.ui;
 
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 
 import com.github.kancyframework.springx.context.annotation.Component;
