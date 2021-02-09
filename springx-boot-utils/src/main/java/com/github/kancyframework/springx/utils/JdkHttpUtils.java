@@ -41,6 +41,20 @@ public class JdkHttpUtils {
         downloadFile(httpUrl, new File(filePath));
     }
 
+    public static void download(String httpUrl, String fileName) throws IOException {
+        download(httpUrl, fileName, false);
+    }
+
+    public static void download(String httpUrl, String fileName, boolean uniq) throws IOException {
+        if (uniq){
+            int lastIndexOf = fileName.lastIndexOf(".");
+            if (lastIndexOf > 0 && lastIndexOf < fileName.length()){
+                fileName = String.format("%s_%s%s", fileName.substring(0,lastIndexOf), DateUtils.getNowTimestampStr() , fileName.substring(lastIndexOf));
+            }
+        }
+        downloadFile(httpUrl, new File(PathUtils.path(System.getProperty("user.home"), "Downloads", fileName)));
+    }
+
     /**
      * 下载文件
      * @param httpUrl
@@ -51,6 +65,7 @@ public class JdkHttpUtils {
         BufferedInputStream bis = null;
         BufferedOutputStream bos = null;
         try {
+            long startTime = System.currentTimeMillis();
             URL url = new URL(httpUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
@@ -58,6 +73,7 @@ public class JdkHttpUtils {
             connection.setDoOutput(true);
             connection.setDoInput(true);
             connection.setRequestProperty("Connection", "Keep-Alive");
+            connection.setRequestProperty("startTime", String.valueOf(System.currentTimeMillis()));
             connection.connect();
 
             int contentLength = connection.getContentLength();
@@ -70,7 +86,8 @@ public class JdkHttpUtils {
                     bos.write(buff, 0, len);
                 }
             }
-            log.info("成功下载文件：{} , 总大小：{}k ({})", PathUtils.format(file), contentLength/1024 , contentLength);
+            log.info("成功下载文件：{} , 总大小：{}k ({}) , 耗时：{} ms",
+                    PathUtils.format(file), contentLength/1024 , contentLength, (System.currentTimeMillis() - startTime));
         } finally {
             IoUtils.closeResource(bis);
             IoUtils.closeResource(bos);

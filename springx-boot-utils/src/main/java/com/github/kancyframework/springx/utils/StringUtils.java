@@ -259,4 +259,20 @@ public abstract class StringUtils {
         }
         return buffer.toString();
     }
+
+    /**
+     * 获取文件扩展名
+     * @param fileName
+     * @return
+     */
+    public static String getFileExtName(String fileName){
+        if (isBlank(fileName)){
+            return null;
+        }
+        int lastIndexOf = fileName.lastIndexOf(".");
+        if (lastIndexOf > 0 && lastIndexOf < fileName.length()){
+            return fileName.substring(fileName.lastIndexOf(".") + 1);
+        }
+        return null;
+    }
 }

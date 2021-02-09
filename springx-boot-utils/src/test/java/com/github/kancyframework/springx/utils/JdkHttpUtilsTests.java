@@ -11,5 +11,7 @@ public class JdkHttpUtilsTests {
         String httpUrl = "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2407138699,2222400934&fm=26&gp=0.jpg";
         JdkHttpUtils.downloadFile(httpUrl,"yes.jpg");
         JdkHttpUtils.downloadFile(httpUrl,new File("yes.jpg"));
+        JdkHttpUtils.download(httpUrl, "yes.jpg");
+        JdkHttpUtils.download(httpUrl, "yes.jpg", true);
     }
 }
