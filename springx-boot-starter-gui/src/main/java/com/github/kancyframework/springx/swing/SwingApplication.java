@@ -2,10 +2,12 @@ package com.github.kancyframework.springx.swing;
 
 import com.github.kancyframework.springx.annotation.Order;
 import com.github.kancyframework.springx.boot.ApplicationRunner;
+import com.github.kancyframework.springx.log.Log;
 import com.github.kancyframework.springx.log.Logger;
 import com.github.kancyframework.springx.log.LoggerFactory;
 import com.github.kancyframework.springx.swing.action.ActionApplicationListener;
 import com.github.kancyframework.springx.swing.action.SpringActionListener;
+import com.github.kancyframework.springx.swing.tray.SystemTrayCreator;
 import com.github.kancyframework.springx.swing.utils.PopupMenuUtils;
 import com.github.kancyframework.springx.utils.*;
 
@@ -117,8 +119,55 @@ public interface SwingApplication<T extends JFrame> extends ApplicationRunner, S
             }
         });
         log.info("SpringActionListener autoconfigure completed!");
+
+        // 启动
         Swing.startUp(frame);
+
+        // 自定义设置
         customSettings((T) frame);
+
+        // 系统托盘
+        SystemTrayCreator systemTrayCreator = null;
+        Map<String, SystemTrayCreator> beans = SpringUtils.getBeansOfType(SystemTrayCreator.class);
+        if(!CollectionUtils.isEmpty(beans)){
+            List<SystemTrayCreator> list = OrderUtils.sort(beans.values());
+            systemTrayCreator = list.get(0);
+        }else {
+            List<SystemTrayCreator> services = SpiUtils.findServices(SystemTrayCreator.class);
+            systemTrayCreator = services.get(0);
+        }
+        if(Objects.nonNull(systemTrayCreator)){
+            try {
+                if (SystemTray.isSupported()) {
+                    Image image = systemTrayCreator.getImage(frame);
+                    if (Objects.isNull(image)){
+                        image = ((ImageIcon)UIManager.getIcon("InternalFrame.icon")).getImage();
+                    }
+                    // 创建一个托盘图标
+                    PopupMenu popupMenu = systemTrayCreator.getPopupMenu(frame);
+                    for (int i = 0; i < popupMenu.getItemCount(); i++) {
+                        MenuItem menuItem = popupMenu.getItem(i);
+
+                        long springActionListenerSize = Arrays.stream(menuItem.getActionListeners())
+                                .filter(ac -> SpringActionListener.class.isAssignableFrom(ac.getClass()))
+                                .count();
+                        if (menuItem.getActionListeners().length == 0 && springActionListenerSize == 0){
+                            log.info("成功添加SpringActionListener：MenuElement({}-{})",menuItem.getClass().getSimpleName(), menuItem.getLabel());
+                            menuItem.addActionListener(this);
+                        }
+                    }
+                    TrayIcon trayIcon = new TrayIcon(image, systemTrayCreator.getTooltip(frame), popupMenu);
+                    // 托盘图标自适应尺寸
+                    trayIcon.setImageAutoSize(true);
+                    // 添加托盘图标到系统托盘
+                    SystemTray.getSystemTray().add(trayIcon);
+                    // 调整
+                    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                }
+            } catch (Exception e) {
+                Log.error("失败设置系统托盘：{}", e.getMessage());
+            }
+        }
     }
 
     /**
