@@ -39,14 +39,8 @@ public class CommandLineArgument {
 		return p;
 	}
 
-	private String getPrefixArgument(String paramName, String s) {
-		String booleanValue = null;
-		if (p.containsKey(paramName)) {
-			booleanValue = this.p.getProperty(paramName, s);
-		} else {
-			booleanValue = this.p.getProperty(PREFIX + paramName, s);
-		}
-		return booleanValue;
+	private String getPrefixArgument(String paramName, String defaultValue) {
+		return this.p.getProperty(paramName, this.p.getProperty(PREFIX + paramName, System.getProperty(paramName, defaultValue)));
 	}
 
 	private void init() {
