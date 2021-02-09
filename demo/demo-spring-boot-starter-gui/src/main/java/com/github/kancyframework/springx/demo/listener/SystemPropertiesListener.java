@@ -11,7 +11,7 @@ import com.github.kancyframework.springx.swing.dialog.SystemPropertiesDialog;
 import javax.swing.*;
 
 @Component
-@KeyStroke("ctrl 2")
+@KeyStroke("ctrl shift alt F2")
 @Action(value = "系统属性")
 public class SystemPropertiesListener extends AbstractActionApplicationListener<ActionApplicationEvent> {
 

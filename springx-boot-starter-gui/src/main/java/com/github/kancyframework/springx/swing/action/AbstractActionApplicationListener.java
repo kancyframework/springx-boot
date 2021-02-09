@@ -87,12 +87,13 @@ public abstract class AbstractActionApplicationListener<E extends ActionApplicat
      */
     @Override
     public javax.swing.KeyStroke getAccelerator(String actionCommand) {
+        Set<String> actions = CACHE.get(getClass());
+        if (Objects.nonNull(actions) && actions.size() > 1){
+            return null;
+        }
+
         Accelerator annotation = this.getClass().getDeclaredAnnotation(Accelerator.class);
         if (Objects.nonNull(annotation)){
-            Set<String> actions = CACHE.get(getClass());
-            if (Objects.nonNull(actions) && actions.size() > 1){
-                return null;
-            }
             String accelerator = annotation.value();
             if (annotation.keyCode() > 0 && annotation.modifiers() > 0){
                 return javax.swing.KeyStroke.getKeyStroke(annotation.keyCode(), annotation.modifiers());
@@ -103,10 +104,6 @@ public abstract class AbstractActionApplicationListener<E extends ActionApplicat
         }
         KeyStroke keyStroke = this.getClass().getDeclaredAnnotation(KeyStroke.class);
         if (Objects.nonNull(keyStroke)){
-            Set<String> actions = CACHE.get(getClass());
-            if (Objects.nonNull(actions) && actions.size() > 1){
-                return null;
-            }
             String accelerator = keyStroke.value();
             if (keyStroke.keyCode() > 0 && keyStroke.modifiers() > 0){
                 return javax.swing.KeyStroke.getKeyStroke(keyStroke.keyCode(), keyStroke.modifiers());

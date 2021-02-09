@@ -9,6 +9,7 @@ import com.github.kancyframework.springx.utils.SpringUtils;
 import com.github.kancyframework.springx.utils.StringUtils;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.Method;
@@ -39,9 +40,9 @@ public interface SpringActionListener extends ActionListener {
                     .filter(action -> action.isSupport(e))
                     .collect(Collectors.toList());
             if (actionList.isEmpty()){
-                JComponent component = null;
-                if (event.getSource() instanceof JComponent){
-                    component = JComponent.class.cast(event.getSource());
+                Component component = null;
+                if (event.getSource() instanceof Component){
+                    component = Component.class.cast(event.getSource());
                 }
                 MessageDialog messageDialog = new MessageDialog(component, "\u8be5\u529f\u80fd\u6682\u4e0d\u652f\u6301\uff01");
                 messageDialog.show();
@@ -66,9 +67,9 @@ public interface SpringActionListener extends ActionListener {
                 return;
             }
 
-            JComponent component = null;
-            if (event.getSource() instanceof JComponent){
-                component = JComponent.class.cast(event.getSource());
+            Component component = null;
+            if (event.getSource() instanceof Component){
+                component = Component.class.cast(event.getSource());
             }
             MessageDialog messageDialog = new MessageDialog(component, message);
             messageDialog.show();
