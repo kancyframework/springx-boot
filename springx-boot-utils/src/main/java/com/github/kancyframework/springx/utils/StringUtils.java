@@ -271,7 +271,7 @@ public abstract class StringUtils {
         }
         int lastIndexOf = fileName.lastIndexOf(".");
         if (lastIndexOf > 0 && lastIndexOf < fileName.length()){
-            return fileName.substring(fileName.lastIndexOf(".") + 1);
+            return fileName.substring(lastIndexOf + 1);
         }
         return null;
     }
