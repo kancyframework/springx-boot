@@ -1,5 +1,5 @@
 import com.github.kancyframework.springx.log.Log;
-import com.github.kancyframework.springx.netclassloader.NetClassLoader;
+import com.github.kancyframework.springx.classloader.NetClassLoader;
 import com.github.kancyframework.springx.utils.ReflectionUtils;
 import org.junit.Ignore;
 import org.junit.Test;

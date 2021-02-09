@@ -1,4 +1,4 @@
-package com.github.kancyframework.springx.netclassloader;
+package com.github.kancyframework.springx.classloader;
 
 import com.github.kancyframework.springx.log.Logger;
 import com.github.kancyframework.springx.log.LoggerFactory;

@@ -5,10 +5,10 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.kancyframework</groupId>
-    <artifactId>demo-spring-boot-starter-gui</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>demo-spring-boot-starter-gui</name>
-    <description>demo-spring-boot-starter-gui</description>
+    <artifactId>demo-application-starter</artifactId>
+    <name>demo-application-starter</name>
+    <description>demo-application-starter</description>
 
     <properties>
         <java.version>1.8</java.version>
@@ -18,32 +18,14 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
 
         <final.package.name>${artifactId}-${version}</final.package.name>
-        <startup.class.name>com.github.kancyframework.springx.demo.Application</startup.class.name>
+        <startup.class.name>com.kancy.ApplicationStarter</startup.class.name>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>com.github.kancyframework</groupId>
-            <artifactId>springx-boot-starter-gui</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.kancyframework</groupId>
-            <artifactId>springx-boot-gui-miglayout</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <!-- 语法高亮 -->
-        <dependency>
-            <groupId>com.fifesoft</groupId>
-            <artifactId>rsyntaxtextarea</artifactId>
-            <version>3.1.1</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/com.github.lookfirst/sardine -->
-        <dependency>
-            <groupId>com.github.lookfirst</groupId>
-            <artifactId>sardine</artifactId>
-            <version>5.10</version>
-            <scope>provided</scope>
+            <artifactId>springx-boot-net-classloader</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -58,7 +40,6 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
     <profiles>
         <profile>
             <id>dev</id>

@@ -239,6 +239,23 @@ public abstract class ReflectionUtils {
         throw new IllegalStateException("Should never get here");
     }
 
+    /**
+     * 调用静态main方法
+     * @param className
+     * @param args
+     * @return
+     */
+    public static Object invokeMainMethod(String className, String[] args) {
+        try {
+            Class<?> mainClass = Class.forName(className);
+            Method mainMethod = findMethod(mainClass, "main", String[].class);
+            return invokeMethod(mainMethod, Object.class.cast(mainClass), args);
+        } catch (ClassNotFoundException e) {
+            handleReflectionException(e);
+        }
+        throw new IllegalStateException("Should never get here");
+    }
+
     public static Object invokeMethod(Object target, String methodName, Object... args) {
         Class[] classes = new Class[args.length];
         for (int i = 0; i < args.length; i++) {

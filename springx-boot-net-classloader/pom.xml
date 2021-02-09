@@ -8,12 +8,10 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
-    <artifactId>springx-boo-net-classloader</artifactId>
-
-    <name>springx-boo-net-classloader</name>
-    <description>springx-boo-net-classloader</description>
-    <url>https://github.com/kancyframework/springx-boot/springx-boo-net-classloader</url>
+    <artifactId>springx-boot-net-classloader</artifactId>
+    <name>springx-boot-net-classloader</name>
+    <description>springx-boot-net-classloader</description>
+    <url>https://github.com/kancyframework/springx-boot/springx-boot-net-classloader</url>
 
     <licenses>
         <license>
