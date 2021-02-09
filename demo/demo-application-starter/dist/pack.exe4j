@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <exe4j version="6.0.2" transformSequenceNumber="2">
-  <directoryPresets config="E:/develop/idea/workspace/oss-token/dist" />
-  <application name="oss-token" distributionSourceDir="E:/develop/idea/workspace/oss-token/dist">
+  <directoryPresets config="E:/develop/idea/shuhe/springx-boot2/demo/demo-application-starter/target" />
+  <application name="application-starter" distributionSourceDir="E:/develop/idea/shuhe/springx-boot2/demo/demo-application-starter/dist">
     <languages>
       <principalLanguage id="en" customLocalizationFile="" />
     </languages>
   </application>
-  <executable name="oss-token" type="2" iconSet="true" iconFile="E:/develop/idea/workspace/oss-token/dist/icon.ico" executableDir="." redirectStderr="false" stderrFile="error.log" stderrMode="overwrite" redirectStdout="false" stdoutFile="output.log" stdoutMode="overwrite" failOnStderrOutput="true" executableMode="1" changeWorkingDirectory="true" workingDirectory="." singleInstance="true" serviceStartType="2" serviceDependencies="" serviceDescription="" jreLocation="" executionLevel="asInvoker" checkConsoleParameter="true" globalSingleInstance="false" singleInstanceActivate="true" dpiAware="java9+" amd64="true">
+  <executable name="application-starter" type="2" iconSet="true" iconFile="E:/develop/idea/workspace/oss-token/dist/icon.ico" executableDir="." redirectStderr="false" stderrFile="error.log" stderrMode="append" redirectStdout="false" stdoutFile="output.log" stdoutMode="append" failOnStderrOutput="true" executableMode="1" changeWorkingDirectory="true" workingDirectory="." singleInstance="true" serviceStartType="2" serviceDependencies="" serviceDescription="" jreLocation="" executionLevel="asInvoker" checkConsoleParameter="true" globalSingleInstance="false" singleInstanceActivate="true" dpiAware="java9+" amd64="true">
     <messageSet>
       <message id="ErrorDialogCaption" text="Ok" />
     </messageSet>
@@ -18,18 +18,23 @@
       <versionLine x="20" y="40" text="version %VERSION%" fontSize="8" fontColor="0,0,0" bold="false" />
     </text>
   </splashScreen>
-  <java mainClass="com.kancy.osstoken.Application" mainMode="1" vmParameters="" arguments="" allowVMPassthroughParameters="true" preferredVM="" bundleRuntime="true" minVersion="1.8" maxVersion="" allowBetaVM="false" jdkOnly="false">
+  <java mainClass="com.kancy.ApplicationStarter" mainMode="1" vmParameters="" arguments="--jar=demo-spring-boot-starter-gui-0.0.1-SNAPSHOT.jar --main-class=com.github.kancyframework.springx.demo.Application" allowVMPassthroughParameters="true" preferredVM="" bundleRuntime="true" minVersion="1.8" maxVersion="" allowBetaVM="false" jdkOnly="false">
     <searchSequence>
       <registry />
       <envVar name="JAVA_HOME" />
       <envVar name="JDK_HOME" />
     </searchSequence>
     <classPath>
-      <archive location="E:/develop/idea/workspace/oss-token/target/oss-token.jar" failOnError="false" />
+      <archive location="E:/develop/idea/shuhe/springx-boot2/demo/demo-application-starter/target/application-starter.jar" failOnError="false" />
     </classPath>
     <modulePath />
     <nativeLibraryDirectories />
-    <vmOptions />
+    <vmOptions>
+      <options version="11" line="--add-opens java.base/jdk.internal.loader=ALL-UNNAMED --add-opens jdk.zipfs/jdk.nio.zipfs=ALL-UNNAMED" />
+      <options version="9" line="--add-opens java.base/jdk.internal.loader=ALL-UNNAMED --add-opens jdk.zipfs/jdk.nio.zipfs=ALL-UNNAMED" />
+      <options version="10" line="--add-opens java.base/jdk.internal.loader=ALL-UNNAMED --add-opens jdk.zipfs/jdk.nio.zipfs=ALL-UNNAMED" />
+      <options version="12" line="--add-opens java.base/jdk.internal.loader=ALL-UNNAMED --add-opens jdk.zipfs/jdk.nio.zipfs=ALL-UNNAMED" />
+    </vmOptions>
   </java>
   <includedFiles />
   <unextractableFiles />

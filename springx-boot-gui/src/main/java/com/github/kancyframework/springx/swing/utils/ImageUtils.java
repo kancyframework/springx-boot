@@ -1,6 +1,7 @@
 package com.github.kancyframework.springx.swing.utils;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * ImageUtils
@@ -20,8 +21,13 @@ public class ImageUtils {
         return questionMarkIcon;
     }
 
-    private static Icon createImageIcon(String classResourcePath) {
+    public static Icon createImageIcon(String classResourcePath) {
         return new ImageIcon(ImageUtils.class.getClassLoader().getResource(classResourcePath));
+    }
+
+    public static Image createImage(String classResourcePath) {
+        ImageIcon icon = new ImageIcon(ImageUtils.class.getClassLoader().getResource(classResourcePath));
+        return icon.getImage();
     }
 
 }
