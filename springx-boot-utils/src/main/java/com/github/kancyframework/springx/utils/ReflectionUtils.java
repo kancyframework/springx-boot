@@ -249,8 +249,8 @@ public abstract class ReflectionUtils {
         try {
             Class<?> mainClass = Class.forName(className);
             Method mainMethod = findMethod(mainClass, "main", String[].class);
-            return invokeMethod(mainMethod, Object.class.cast(mainClass), args);
-        } catch (ClassNotFoundException e) {
+            return invokeMethod(mainMethod, Object.class.cast(mainClass),new Object[]{args});
+        } catch (Exception e) {
             handleReflectionException(e);
         }
         throw new IllegalStateException("Should never get here");
