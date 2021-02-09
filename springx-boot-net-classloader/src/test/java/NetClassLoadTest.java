@@ -4,7 +4,6 @@ import com.github.kancyframework.springx.utils.ReflectionUtils;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import java.net.MalformedURLException;
 import java.util.Collections;
 
 /**
@@ -28,8 +27,6 @@ public class NetClassLoadTest {
             Object o = ReflectionUtils.invokeStaticMethod("com.alibaba.fastjson.JSON", "toJSONString",
                     new Object[]{Collections.singletonMap("a", 1)}, new Class[]{Object.class});
             Log.info(o.toString());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }

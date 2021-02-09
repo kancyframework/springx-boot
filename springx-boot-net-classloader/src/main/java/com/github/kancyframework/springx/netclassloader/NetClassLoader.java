@@ -48,23 +48,38 @@ public class NetClassLoader {
 
     /**
      * 加载
+     * @param urls
+     * @return
+     */
+    public static NetClassLoader load(String ... urls) {
+        return NetClassLoader.newInstance().loadJars(urls);
+    }
+
+
+    /**
+     * 加载
      * @param urlPaths
      */
-    public NetClassLoader loadJars(String ... urlPaths) throws MalformedURLException {
+    public NetClassLoader loadJars(String ... urlPaths) {
         Assert.isNotBlank(urlPaths, "param urls is empty");
         if (urlPaths.length == 0){
             return this;
         }
-        if (urlPaths.length == 1){
-            loadJars(new URL(urlPaths[0]));
-            return this;
-        }
-        List<URL> list = new ArrayList<>(urlPaths.length);
-        Set<String> set = CollectionUtils.toSet(urlPaths);
-        for (String urlPath : set) {
-            if(urlPath != null && urlPath.trim().length() > 0){
-                list.add(new URL(urlPath));
+        List<URL> list = null;
+        try {
+            if (urlPaths.length == 1){
+                loadJars(new URL(urlPaths[0]));
+                return this;
             }
+            list = new ArrayList<>(urlPaths.length);
+            Set<String> set = CollectionUtils.toSet(urlPaths);
+            for (String urlPath : set) {
+                if(urlPath != null && urlPath.trim().length() > 0){
+                    list.add(new URL(urlPath));
+                }
+            }
+        } catch (MalformedURLException e) {
+            ReflectionUtils.rethrowRuntimeException(e);
         }
         loadJars(list.toArray(new URL[]{}));
         return this;
@@ -90,6 +105,7 @@ public class NetClassLoader {
                     try {
                         JdkHttpUtils.downloadFile(url.toString(), newFile);
                     } catch (IOException e) {
+                        log.warn("无法下载文件", e);
                         newUrl = url;
                     }
                 }
