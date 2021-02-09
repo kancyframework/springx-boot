@@ -9,10 +9,11 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>springx-boot-utils</artifactId>
-    <name>springx-boot-utils</name>
-    <description>springx-boot-utils</description>
-    <url>https://github.com/kancyframework/springx-boot/springx-boot-utils</url>
+    <artifactId>springx-boo-net-classloader</artifactId>
+
+    <name>springx-boo-net-classloader</name>
+    <description>springx-boo-net-classloader</description>
+    <url>https://github.com/kancyframework/springx-boot/springx-boo-net-classloader</url>
 
     <licenses>
         <license>
@@ -45,14 +46,14 @@
 
     <dependencies>
         <dependency>
+            <artifactId>springx-boot-utils</artifactId>
             <groupId>com.github.kancyframework</groupId>
-            <artifactId>springx-boot-log</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.10</version>
-            <scope>provided</scope>
+            <artifactId>springx-boot-log</artifactId>
+            <groupId>com.github.kancyframework</groupId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
@@ -88,6 +89,5 @@
             </plugin>
         </plugins>
     </build>
-
 
 </project>

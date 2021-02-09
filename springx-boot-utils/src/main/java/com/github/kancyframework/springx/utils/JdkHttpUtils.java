@@ -67,31 +67,52 @@ public class JdkHttpUtils {
         try {
             long startTime = System.currentTimeMillis();
             URL url = new URL(httpUrl);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            HttpURLConnection connection = getHttpURLConnection(url);
             connection.setRequestMethod("GET");
             connection.setRequestProperty("Content-Type", C_TYPE_STREAM_FORMAT);
             connection.setDoOutput(true);
             connection.setDoInput(true);
             connection.setRequestProperty("Connection", "Keep-Alive");
-            connection.setRequestProperty("startTime", String.valueOf(System.currentTimeMillis()));
-            connection.connect();
 
-            int contentLength = connection.getContentLength();
-            if (contentLength > 32) {
-                bis = new BufferedInputStream(connection.getInputStream());
-                bos = new BufferedOutputStream(new FileOutputStream(FileUtils.createNewFile(file.getAbsolutePath())));
-                int len = 0;
-                byte[] buff = new byte[1024];
-                while ((len = bis.read(buff)) != -1) {
-                    bos.write(buff, 0, len);
-                }
+            bis = new BufferedInputStream(connection.getInputStream());
+            bos = new BufferedOutputStream(new FileOutputStream(FileUtils.createNewFile(file.getAbsolutePath())));
+            int size = 0;
+            int len = 0;
+            byte[] buff = new byte[1024 * 512];
+            while ((len = bis.read(buff)) != -1) {
+                bos.write(buff, 0, len);
+                bos.flush();
+                size += len;
             }
             log.info("成功下载文件：{} , 总大小：{}k ({}) , 耗时：{} ms",
-                    PathUtils.format(file), contentLength/1024 , contentLength, (System.currentTimeMillis() - startTime));
+                        PathUtils.format(file), size/1024 , size, (System.currentTimeMillis() - startTime));
         } finally {
             IoUtils.closeResource(bis);
             IoUtils.closeResource(bos);
         }
+    }
+
+    private static HttpURLConnection getHttpURLConnection(URL url) throws IOException {
+        HttpURLConnection connection;
+        if ("https".equals(url.getProtocol())) {
+            SSLContext ctx;
+            try {
+                ctx = SSLContext.getInstance("TLS");
+                ctx.init(new KeyManager[0],
+                        new TrustManager[]{new DefaultTrustManager()},
+                        new SecureRandom());
+            } catch (Exception e) {
+                throw new IOException(e);
+            }
+            HttpsURLConnection connHttps = (HttpsURLConnection) url
+                    .openConnection();
+            connHttps.setSSLSocketFactory(ctx.getSocketFactory());
+            connHttps.setHostnameVerifier((hostname, session) -> true);
+            connection = connHttps;
+        } else {
+            connection = (HttpURLConnection) url.openConnection();
+        }
+        return connection;
     }
 
     /**
@@ -362,25 +383,7 @@ public class JdkHttpUtils {
 
     private static HttpURLConnection getConnection(URL url, String method,
                                             String contentType, Map<String, ?> headerMap) throws IOException {
-        HttpURLConnection conn;
-        if ("https".equals(url.getProtocol())) {
-            SSLContext ctx;
-            try {
-                ctx = SSLContext.getInstance("TLS");
-                ctx.init(new KeyManager[0],
-                        new TrustManager[] { new DefaultTrustManager() },
-                        new SecureRandom());
-            } catch (Exception e) {
-                throw new IOException(e);
-            }
-            HttpsURLConnection connHttps = (HttpsURLConnection) url
-                    .openConnection();
-            connHttps.setSSLSocketFactory(ctx.getSocketFactory());
-            connHttps.setHostnameVerifier((hostname, session) -> true);
-            conn = connHttps;
-        } else {
-            conn = (HttpURLConnection) url.openConnection();
-        }
+        HttpURLConnection conn = getHttpURLConnection(url);
         conn.setRequestMethod(method);
         conn.setDoInput(true);
         conn.setDoOutput(true);

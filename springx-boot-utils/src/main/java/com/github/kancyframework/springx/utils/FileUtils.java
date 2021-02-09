@@ -63,8 +63,8 @@ public abstract class FileUtils {
     public static File createNewFile(String filePath) throws IOException {
         File file = new File(filePath);
         if (!(file.exists() && file.isFile())){
-            file.createNewFile();
             file.getParentFile().mkdirs();
+            file.createNewFile();
         }
         return file;
     }
