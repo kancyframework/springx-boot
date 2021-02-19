@@ -20,7 +20,10 @@ public class ApplicationStarter {
         if (StringUtils.isBlank(url)){
             String jarName = argument.getArgument("jar");
             if (StringUtils.isNotBlank(jarName)){
-                url = String.format("https://gitee.com/kancy666/public/raw/master/jars/%s", jarName);
+                if (jarName.endsWith(".jar")){
+                    jarName = jarName.replace(".jar", ".zip");
+                }
+                url = String.format("https://files.cnblogs.com/files/kancy/%s", jarName);
             }
         }
         String mainClass = argument.getArgument("mainClass", argument.getArgument("main-class"));
