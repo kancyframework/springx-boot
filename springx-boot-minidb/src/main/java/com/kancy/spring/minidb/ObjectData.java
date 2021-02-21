@@ -17,7 +17,7 @@ public abstract class ObjectData implements Serializable {
 
     private static final Logger log = LoggerFactory.getLogger(ObjectData.class);
 
-    private transient boolean autoCommit = true;
+    private static final ThreadLocal<Boolean> autoCommit = ThreadLocal.withInitial(() -> true);
 
     private String id;
 
@@ -44,7 +44,7 @@ public abstract class ObjectData implements Serializable {
      * 持久化
      */
     public final boolean save() {
-        if (this.autoCommit){
+        if (autoCommit.get()){
             ObjectDataManager.store(getClass());
             return true;
         }
@@ -55,18 +55,18 @@ public abstract class ObjectData implements Serializable {
      * 开始事务
      */
     public final void tx() {
-        this.autoCommit = false;
+        autoCommit.set(false);
     }
 
     /**
      * 提交事务
      */
     public final void commit() {
-        if (!this.autoCommit){
+        if (!autoCommit.get()){
             try {
                 ObjectDataManager.store(getClass());
             } finally {
-                this.autoCommit = true;
+                autoCommit.remove();
             }
         } else {
             log.warn("事务未开启，无法提交数据！");

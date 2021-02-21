@@ -6,7 +6,8 @@ import com.github.kancyframework.springx.swing.action.AbstractActionApplicationL
 import com.github.kancyframework.springx.swing.action.Action;
 import com.github.kancyframework.springx.swing.action.ActionApplicationEvent;
 import com.github.kancyframework.springx.swing.action.KeyStroke;
-import com.github.kancyframework.springx.swing.dialog.SystemPropertiesDialog;
+import com.github.kancyframework.springx.swing.dialog.PropertiesDialog;
+import com.kancy.spring.minidb.MapDb;
 
 import javax.swing.*;
 
@@ -25,7 +26,7 @@ public class SystemPropertiesListener extends AbstractActionApplicationListener<
      */
     @Override
     public void onApplicationEvent(ActionApplicationEvent event) {
-        SystemPropertiesDialog dialog = new SystemPropertiesDialog(frame);
+        PropertiesDialog dialog = new PropertiesDialog(frame, MapDb.get().getProperties());
         dialog.setVisible(true);
     }
 }

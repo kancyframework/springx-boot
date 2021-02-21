@@ -1,11 +1,11 @@
 package com.github.kancyframework.springx.boot;
 
 import com.github.kancyframework.springx.context.*;
+import com.github.kancyframework.springx.log.Logger;
 import com.github.kancyframework.springx.log.LoggerFactory;
 import com.github.kancyframework.springx.utils.OrderUtils;
 import com.github.kancyframework.springx.utils.SpiUtils;
 import com.github.kancyframework.springx.utils.SpringUtils;
-import com.github.kancyframework.springx.log.Logger;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -43,7 +43,6 @@ public class SpringApplication {
                 throw new RuntimeException("Application failed to initialize！", e);
             }
         }
-
         log.info("start running......");
 
         // create application context and application initializer
@@ -62,6 +61,13 @@ public class SpringApplication {
 
         // process those special beans
         processSpecialBeans(args);
+
+        // addShutdownHook
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            for (ShutdownHook shutdownHook : applicationContext.getBeansOfType(ShutdownHook.class).values()) {
+                shutdownHook.run(commandLineArgument);
+            }
+        }));
 
         log.info("Started {} success in {} seconds!",
                 applicationContext.getEnvironment().getApplicationName(),

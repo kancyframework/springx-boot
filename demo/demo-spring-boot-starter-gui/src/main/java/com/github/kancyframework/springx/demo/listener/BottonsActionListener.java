@@ -7,6 +7,7 @@ import com.github.kancyframework.springx.swing.Swing;
 import com.github.kancyframework.springx.swing.action.AbstractActionApplicationListener;
 import com.github.kancyframework.springx.swing.action.Action;
 import com.github.kancyframework.springx.swing.action.ActionApplicationEvent;
+import com.kancy.spring.minidb.MapDb;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -28,7 +29,9 @@ public class BottonsActionListener extends AbstractActionApplicationListener<Act
         ActionEvent actionEvent = event.getActionEvent();
         Object source = actionEvent.getSource();
         if (source instanceof JButton){
-            Swing.msg(event.getSource(), String.format("落花不是无情物：%s", JButton.class.cast(source).getText()));
+            String text = JButton.class.cast(source).getText();
+            MapDb.putData(text, MapDb.getData(text, 0) + 1);
+            Swing.msg(event.getSource(), String.format("落花不是无情物：%s", text));
         }
     }
 

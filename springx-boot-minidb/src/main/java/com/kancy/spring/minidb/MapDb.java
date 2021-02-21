@@ -40,6 +40,14 @@ public final class MapDb extends ObjectData implements Serializable {
         return get().put(key, value);
     }
 
+    public static void beginTransaction() {
+        get().tx();
+    }
+
+    public static void commitTransaction() {
+        get().commit();
+    }
+
     public static <T extends Serializable> T getData(String key) {
         return get().get(key);
     }

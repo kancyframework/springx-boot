@@ -42,7 +42,7 @@ public class PropertiesDialog extends JDialog {
     }
 
     private void initTableData() {
-        Map<String, String> map = new TreeMap(properties);
+        Map<?, ?> map = new TreeMap(properties);
         Object[][] data = new Object[map.size()][2];
         AtomicInteger index = new AtomicInteger(0);
         map.forEach((k,v) ->{
@@ -54,9 +54,16 @@ public class PropertiesDialog extends JDialog {
             boolean[] columnEditable = new boolean[] {
                     false, false
             };
+            Class<?>[] columnTypes = new Class<?>[] {
+                    Object.class, Object.class
+            };
             @Override
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return columnEditable[columnIndex];
+            }
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                return columnTypes[columnIndex];
             }
         });
     }

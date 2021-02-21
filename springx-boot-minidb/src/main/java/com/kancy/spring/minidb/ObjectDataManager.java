@@ -26,7 +26,7 @@ public class ObjectDataManager {
 
     private static final Logger log = LoggerFactory.getLogger(ObjectDataManager.class);
 
-    private static final String DEFAULT_NS = "swing-boot/minidb";
+    private static final String DEFAULT_NS = "springx-boot/minidb";
 
     private static final String DEFAULT_APP_NAME = System.getProperty("spring.application.name", "application");
 
