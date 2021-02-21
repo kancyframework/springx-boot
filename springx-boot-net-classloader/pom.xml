@@ -46,12 +46,10 @@
         <dependency>
             <artifactId>springx-boot-utils</artifactId>
             <groupId>com.github.kancyframework</groupId>
-            <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <artifactId>springx-boot-log</artifactId>
             <groupId>com.github.kancyframework</groupId>
-            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

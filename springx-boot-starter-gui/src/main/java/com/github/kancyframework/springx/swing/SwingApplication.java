@@ -155,6 +155,11 @@ public interface SwingApplication<T extends JFrame> extends ApplicationRunner, S
                     image = ((ImageIcon)UIManager.getIcon("InternalFrame.icon")).getImage();
                 }
                 TrayIcon trayIcon = new TrayIcon(image, systemTrayCreator.getTooltip(), popupMenu);
+                trayIcon.addActionListener(e -> {
+                    if (!frame.isVisible()){
+                        frame.setVisible(true);
+                    }
+                });
                 // 托盘图标自适应尺寸
                 trayIcon.setImageAutoSize(true);
                 // 添加托盘图标到系统托盘
