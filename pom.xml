@@ -6,7 +6,7 @@
 
     <groupId>com.github.kancyframework</groupId>
     <artifactId>springx-boot</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.3-SNAPSHOT</version>
     <packaging>pom</packaging>
     <description>Springx Boot Framework</description>
     <name>springx-boot</name>
