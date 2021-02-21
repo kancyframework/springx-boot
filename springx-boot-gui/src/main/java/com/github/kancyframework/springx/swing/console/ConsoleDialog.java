@@ -2,11 +2,13 @@ package com.github.kancyframework.springx.swing.console;
 
 import com.github.kancyframework.springx.log.LoggerFactory;
 import com.github.kancyframework.springx.swing.utils.PopupMenuUtils;
+import com.github.kancyframework.springx.utils.CollectionUtils;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -69,17 +71,13 @@ public class ConsoleDialog extends JFrame implements ActionListener {
         JRadioButtonMenuItem info = new JRadioButtonMenuItem("info");
         JRadioButtonMenuItem warn = new JRadioButtonMenuItem("warn");
         JRadioButtonMenuItem error = new JRadioButtonMenuItem("error");
-
+        List<JRadioButtonMenuItem> logRadioButtonMenuItems = CollectionUtils.newArrayList(debug, info, warn, error);
         ButtonGroup buttonGroup = new ButtonGroup();
-        buttonGroup.add(debug);
-        buttonGroup.add(info);
-        buttonGroup.add(warn);
-        buttonGroup.add(error);
-
-        logLevelMenu.add(debug);
-        logLevelMenu.add(info);
-        logLevelMenu.add(warn);
-        logLevelMenu.add(error);
+        logRadioButtonMenuItems.forEach(item->{
+            item.addActionListener(this);
+            buttonGroup.add(item);
+            logLevelMenu.add(item);
+        });
         jPopupMenu.add(logLevelMenu);
         PopupMenuUtils.addPopupMenu(textArea, jPopupMenu);
     }

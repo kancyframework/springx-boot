@@ -25,7 +25,6 @@ public class SystemPropertiesListener extends AbstractActionApplicationListener<
      */
     @Override
     public void onApplicationEvent(ActionApplicationEvent event) {
-        JMenuItem jMenuItem = null;
         SystemPropertiesDialog dialog = new SystemPropertiesDialog(frame);
         dialog.setVisible(true);
     }
