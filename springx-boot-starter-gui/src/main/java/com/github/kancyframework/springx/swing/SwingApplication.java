@@ -16,6 +16,7 @@ import com.github.kancyframework.springx.utils.*;
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -155,6 +156,11 @@ public interface SwingApplication<T extends JFrame> extends ApplicationRunner, S
                     image = ((ImageIcon)UIManager.getIcon("InternalFrame.icon")).getImage();
                 }
                 TrayIcon trayIcon = new TrayIcon(image, systemTrayCreator.getTooltip(), popupMenu);
+                trayIcon.addActionListener(e -> {
+                    if (!frame.isVisible()){
+                        frame.setVisible(true);
+                    }
+                });
                 // 托盘图标自适应尺寸
                 trayIcon.setImageAutoSize(true);
                 // 添加托盘图标到系统托盘
