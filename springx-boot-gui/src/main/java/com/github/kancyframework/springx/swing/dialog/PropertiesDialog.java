@@ -32,6 +32,7 @@ public class PropertiesDialog extends JDialog {
         scrollPane.setViewportView(table);
         contentPane.add(scrollPane, BorderLayout.CENTER);
         pack();
+        setSize(900, 600);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(getOwner());
     }

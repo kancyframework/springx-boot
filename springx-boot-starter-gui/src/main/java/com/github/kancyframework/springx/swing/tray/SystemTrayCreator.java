@@ -2,6 +2,7 @@ package com.github.kancyframework.springx.swing.tray;
 
 import com.github.kancyframework.springx.annotation.Order;
 import com.github.kancyframework.springx.swing.console.ConsoleDialog;
+import com.github.kancyframework.springx.swing.dialog.SystemPropertiesDialog;
 import com.github.kancyframework.springx.utils.StringUtils;
 
 import javax.swing.*;
@@ -39,10 +40,14 @@ public class SystemTrayCreator implements ActionListener {
         MenuItem consoleItem = new MenuItem("控制台");
         consoleItem.addActionListener(this);
 
+        MenuItem systemItem = new MenuItem("系统属性");
+        systemItem.addActionListener(this);
+
         popupMenu.add(openItem);
         popupMenu.add(exitItem);
         popupMenu.addSeparator();
         popupMenu.add(consoleItem);
+        popupMenu.add(systemItem);
         return popupMenu;
     }
 
@@ -79,7 +84,13 @@ public class SystemTrayCreator implements ActionListener {
             case "打开": openApp(e);break;
             case "退出": exitApp(e);break;
             case "控制台": openConsole(e);break;
+            case "系统属性": openSystemProperties(e);break;
         }
+    }
+
+    private void openSystemProperties(ActionEvent e) {
+        SystemPropertiesDialog dialog = new SystemPropertiesDialog(frame);
+        dialog.setVisible(true);
     }
 
     private void openConsole(ActionEvent e) {
