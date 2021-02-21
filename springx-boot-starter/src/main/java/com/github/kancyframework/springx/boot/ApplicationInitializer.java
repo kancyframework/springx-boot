@@ -2,12 +2,12 @@ package com.github.kancyframework.springx.boot;
 
 
 /**
- * ApplicationRunner
+ * ApplicationInitializer
  *
  * @author kancy
  * @date 2020/2/18 12:12
  */
-public interface ApplicationRunner {
+public interface ApplicationInitializer {
     /**
      * run
      * @param args

@@ -36,11 +36,12 @@ public class ConsolePrintStream extends PrintStream {
         final String message = new String(buf, off, len);
         if (Objects.nonNull(this.text)) {
             // SWT非界面线程访问组件的方式
-            SwingUtilities.invokeLater(new Thread(() -> text.append(message)));
+            String newMsg = message.replaceAll("\\u001B\\[\\d+m", "")
+                    .replace("\u001B[0m", "");
+            SwingUtilities.invokeLater(new Thread(() -> text.append(newMsg)));
         } else {
             super.write(buf, off, len);
         }
     }
-
 }
 

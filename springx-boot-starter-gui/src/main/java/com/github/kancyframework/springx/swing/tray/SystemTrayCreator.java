@@ -1,44 +1,57 @@
 package com.github.kancyframework.springx.swing.tray;
 
+import com.github.kancyframework.springx.annotation.Order;
+import com.github.kancyframework.springx.swing.console.ConsoleDialog;
 import com.github.kancyframework.springx.utils.StringUtils;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Objects;
 
 /**
- * 系统托盘创建器
+ * 默认系统托盘创建器，优先级最低
  */
-public interface SystemTrayCreator {
+@Order(Integer.MAX_VALUE)
+public class SystemTrayCreator implements ActionListener {
+
+    private final JFrame frame;
+
+    public SystemTrayCreator(JFrame frame) {
+        this.frame = frame;
+    }
+
     /**
      * 获取托盘菜单
      * 乱码问题：-Dfile.encoding=gbk
-     * @param frame
+     *
      * @return
      */
-    default PopupMenu getPopupMenu(JFrame frame){
+    public PopupMenu getPopupMenu() {
         PopupMenu popupMenu = new PopupMenu();
         MenuItem openItem = new MenuItem("打开");
+        openItem.addActionListener(this);
+
         MenuItem exitItem = new MenuItem("退出");
-        openItem.addActionListener(e -> {
-            if (!frame.isVisible()){
-                frame.setVisible(true);
-            } else {
-                frame.requestFocusInWindow();
-            }
-        });
-        exitItem.addActionListener(e -> System.exit(0));
+        exitItem.addActionListener(this);
+
+        MenuItem consoleItem = new MenuItem("控制台");
+        consoleItem.addActionListener(this);
+
         popupMenu.add(openItem);
         popupMenu.add(exitItem);
+        popupMenu.addSeparator();
+        popupMenu.add(consoleItem);
         return popupMenu;
     }
 
     /**
      * 获取托盘图标
-     * @param frame
+     *
      * @return
      */
-    default Image getImage(JFrame frame){
+    public Image getImage() {
         Image iconImage = frame.getIconImage();
         if (Objects.isNull(iconImage)) {
             iconImage = ((ImageIcon)UIManager.getIcon("InternalFrame.icon")).getImage();
@@ -48,10 +61,40 @@ public interface SystemTrayCreator {
 
     /**
      * 获取托盘提示
-     * @param frame
+     *
      * @return
      */
-    default String getTooltip(JFrame frame){
+    public String getTooltip() {
         return StringUtils.isNotBlank(frame.getTitle()) ? frame.getTitle() : "我是一个小工具！";
+    }
+
+    /**
+     * Invoked when an action occurs.
+     *
+     * @param e
+     */
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        switch (e.getActionCommand()){
+            case "打开": openApp(e);break;
+            case "退出": exitApp(e);break;
+            case "控制台": openConsole(e);break;
+        }
+    }
+
+    private void openConsole(ActionEvent e) {
+        ConsoleDialog.open();
+    }
+
+    private void exitApp(ActionEvent e) {
+        System.exit(0);
+    }
+
+    private void openApp(ActionEvent e) {
+        if (frame.isVisible()){
+            frame.requestFocusInWindow();
+        } else {
+            frame.setVisible(true);
+        }
     }
 }

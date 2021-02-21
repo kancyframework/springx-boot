@@ -3,6 +3,7 @@ package com.github.kancyframework.springx.boot;
 import com.github.kancyframework.springx.context.*;
 import com.github.kancyframework.springx.log.LoggerFactory;
 import com.github.kancyframework.springx.utils.OrderUtils;
+import com.github.kancyframework.springx.utils.SpiUtils;
 import com.github.kancyframework.springx.utils.SpringUtils;
 import com.github.kancyframework.springx.log.Logger;
 
@@ -33,6 +34,16 @@ public class SpringApplication {
     }
 
     public void run(String[] args) {
+        List<ApplicationInitializer> services = SpiUtils.findServices(ApplicationInitializer.class);
+        CommandLineArgument commandLineArgument = new CommandLineArgument(args);
+        for (ApplicationInitializer applicationInitializer : services) {
+            try {
+                applicationInitializer.run(commandLineArgument);
+            } catch (Exception e) {
+                throw new RuntimeException("Application failed to initialize！", e);
+            }
+        }
+
         log.info("start running......");
 
         // create application context and application initializer
@@ -78,11 +89,12 @@ public class SpringApplication {
     }
 
     private void callRegisteredRunners(String[] args) {
+        CommandLineArgument commandLineArgument = new CommandLineArgument(args);
         Map<String, ApplicationRunner> applicationRunners = applicationContext.getBeansOfType(ApplicationRunner.class);
         List<ApplicationRunner> applicationRunnerList = sortByOrder(applicationRunners.values());
         try {
             for (ApplicationRunner applicationRunner : applicationRunnerList) {
-                applicationRunner.run(args);
+                applicationRunner.run(commandLineArgument);
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
