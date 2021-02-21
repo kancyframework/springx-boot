@@ -88,10 +88,7 @@ public class DebugUtil {
 
     @Deprecated
     private static void log(String msg) {
-        Log.info(msg);
-//        if (Log.isDebug()){
-//            Log.debug(msg);
-//        }
+        Log.debug(msg);
     }
 
     private static class TimeDebug{

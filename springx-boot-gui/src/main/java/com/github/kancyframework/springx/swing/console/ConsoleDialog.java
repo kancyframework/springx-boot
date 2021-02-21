@@ -1,17 +1,18 @@
-/*
- * Created by JFormDesigner on Sun Feb 21 16:00:43 CST 2021
- */
-
 package com.github.kancyframework.springx.swing.console;
+
+import com.github.kancyframework.springx.log.LoggerFactory;
+import com.github.kancyframework.springx.swing.utils.PopupMenuUtils;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Objects;
 
 /**
  * @author kancy
  */
-public class ConsoleDialog extends JFrame {
+public class ConsoleDialog extends JFrame implements ActionListener {
 
     private JTextArea textArea;
 
@@ -57,7 +58,46 @@ public class ConsoleDialog extends JFrame {
         textArea.setEditable(false);
         scrollPane.setViewportView(textArea);
         contentPane.add(scrollPane, BorderLayout.CENTER);
+        initPopupMenu();
         pack();
     }
 
+    private void initPopupMenu() {
+        JPopupMenu jPopupMenu = new JPopupMenu();
+        JMenu logLevelMenu = new JMenu("\u65e5\u5fd7\u7ea7\u522b");
+        JRadioButtonMenuItem debug = new JRadioButtonMenuItem("debug");
+        JRadioButtonMenuItem info = new JRadioButtonMenuItem("info");
+        JRadioButtonMenuItem warn = new JRadioButtonMenuItem("warn");
+        JRadioButtonMenuItem error = new JRadioButtonMenuItem("error");
+
+        ButtonGroup buttonGroup = new ButtonGroup();
+        buttonGroup.add(debug);
+        buttonGroup.add(info);
+        buttonGroup.add(warn);
+        buttonGroup.add(error);
+
+        logLevelMenu.add(debug);
+        logLevelMenu.add(info);
+        logLevelMenu.add(warn);
+        logLevelMenu.add(error);
+        jPopupMenu.add(logLevelMenu);
+        PopupMenuUtils.addPopupMenu(textArea, jPopupMenu);
+    }
+
+    /**
+     * Invoked when an action occurs.
+     *
+     * @param e
+     */
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        switch (e.getActionCommand()){
+            case "debug":
+            case "info":
+            case "warn":
+            case "error":
+                LoggerFactory.setLogLevel(e.getActionCommand());
+                break;
+        }
+    }
 }
