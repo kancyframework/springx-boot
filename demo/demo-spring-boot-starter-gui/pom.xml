@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.kancyframework</groupId>
     <artifactId>demo-spring-boot-starter-gui</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.3-SNAPSHOT</version>
     <name>demo-spring-boot-starter-gui</name>
     <description>demo-spring-boot-starter-gui</description>
 
@@ -128,7 +128,7 @@
         </resources>
     </build>
 
-    <distributionManagement>
+    <!--<distributionManagement>
         <repository>
             <id>ossrh</id>
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
@@ -137,6 +137,6 @@
             <id>ossrh</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
-    </distributionManagement>
+    </distributionManagement>-->
 
 </project>
