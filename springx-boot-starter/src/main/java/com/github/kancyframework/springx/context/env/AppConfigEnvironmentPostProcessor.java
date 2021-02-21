@@ -22,7 +22,7 @@ public class AppConfigEnvironmentPostProcessor implements EnvironmentPostProcess
     public void postProcessEnvironment(Environment environment) {
         // 将本地配置放到环境中
         String fileName = String.format("%s.properties", environment.getApplicationName());
-        String path = PathUtils.path(System.getProperty("user.home"), "swing-boot", fileName);
+        String path = PathUtils.path(System.getProperty("user.home"), "springx-boot", fileName);
         ProfileProperties profileProperties = new ProfileProperties(String.format("app-conf-%s", environment.getApplicationName()));
         try {
             profileProperties.load(new FileInputStream(path));
