@@ -11,6 +11,7 @@ import com.github.kancyframework.springx.context.env.Environment;
 import com.github.kancyframework.springx.log.Logger;
 import com.github.kancyframework.springx.log.LoggerFactory;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
@@ -68,6 +69,9 @@ public class SimpleApplicationContext implements ApplicationContext {
     @Override
     public <T> T getBean(Class<T> beanClass) {
         Map<String, T> map = getBeansOfType(beanClass);
+        if (map.size() > 1){
+            throw new RuntimeException(String.format("find multiple bean : %s", beanClass.getName()));
+        }
         return map.isEmpty() ? null : beanClass.cast(map.values().toArray()[0]);
     }
 
@@ -410,8 +414,20 @@ public class SimpleApplicationContext implements ApplicationContext {
                     field.setAccessible(true);
                     field.set(instance, beanDefinition.getObject());
                 }
-
-                if (annotation instanceof Value) {
+                else if (annotation instanceof Resource) {
+                    String beanName = field.getName();
+                    BeanDefinition beanDefinition = getSimpleBeanByNameOrType(beanName, field.getType(), true);
+                    if (beanDefinition == null) {
+                        if (lastChance) {
+                            throw new RuntimeException(String.format("Failed in autowireFields : [%s].[%s]", clazz.getName(), field.getName()));
+                        } else {
+                            return false;
+                        }
+                    }
+                    field.setAccessible(true);
+                    field.set(instance, beanDefinition.getObject());
+                }
+                else if (annotation instanceof Value) {
                     Value value = (Value) annotation;
                     String valueString = value.value();
 

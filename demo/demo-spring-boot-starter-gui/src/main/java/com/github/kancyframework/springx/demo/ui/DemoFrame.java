@@ -17,7 +17,7 @@ import net.miginfocom.swing.*;
  * @author kancy
  */
 @Data
-@Component
+@Component("frame")
 public class DemoFrame extends JFrame {
     public DemoFrame() {
         initComponents();
@@ -46,6 +46,8 @@ public class DemoFrame extends JFrame {
         menuItem5 = new JMenuItem();
         menuItem6 = new JMenuItem();
         menuItem7 = new JMenuItem();
+        menuItem9 = new JMenuItem();
+        menuItem8 = new JMenuItem();
         panel = new JPanel();
         button1 = new JButton();
         button2 = new JButton();
@@ -123,12 +125,20 @@ public class DemoFrame extends JFrame {
                 menu5.addSeparator();
 
                 //---- menuItem6 ----
-                menuItem6.setText("\u7cfb\u7edf\u5c5e\u6027");
+                menuItem6.setText("\u7f13\u5b58\u5c5e\u6027");
                 menu5.add(menuItem6);
 
                 //---- menuItem7 ----
                 menuItem7.setText("\u63a7\u5236\u53f0");
                 menu5.add(menuItem7);
+
+                //---- menuItem9 ----
+                menuItem9.setText("\u6253\u5f00DialogTest");
+                menu5.add(menuItem9);
+
+                //---- menuItem8 ----
+                menuItem8.setText("\u6253\u5f00FrameTest");
+                menu5.add(menuItem8);
             }
             menuBar1.add(menu5);
         }
@@ -205,6 +215,8 @@ public class DemoFrame extends JFrame {
     private JMenuItem menuItem5;
     private JMenuItem menuItem6;
     private JMenuItem menuItem7;
+    private JMenuItem menuItem9;
+    private JMenuItem menuItem8;
     private JPanel panel;
     private JButton button1;
     private JButton button2;

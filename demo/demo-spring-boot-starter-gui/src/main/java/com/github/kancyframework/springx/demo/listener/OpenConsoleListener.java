@@ -1,8 +1,6 @@
 package com.github.kancyframework.springx.demo.listener;
 
-import com.github.kancyframework.springx.context.annotation.Autowired;
 import com.github.kancyframework.springx.context.annotation.Component;
-import com.github.kancyframework.springx.log.Log;
 import com.github.kancyframework.springx.swing.action.AbstractActionApplicationListener;
 import com.github.kancyframework.springx.swing.action.Action;
 import com.github.kancyframework.springx.swing.action.ActionApplicationEvent;
@@ -10,6 +8,7 @@ import com.github.kancyframework.springx.swing.action.KeyStroke;
 import com.github.kancyframework.springx.swing.console.ConsoleDialog;
 import com.github.kancyframework.springx.swing.tray.SystemTrayMenuProvider;
 
+import javax.annotation.Resource;
 import javax.swing.*;
 import java.awt.*;
 
@@ -18,9 +17,6 @@ import java.awt.*;
 @Action(value = "控制台")
 public class OpenConsoleListener extends AbstractActionApplicationListener<ActionApplicationEvent<JFrame>> implements SystemTrayMenuProvider {
 
-    @Autowired
-    private JFrame frame;
-
     /**
      * 处理事件
      *
@@ -28,10 +24,6 @@ public class OpenConsoleListener extends AbstractActionApplicationListener<Actio
      */
     @Override
     public void onApplicationEvent(ActionApplicationEvent event) {
-        Log.debug("debug....");
-        Log.info("info....");
-        Log.warn("warn....");
-        Log.error("error....");
         ConsoleDialog.open();
     }
 

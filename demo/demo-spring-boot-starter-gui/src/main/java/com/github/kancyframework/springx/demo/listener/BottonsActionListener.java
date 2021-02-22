@@ -17,7 +17,7 @@ import java.awt.event.ActionEvent;
 public class BottonsActionListener extends AbstractActionApplicationListener<ActionApplicationEvent<DemoFrame>> {
 
     @Autowired
-    private JFrame frame;
+    private DemoFrame frame;
 
     /**
      * 处理事件

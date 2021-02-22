@@ -79,6 +79,18 @@ public class Swing {
     }
 
     /**
+     * 设置可见
+     * @param window
+     */
+    public static void visible(Window window){
+        if (!window.isVisible()){
+            window.setVisible(true);
+        }else {
+            window.requestFocusInWindow();
+        }
+    }
+
+    /**
      * 设置默认Ui字体
      */
     public static void setUIFont() {

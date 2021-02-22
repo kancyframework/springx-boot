@@ -1,6 +1,5 @@
 package com.github.kancyframework.springx.demo.listener;
 
-import com.github.kancyframework.springx.context.annotation.Autowired;
 import com.github.kancyframework.springx.context.annotation.Component;
 import com.github.kancyframework.springx.swing.action.AbstractActionApplicationListener;
 import com.github.kancyframework.springx.swing.action.Action;
@@ -9,14 +8,15 @@ import com.github.kancyframework.springx.swing.action.KeyStroke;
 import com.github.kancyframework.springx.swing.dialog.PropertiesDialog;
 import com.kancy.spring.minidb.MapDb;
 
+import javax.annotation.Resource;
 import javax.swing.*;
 
 @Component
 @KeyStroke("ctrl shift alt F2")
-@Action(value = "系统属性")
-public class SystemPropertiesListener extends AbstractActionApplicationListener<ActionApplicationEvent> {
+@Action(value = "缓存属性")
+public class MapDbPropertiesListener extends AbstractActionApplicationListener<ActionApplicationEvent> {
 
-    @Autowired
+    @Resource
     private JFrame frame;
 
     /**
