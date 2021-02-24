@@ -1,8 +1,9 @@
 package com.github.kancyframework.springx.utils;
 
+import com.github.kancyframework.springx.annotation.Order;
+
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
+import java.lang.reflect.AnnotatedElement;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -13,14 +14,15 @@ import java.util.Objects;
  * @author kancy
  * @date 2021/1/12 16:57
  */
+@Order(9)
 public abstract class AnnotationUtils {
 
-    public static <T> T toBean(Class<?> cls , Class<? extends Annotation> annotationClass, Class<T> propertyClass){
-        return toBean(findAnnotation(cls, annotationClass), propertyClass);
+    public static <T> T toBean(AnnotatedElement annotatedElement , Class<? extends Annotation> annotationClass, Class<T> propertyClass){
+        return toBean(findAnnotation(annotatedElement, annotationClass), propertyClass);
     }
 
-    public static Map<String, Object> toMap(Class<?> cls , Class<? extends Annotation> annotationClass){
-        return toMap(findAnnotation(cls, annotationClass));
+    public static Map<String, Object> toMap(AnnotatedElement annotatedElement , Class<? extends Annotation> annotationClass){
+        return toMap(findAnnotation(annotatedElement, annotationClass));
     }
 
     public static <T> T toBean(Annotation annotation, Class<T> propertyClass){
@@ -36,68 +38,39 @@ public abstract class AnnotationUtils {
         return map;
     }
 
-    public static Annotation findAnnotation(Class<?> cls , Class<? extends Annotation> annotationClass){
-        if (cls.isAnnotationPresent(annotationClass)){
-            return cls.getDeclaredAnnotation(annotationClass);
-        } else {
-            if (Objects.isNull(cls.getSuperclass())){
-                return null;
+    public static <T extends Annotation> T findAnnotation(AnnotatedElement annotatedElement , Class<T> annotationClass){
+        if (annotatedElement instanceof Class){
+            Class<?> cls = Class.class.cast(annotatedElement);
+            if (cls.isAnnotationPresent(annotationClass)){
+                return cls.getDeclaredAnnotation(annotationClass);
+            } else {
+                if (Objects.isNull(cls.getSuperclass())){
+                    return null;
+                }
+                return findAnnotation(cls.getSuperclass(), annotationClass);
             }
-            return findAnnotation(cls.getSuperclass(), annotationClass);
+        } else {
+            return annotatedElement.getAnnotation(annotationClass);
         }
     }
 
-    public static <T> T getProperty(Class<?> cls , Class<? extends Annotation> annotationClass, String propertyName, Class<T> valueType){
-        Annotation annotation = findAnnotation(cls, annotationClass);
+    public static <T> T getProperty(AnnotatedElement annotatedElement , Class<? extends Annotation> annotationClass, String propertyName, Class<T> valueType){
+        Annotation annotation = findAnnotation(annotatedElement, annotationClass);
         if (Objects.isNull(annotation)){
             return null;
         }
         return (T) ReflectionUtils.invokeMethod(annotation, propertyName);
     }
 
-    public static Object getProperty(Class<?> cls , Class<? extends Annotation> annotationClass, String propertyName){
-        return getProperty(cls, annotationClass, propertyName, Object.class);
+    public static Object getProperty(AnnotatedElement annotatedElement, Class<? extends Annotation> annotationClass, String propertyName){
+        return getProperty(annotatedElement, annotationClass, propertyName, Object.class);
     }
 
-    public static <T> T getValue(Class<?> cls , Class<? extends Annotation> annotationClass, Class<T> valueType){
-        return getProperty(cls, annotationClass, "value", valueType);
+    public static <T> T getValue(AnnotatedElement annotatedElement, Class<? extends Annotation> annotationClass, Class<T> valueType){
+        return getProperty(annotatedElement, annotationClass, "value", valueType);
     }
-    public static Object getValue(Class<?> cls , Class<? extends Annotation> annotationClass){
-        return getValue(cls, annotationClass,  Object.class);
-    }
-
-    public static <T> T getProperty(Method method , Class<? extends Annotation> annotationClass, String propertyName, Class<T> valueType){
-        if (!method.isAnnotationPresent(annotationClass)){
-            return null;
-        }
-        return (T) ReflectionUtils.invokeMethod(method.getAnnotation(annotationClass), propertyName);
+    public static Object getValue(AnnotatedElement annotatedElement, Class<? extends Annotation> annotationClass){
+        return getValue(annotatedElement, annotationClass,  Object.class);
     }
 
-    public static Object getProperty(Method method, Class<? extends Annotation> annotationClass, String propertyName){
-        return getProperty(method, annotationClass, propertyName, Object.class);
-    }
-
-    public static <T> T getValue(Method method, Class<? extends Annotation> annotationClass, Class<T> valueType){
-        return getProperty(method, annotationClass, "value", valueType);
-    }
-    public static Object getValue(Method method, Class<? extends Annotation> annotationClass){
-        return getValue(method, annotationClass,  Object.class);
-    }
-
-    public static <T> T getProperty(Field field , Class<? extends Annotation> annotationClass, String propertyName, Class<T> valueType){
-        if (!field.isAnnotationPresent(annotationClass)){
-            return null;
-        }
-        return (T) ReflectionUtils.invokeMethod(field.getAnnotation(annotationClass), propertyName);
-    }
-    public static Object getProperty(Field field, Class<? extends Annotation> annotationClass, String propertyName){
-        return getProperty(field, annotationClass, propertyName, Object.class);
-    }
-
-    public static <T> T getValue(Field field, Class<? extends Annotation> annotationClass, Class<T> valueType){
-        return getProperty(field, annotationClass, "value", valueType);
-    }
-    public static Object getValue(Field field, Class<? extends Annotation> annotationClass){
-        return getValue(field, annotationClass,  Object.class);
-    }
 }
