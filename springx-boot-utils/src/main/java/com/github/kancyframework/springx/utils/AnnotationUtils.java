@@ -3,6 +3,8 @@ package com.github.kancyframework.springx.utils;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -12,6 +14,27 @@ import java.util.Objects;
  * @date 2021/1/12 16:57
  */
 public abstract class AnnotationUtils {
+
+    public static <T> T toBean(Class<?> cls , Class<? extends Annotation> annotationClass, Class<T> propertyClass){
+        return toBean(findAnnotation(cls, annotationClass), propertyClass);
+    }
+
+    public static Map<String, Object> toMap(Class<?> cls , Class<? extends Annotation> annotationClass){
+        return toMap(findAnnotation(cls, annotationClass));
+    }
+
+    public static <T> T toBean(Annotation annotation, Class<T> propertyClass){
+       return BeanUtils.mapToBean(toMap(annotation), propertyClass);
+    }
+
+    public static Map<String, Object> toMap(Annotation annotation){
+        Map<String, Object> map = new HashMap<>();
+        ReflectionUtils.doWithMethods(annotation.getClass(), method -> {
+            Object value = ReflectionUtils.invokeMethod(annotation, method.getName());
+            map.put(method.getName(), value);
+        });
+        return map;
+    }
 
     public static Annotation findAnnotation(Class<?> cls , Class<? extends Annotation> annotationClass){
         if (cls.isAnnotationPresent(annotationClass)){
