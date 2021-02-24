@@ -1,5 +1,6 @@
 package com.github.kancyframework.springx.utils;
 
+import com.github.kancyframework.springx.boot.CommandLineArgument;
 import com.github.kancyframework.springx.context.ApplicationContext;
 import com.github.kancyframework.springx.context.env.Environment;
 import com.github.kancyframework.springx.context.event.ApplicationEvent;
@@ -17,9 +18,20 @@ public abstract class SpringUtils {
 
     private static ApplicationContext applicationContext;
 
+    private static CommandLineArgument commandLineArgument;
+
     public static void setApplicationContext(ApplicationContext applicationContext){
         SpringUtils.applicationContext = applicationContext;
     }
+
+    public static void setCommandLineArgument(CommandLineArgument commandLineArgument) {
+        SpringUtils.commandLineArgument = commandLineArgument;
+    }
+
+    public static CommandLineArgument getCommandLineArgument() {
+        return commandLineArgument;
+    }
+
     /**
      * applicationContext
      * @return

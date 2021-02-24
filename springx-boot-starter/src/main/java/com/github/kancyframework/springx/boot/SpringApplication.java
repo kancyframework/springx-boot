@@ -34,8 +34,12 @@ public class SpringApplication {
     }
 
     public void run(String[] args) {
-        List<ApplicationInitializer> services = SpiUtils.findServices(ApplicationInitializer.class);
+        // 初始化命令行参数
         CommandLineArgument commandLineArgument = new CommandLineArgument(args);
+        SpringUtils.setCommandLineArgument(commandLineArgument);
+
+        // 应用数据初始化
+        List<ApplicationInitializer> services = SpiUtils.findServices(ApplicationInitializer.class);
         for (ApplicationInitializer applicationInitializer : services) {
             try {
                 applicationInitializer.run(commandLineArgument);

@@ -1,5 +1,8 @@
 package com.github.kancyframework.springx.boot;
 
+import com.github.kancyframework.springx.utils.StringUtils;
+
+import java.util.Objects;
 import java.util.Properties;
 
 /**
@@ -51,10 +54,22 @@ public class CommandLineArgument {
 		for (String param : this.args){
 			if (!check(param)) {
 				String[] kvs = param.split("=", 2);
-				this.p.put(kvs[0], kvs[1]);
+				Object key = removePrefix(kvs[0]);
+				if (Objects.nonNull(key)){
+					this.p.put(key, kvs[1]);
+				}
 			}
 		}
+	}
 
+	private Object removePrefix(String key) {
+		if (StringUtils.isBlank(key)){
+			return null;
+		}
+		if (key.startsWith(PREFIX) || key.startsWith("-D")){
+			return key.substring(2);
+		}
+		return key;
 	}
 
 	private boolean check(String param) {

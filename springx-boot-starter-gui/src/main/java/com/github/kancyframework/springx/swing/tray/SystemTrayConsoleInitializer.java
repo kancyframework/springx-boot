@@ -15,7 +15,9 @@ public class SystemTrayConsoleInitializer implements ApplicationInitializer {
      */
     @Override
     public void run(CommandLineArgument args) throws Exception {
-        if (args.getArgument("tray.console", true)){
+        if (args.getArgument("tray", true)
+                && args.getArgument("tray.console", true)
+                && args.getArgument("console.init", true)){
             ConsoleDialog.install();
         }
     }

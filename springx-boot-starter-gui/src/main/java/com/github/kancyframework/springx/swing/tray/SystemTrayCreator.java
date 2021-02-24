@@ -1,8 +1,10 @@
 package com.github.kancyframework.springx.swing.tray;
 
 import com.github.kancyframework.springx.annotation.Order;
+import com.github.kancyframework.springx.boot.CommandLineArgument;
 import com.github.kancyframework.springx.swing.console.ConsoleDialog;
 import com.github.kancyframework.springx.swing.dialog.SystemPropertiesDialog;
+import com.github.kancyframework.springx.utils.SpringUtils;
 import com.github.kancyframework.springx.utils.StringUtils;
 
 import javax.swing.*;
@@ -45,9 +47,18 @@ public class SystemTrayCreator implements ActionListener {
 
         popupMenu.add(openItem);
         popupMenu.add(exitItem);
-        popupMenu.addSeparator();
-        popupMenu.add(consoleItem);
-        popupMenu.add(systemItem);
+
+        CommandLineArgument argument = SpringUtils.getCommandLineArgument();
+        if (argument.getArgument("tray.console", true)
+                || argument.getArgument("tray.system.properties", true)){
+            popupMenu.addSeparator();
+        }
+        if (argument.getArgument("tray.console", true)){
+            popupMenu.add(consoleItem);
+        }
+        if (argument.getArgument("tray.system.properties", true)){
+            popupMenu.add(systemItem);
+        }
         return popupMenu;
     }
 

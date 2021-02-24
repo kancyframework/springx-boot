@@ -4,6 +4,7 @@ import com.github.kancyframework.springx.log.Logger;
 import com.github.kancyframework.springx.log.LoggerFactory;
 import com.github.kancyframework.springx.utils.CollectionUtils;
 import com.github.kancyframework.springx.utils.SpiUtils;
+import com.github.kancyframework.springx.utils.SpringUtils;
 import com.github.kancyframework.springx.utils.StringUtils;
 
 import java.util.*;
@@ -39,6 +40,9 @@ public class Environment {
 
     private void initEnvironment() {
         // 保存系统属性
+        if (Objects.nonNull(SpringUtils.getCommandLineArgument())){
+            systemProperties.putAll(SpringUtils.getCommandLineArgument().getArguments());
+        }
         systemProperties.putAll(System.getProperties());
         systemProperties.putAll(System.getenv());
 

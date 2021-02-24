@@ -57,4 +57,7 @@ public class DemoListener extends AbstractActionApplicationListener<ActionApplic
 
 1. `log.debug` : 设置日志级别，例如 `-Dlog.level=debug`
 2. `tray` : 是否使用系統托盘菜单，例如 `-Dtray=true`
-3. `tray.console` : 是否启动加载控制台，例如 `-Dtray.console=true`
+3. `tray.console` : 是否使用控制台，例如 `-Dtray.console=true`
+3. `tray.system.properies` : 是否显示系统属性，例如 `-Dtray.system.properies=true`
+3. `console.init` : 是否启动加载控制台，例如 `-Dconsole.init=true`
+
