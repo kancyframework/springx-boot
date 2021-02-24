@@ -33,7 +33,7 @@ public class Md5Utils {
             }
             string = new String(str);
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         return string;
     }

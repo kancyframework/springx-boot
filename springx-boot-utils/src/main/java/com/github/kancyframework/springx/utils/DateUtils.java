@@ -11,7 +11,7 @@ import java.util.Date;
  * @author kancy
  * @date 2020/2/16 6:05
  */
-public class DateUtils {
+public abstract class DateUtils {
     public static String getDatePathStr(LocalDate date){
         return getDateStr(date, "yyyy/MM/dd");
     }

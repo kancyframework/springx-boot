@@ -11,7 +11,8 @@ import java.util.Objects;
  * @date 2020/2/18 5:07
  */
 class SimpleLogger implements Logger {
-    private static LogLevel LOG_LEVEL;
+    private static LogLevel logLevel = LogLevel.INFO;
+
     static {
         loadLogLevel();
     }
@@ -90,7 +91,7 @@ class SimpleLogger implements Logger {
             String msg = String.format(msgFormat, args);
             if (Objects.equals(LogLevel.ERROR , logLevel)){
                 System.err.println(logFormatter.format(msg, logLevel));
-            }else {
+            } else {
                 System.out.println(logFormatter.format(msg, logLevel));
             }
         }
@@ -102,8 +103,8 @@ class SimpleLogger implements Logger {
      * @return
      */
     private static boolean canLog(LogLevel logLevel) {
-        if (Objects.nonNull(LOG_LEVEL)){
-            return logLevel.getLevel() >= LOG_LEVEL.getLevel();
+        if (Objects.nonNull(SimpleLogger.logLevel)){
+            return logLevel.getLevel() >= SimpleLogger.logLevel.getLevel();
         }
         return false;
     }
@@ -117,7 +118,7 @@ class SimpleLogger implements Logger {
         if (Objects.isNull(logLevelName) || logLevelName.isEmpty()){
             logLevelName = "INFO";
         }
-        setLogLevel(LogLevel.valueOf(logLevelName));
+        setLogLevel(LogLevel.valueOf(logLevelName.toUpperCase()));
     }
 
     /**
@@ -125,7 +126,11 @@ class SimpleLogger implements Logger {
      * @param logLevel
      */
     public static void setLogLevel(LogLevel logLevel) {
-        LOG_LEVEL = logLevel;
+        SimpleLogger.logLevel = logLevel;
+    }
+
+    public static LogLevel getLogLevel(){
+        return logLevel;
     }
 
 }

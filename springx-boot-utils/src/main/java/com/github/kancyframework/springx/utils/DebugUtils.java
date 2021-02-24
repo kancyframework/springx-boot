@@ -11,7 +11,7 @@ import java.util.WeakHashMap;
  * @version 1.0
  * @date 2019/2/27 14:00
  */
-public class DebugUtil {
+public abstract class DebugUtils {
     /**
      * 使用弱引用，当线程回收时，自动移除Key,Value
      */
