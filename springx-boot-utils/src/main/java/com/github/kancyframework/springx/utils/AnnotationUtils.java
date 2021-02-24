@@ -62,15 +62,15 @@ public abstract class AnnotationUtils {
         return (T) ReflectionUtils.invokeMethod(annotation, propertyName);
     }
 
-    public static Object getProperty(AnnotatedElement annotatedElement, Class<? extends Annotation> annotationClass, String propertyName){
-        return getProperty(annotatedElement, annotationClass, propertyName, Object.class);
+    public static <T> T getProperty(AnnotatedElement annotatedElement, Class<? extends Annotation> annotationClass, String propertyName){
+        return (T) getProperty(annotatedElement, annotationClass, propertyName, Object.class);
     }
 
     public static <T> T getValue(AnnotatedElement annotatedElement, Class<? extends Annotation> annotationClass, Class<T> valueType){
         return getProperty(annotatedElement, annotationClass, "value", valueType);
     }
-    public static Object getValue(AnnotatedElement annotatedElement, Class<? extends Annotation> annotationClass){
-        return getValue(annotatedElement, annotationClass,  Object.class);
+    public static <T> T getValue(AnnotatedElement annotatedElement, Class<? extends Annotation> annotationClass){
+        return (T) getValue(annotatedElement, annotationClass,  Object.class);
     }
 
 }
