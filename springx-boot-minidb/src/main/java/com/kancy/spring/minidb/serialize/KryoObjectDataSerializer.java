@@ -18,6 +18,9 @@ import java.util.Set;
  * @date 2021/1/12 15:40
  */
 public class KryoObjectDataSerializer implements ObjectDataSerializer {
+
+    private final Kryo kryo = new Kryo();
+
     @Override
     public <T extends ObjectData> void write(T objectData, OutputStream outputStream) throws Exception {
         Output output = null;
@@ -34,7 +37,6 @@ public class KryoObjectDataSerializer implements ObjectDataSerializer {
     public <T extends ObjectData> T read(InputStream inputStream, Class<T> cls) throws Exception {
         Input input = null;
         try {
-            Kryo kryo = new Kryo();
             input = new Input(inputStream);
             return kryo.readObject(input, cls);
         } finally {
