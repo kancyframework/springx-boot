@@ -42,6 +42,7 @@
         <module>springx-boot-starter-gui</module>
         <module>springx-boot-gui-miglayout</module>
         <module>springx-boot-net-classloader</module>
+        <module>springx-boot-registry</module>
     </modules>
 
     <properties>
@@ -67,6 +68,11 @@
             <dependency>
                 <groupId>com.github.kancyframework</groupId>
                 <artifactId>springx-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.kancyframework</groupId>
+                <artifactId>springx-boot-registry</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
