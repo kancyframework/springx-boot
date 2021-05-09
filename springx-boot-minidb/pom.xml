@@ -77,7 +77,11 @@
             <scope>provided</scope>
         </dependency>
 
-
+        <!-- springx-boot-starter -->
+        <dependency>
+            <groupId>com.github.kancyframework</groupId>
+            <artifactId>springx-boot-starter</artifactId>
+        </dependency>
         <!-- 单元测试 -->
         <dependency>
             <groupId>junit</groupId>

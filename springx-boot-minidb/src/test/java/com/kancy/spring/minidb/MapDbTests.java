@@ -1,7 +1,6 @@
 package com.kancy.spring.minidb;
 
 import com.github.kancyframework.springx.log.Log;
-import com.github.kancyframework.springx.utils.DateUtils;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,7 +24,6 @@ public class MapDbTests {
     public void test02(){
         MapDb.beginTransaction();
         MapDb.putData("txCount", MapDb.getData("txCount", 0) + 1);
-        MapDb.putData("txDate", DateUtils.getNowStr());
         MapDb.commitTransaction();
     }
 
