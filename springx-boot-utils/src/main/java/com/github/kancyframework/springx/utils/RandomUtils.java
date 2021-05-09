@@ -2,6 +2,7 @@ package com.github.kancyframework.springx.utils;
 
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -92,6 +93,21 @@ public class RandomUtils {
 
     public static boolean nextFalse(double probability){
         return nextDouble() > probability;
+    }
+
+    public static String nextString(String str){
+        List<String> rangeStr = StringUtils.toList(str);
+        return rangeStr.get(nextInt(rangeStr.size()));
+    }
+
+    public static String nextString(String str, String splitChar){
+        List<String> rangeStr = StringUtils.toList(str, splitChar);
+        return rangeStr.get(nextInt(rangeStr.size()));
+    }
+
+    public static String nextString(String ... strArrays){
+        List<String> rangeStr = CollectionUtils.toList(strArrays);
+        return rangeStr.get(nextInt(rangeStr.size()));
     }
 
     /**
