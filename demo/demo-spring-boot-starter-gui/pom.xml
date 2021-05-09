@@ -29,6 +29,11 @@
         </dependency>
         <dependency>
             <groupId>com.github.kancyframework</groupId>
+            <artifactId>springx-boot-registry</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.kancyframework</groupId>
             <artifactId>springx-boot-gui-miglayout</artifactId>
             <version>${project.version}</version>
         </dependency>
