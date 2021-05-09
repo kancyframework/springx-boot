@@ -1,11 +1,11 @@
 package com.github.kancyframework.springx.utils;
 
-import com.github.kancyframework.springx.registry.StringRedis;
+import com.github.kancyframework.springx.registry.StringRegistryRedis;
 
 import java.util.Objects;
 
-public class StringRedisUtils {
-    private static StringRedis redis = new StringRedis("common");
+public class RegistryRedisUtils {
+    private static StringRegistryRedis redis = new StringRegistryRedis(System.getProperty("spring.application.name" , "common"));
 
     /**
      * 设置

@@ -5,7 +5,8 @@ import com.ice.jni.registry.Registry;
 import com.ice.jni.registry.RegistryKey;
 
 public class RegistryUtils {
-    private static final String DEFAULT_PATH = "SOFTWARE\\Springx-boot\\Common";
+    private static final String DEFAULT_PATH = String.format("SOFTWARE\\Springx-boot\\%s",
+            System.getProperty("spring.application.name" , "Common"));
 
     public static String getValue(String key) {
         return getValue(getCurrentUserKey(), DEFAULT_PATH, key);

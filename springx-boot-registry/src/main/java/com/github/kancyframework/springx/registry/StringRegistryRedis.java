@@ -7,13 +7,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class StringRedis implements Redis<String> {
+public class StringRegistryRedis implements RegistryRedis<String> {
 
     private final String database;
 
     private final String tag = "::";
 
-    public StringRedis(String database) {
+    public StringRegistryRedis(String database) {
         this.database = database;
     }
 

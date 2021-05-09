@@ -2,8 +2,8 @@ package com.github.kancyframework.springx.registry;
 
 import org.junit.Test;
 
-public class StringRedisTests {
-    private StringRedis redis = new StringRedis("test");
+public class StringRegistryRedisTests {
+    private StringRegistryRedis redis = new StringRegistryRedis("test");
 
     @Test
     public void test01(){

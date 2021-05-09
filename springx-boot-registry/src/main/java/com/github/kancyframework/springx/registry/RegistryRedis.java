@@ -1,6 +1,6 @@
 package com.github.kancyframework.springx.registry;
 
-public interface Redis<T> {
+public interface RegistryRedis<T> {
     /**
      * 设置
      * @param key
