@@ -2,6 +2,8 @@ package com.github.kancyframework.springx.utils;
 
 import com.github.kancyframework.springx.registry.StringRedis;
 
+import java.util.Objects;
+
 public class StringRedisUtils {
     private static StringRedis redis = new StringRedis("common");
 
@@ -11,8 +13,19 @@ public class StringRedisUtils {
      * @param key
      * @param value
      */
-    public void set(String key, String value) {
+    public static void set(String key, String value) {
         redis.set(key, value);
+    }
+
+
+    /**
+     * 设置
+     *
+     * @param key
+     * @param value
+     */
+    public static void set(String key, Number value) {
+        redis.set(key, Objects.isNull(value) ? null : String.valueOf(value));
     }
 
     /**
@@ -21,7 +34,7 @@ public class StringRedisUtils {
      * @param key
      * @return
      */
-    public String get(String key) {
+    public static String get(String key) {
         return redis.get(key);
     }
 
@@ -30,7 +43,7 @@ public class StringRedisUtils {
      *
      * @param key
      */
-    public void delete(String key) {
+    public static void delete(String key) {
         redis.delete(key);
     }
 
@@ -39,7 +52,7 @@ public class StringRedisUtils {
      *
      * @return
      */
-    public String getDatabase() {
+    public static String getDatabase() {
         return redis.getDatabase();
     }
 
@@ -48,7 +61,7 @@ public class StringRedisUtils {
      *
      * @return
      */
-    public long getSize() {
+    public static long getSize() {
         return redis.getSize();
     }
 }
