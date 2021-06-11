@@ -2,7 +2,8 @@ package com.github.kancyframework.springx.utils;
 
 import java.io.*;
 import java.nio.charset.Charset;
-import java.util.*;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * FileUtils
@@ -16,6 +17,10 @@ public abstract class FileUtils {
         return new String(readFileToByteArray(file), encoding);
     }
 
+    public static String readFileToString(final File file) throws IOException {
+        return new String(readFileToByteArray(file), Charset.defaultCharset());
+    }
+
     public static byte[] readFileToByteArray(final File file) throws IOException {
         InputStream in = new FileInputStream(file);
         ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -27,6 +32,10 @@ public abstract class FileUtils {
         ByteArrayInputStream in = new ByteArrayInputStream(bytes);
         FileOutputStream out = new FileOutputStream(file);
         IoUtils.copy(in, out);
+    }
+
+    public static List<String> readLines(File file) throws IOException {
+        return readLines(file, Charset.defaultCharset().displayName());
     }
 
     public static List<String> readLines(File file, String encoding) throws IOException {
@@ -58,6 +67,14 @@ public abstract class FileUtils {
         } finally {
             IoUtils.closeResource(objectInputStream);
         }
+    }
+
+    public static boolean existsFile(File file) {
+        return Objects.nonNull(file) && file.isFile() && file.exists();
+    }
+
+    public static boolean existsDirectory(File file) {
+        return Objects.nonNull(file) && file.isDirectory() && file.exists();
     }
 
     public static File createNewFile(String filePath) throws IOException {

@@ -19,4 +19,10 @@ public @interface Order {
      * @return
      */
     int value() default 0;
+
+    /**
+     * 描述
+     * @return
+     */
+    String desc() default "";
 }

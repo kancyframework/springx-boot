@@ -1,16 +1,20 @@
 package com.github.kancyframework.springx.swing;
 
 import com.github.kancyframework.springx.log.Log;
-import com.github.kancyframework.springx.swing.dialog.MessageDialog;
+import com.github.kancyframework.springx.swing.dialog.*;
+import com.github.kancyframework.springx.swing.exception.AlertException;
 import com.github.kancyframework.springx.swing.themes.Themes;
+import com.github.kancyframework.springx.utils.Assert;
+import com.github.kancyframework.springx.utils.ClassUtils;
 import com.github.kancyframework.springx.utils.StringUtils;
 
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 import java.awt.*;
 import java.text.SimpleDateFormat;
-import java.util.*;
 import java.util.List;
+import java.util.*;
+import java.util.function.Consumer;
 
 /**
  * Swing
@@ -164,6 +168,150 @@ public class Swing {
             Log.warn(msgFormat, args);
             MessageDialog messageDialog = new MessageDialog(component, String.format(msgFormat, args));
             messageDialog.show();
+        }
+    }
+
+    /**
+     * 确定后消费
+     * @param consumer
+     */
+    public static void confirm(Consumer<Boolean> consumer){
+        confirm(null, null, consumer);
+    }
+
+    /**
+     * 确定后消费
+     * @param message
+     * @param consumer
+     */
+    public static void confirm(String message, Consumer<Boolean> consumer){
+        confirm(null, message, consumer);
+    }
+
+    /**
+     * 确定后消费
+     * @param window
+     * @param message
+     * @param consumer
+     */
+    public static void confirm(Window window, String message, Consumer<Boolean> consumer){
+        confirm(window, message, consumer, true);
+    }
+
+    /**
+     * 确定后消费
+     * @param window
+     * @param message
+     * @param consumer
+     * @param isOk 为true时才执行？
+     */
+    public static void confirm(Window window, String message, Consumer<Boolean> consumer, boolean isOk){
+        ConfirmDialog dialog = new ConfirmDialog(window);
+        if (Objects.nonNull(message)){
+            dialog.confirm(message);
+        }
+        if (isOk && dialog.isOk()){
+            consumer.accept(true);
+        } else {
+            consumer.accept(dialog.isOk() ? Boolean.TRUE : (dialog.isReject() ? Boolean.FALSE : null));
+        }
+    }
+
+    /**
+     * 是否确定
+     * @param msgFormat
+     * @param args
+     * @return
+     */
+    public static boolean confirm(String msgFormat, Object ... args){
+        return confirm(null, msgFormat, args);
+    }
+
+    /**
+     * 是否确定
+     * @param window
+     * @param msgFormat
+     * @param args
+     * @return
+     */
+    public static boolean confirm(Window window, String msgFormat, Object ... args){
+        ConfirmDialog dialog = new ConfirmDialog(window);
+        if (Objects.nonNull(msgFormat)){
+            msgFormat = msgFormat.replace("{}", "%s");
+            msgFormat = String.format(msgFormat, args);
+            dialog.confirm(msgFormat);
+        } else {
+            dialog.confirm();
+        }
+        return dialog.isOk();
+    }
+
+    public static <T> T getInputEnum(String message, Class<? extends Enum> enumClass){
+        return getInputEnum(null, message, enumClass);
+    }
+
+    public static <T> T getInputEnum(Component component, String message, Class<? extends Enum> enumClass){
+        JComboBoxInputDialog inputDialog = new JComboBoxInputDialog(component, message);
+        inputDialog.setDataModel(enumClass);
+        inputDialog.show();
+        return (T) inputDialog.getInputValue();
+    }
+
+    public static <T> T getInputPassword(Component component, String message){
+        return getInput(JPasswordFieldInputDialog.class, component, message);
+    }
+
+    public static String getInputPassword(String message){
+        return getInput(JPasswordFieldInputDialog.class, message);
+    }
+
+    public static String getInput(String message){
+        return getInput(JTextAreaInputDialog.class, message);
+    }
+
+    public static String getInput(Component component, String message){
+        return getInput(JTextAreaInputDialog.class, component, message);
+    }
+
+    public static <T> T getInput(Class<? extends InputDialog> cls, String message){
+        return getInput(cls, null, message);
+    }
+
+    public static <T> T getInput(Class<? extends InputDialog> cls, Component component, String message){
+        return getInput(cls, component, message, null);
+    }
+
+    public static <T> T getInput(Class<? extends InputDialog> cls, Component component, String message, T def){
+        InputDialog inputDialog = Objects.isNull(component)
+                ? ClassUtils.newObject(cls, message) : ClassUtils.newObject(cls, component, message);
+        inputDialog.setDefaultValue(def);
+        inputDialog.show();
+        return (T) inputDialog.getInputValue();
+    }
+
+    /**
+     * 断言不能不为空
+     * @param object 支持的类型：字符串，数组，集合，Map
+     * @param message
+     */
+    public static void assertNotBlank(Object object, String message){
+        try {
+            Assert.isNotBlank(object, message);
+        } catch (IllegalArgumentException e) {
+            throw new AlertException(message, e);
+        }
+    }
+
+    /**
+     * 断言不能结果为真
+     * @param expression
+     * @param message
+     */
+    public static void assertTrue(boolean expression, String message){
+        try {
+            Assert.isTrue(expression, message);
+        } catch (IllegalArgumentException e) {
+            throw new AlertException(message, e);
         }
     }
 }

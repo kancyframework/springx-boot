@@ -7,6 +7,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Consumer;
 
 
 /**
@@ -129,10 +130,31 @@ public abstract class AbstractFileChooser {
     }
 
     /**
+     * 打开 Open Dialog
+     */
+    public void showOpenDialog(Consumer<AbstractFileChooser> consumer){
+        showOpenDialog();
+        if (hasSelectedFile()){
+            consumer.accept(this);
+        }
+    }
+
+
+    /**
      * 打开 Save Dialog
      */
     public void showSaveDialog(){
         processChooserResult(fileChooser.showSaveDialog(parentComponent));
+    }
+
+    /**
+     * 打开 Save Dialog
+     */
+    public void showSaveDialog(Consumer<AbstractFileChooser> consumer){
+        showSaveDialog();
+        if (hasSelectedFile()){
+            consumer.accept(this);
+        }
     }
 
     /**

@@ -9,6 +9,7 @@ import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Consumer;
 
 /**
  * SimpleFileDialog
@@ -110,11 +111,31 @@ public class SimpleFileDialog {
     }
 
     /**
+     * 打开 Open Dialog
+     */
+    public void showOpenDialog(Consumer<SimpleFileDialog> consumer){
+        showOpenDialog();
+        if (hasSelectedFile()){
+            consumer.accept(this);
+        }
+    }
+
+    /**
      * 打开 Save Dialog
      */
     public void showSaveDialog(){
         this.fileDialog.setMode(FileDialog.SAVE);
         show();
+    }
+
+    /**
+     * 打开 Save Dialog
+     */
+    public void showSaveDialog(Consumer<SimpleFileDialog> consumer){
+        showSaveDialog();
+        if (hasSelectedFile()){
+            consumer.accept(this);
+        }
     }
 
     private void show(){
