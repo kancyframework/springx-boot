@@ -33,7 +33,8 @@ public interface SpringActionListener extends ActionListener {
      */
     @Override
     default void actionPerformed(ActionEvent e) {
-        ActionApplicationEvent<?> event = new ActionApplicationEvent<>(getSource(e.getActionCommand()), e);
+        String actionCommand = e.getActionCommand();
+        ActionApplicationEvent<?> event = new ActionApplicationEvent<>(getSource(actionCommand), e);
         try {
             Map<String, ActionApplicationListener> actionMap = SpringUtils.getBeansOfType(ActionApplicationListener.class);
             List<ActionApplicationListener> actionList = actionMap.values().stream()
@@ -44,8 +45,10 @@ public interface SpringActionListener extends ActionListener {
                 if (event.getSource() instanceof Component){
                     component = Component.class.cast(event.getSource());
                 }
-                MessageDialog messageDialog = new MessageDialog(component, "\u8be5\u529f\u80fd\u6682\u4e0d\u652f\u6301\uff01");
-                messageDialog.show();
+                if (StringUtils.isNotBlank(actionCommand) && !(actionCommand.equalsIgnoreCase("null") || actionCommand.equalsIgnoreCase("empty"))){
+                    MessageDialog messageDialog = new MessageDialog(component, "\u8be5\u529f\u80fd\u6682\u4e0d\u652f\u6301\uff01");
+                    messageDialog.show();
+                }
             } else {
                 actionList.forEach(action -> action.onApplicationEvent(event));
             }

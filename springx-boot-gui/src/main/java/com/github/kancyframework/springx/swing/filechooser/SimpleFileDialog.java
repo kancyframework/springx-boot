@@ -95,9 +95,22 @@ public class SimpleFileDialog {
      * @param extensions
      * @return
      */
+    @Deprecated
     public SimpleFileDialog setFileNameExtensionFilter(String... extensions){
         if (ObjectUtils.isNotEmpty(extensions)){
-            fileDialog.setFile(StringUtils.join(extensions,";"));
+            fileDialog.setFile(StringUtils.join(extensions, ";"));
+        }
+        return this;
+    }
+
+    /**
+     * 设置文件
+     * @param file
+     * @return
+     */
+    public SimpleFileDialog setFile(String file){
+        if (ObjectUtils.isNotEmpty(file)){
+            fileDialog.setFile(file);
         }
         return this;
     }

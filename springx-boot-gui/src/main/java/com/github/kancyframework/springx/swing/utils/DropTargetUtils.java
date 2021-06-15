@@ -10,7 +10,8 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.Consumer;
+import java.util.function.Function;
+
 /**
  * DropTargetUtils
  *
@@ -19,20 +20,25 @@ import java.util.function.Consumer;
  */
 public class DropTargetUtils {
 
-    public void addDropTarget(Component c, DropTargetListener listener){
+    public static void addDropTarget(Component c, DropTargetListener listener){
         DropTarget dropTarget = new DropTarget(c, DnDConstants.ACTION_COPY_OR_MOVE, listener);
     }
 
-    public void addDropTarget(Component c, DropTargetAdapter listener){
+    public static void addDropTarget(Component c, DropTargetAdapter listener){
         DropTarget dropTarget = new DropTarget(c, DnDConstants.ACTION_COPY_OR_MOVE, listener);
     }
 
-    public void addJavaFileDropTarget(Component c, Consumer<DropTargetDropEvent> listener){
+    public static void addJavaFileDropTarget(Component c, Function<DropTargetDropEvent, Boolean> listener){
         DropTargetAdapter dropTargetAdapter = new DropTargetAdapter() {
             @Override
             public void drop(DropTargetDropEvent dtde) {
                 if (dtde.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
-                    listener.accept(dtde);
+                    try {
+                        dtde.acceptDrop(DnDConstants.ACTION_COPY_OR_MOVE);
+                        dtde.dropComplete(listener.apply(dtde));
+                    } catch (Exception e) {
+                        dtde.rejectDrop();
+                    }
                 } else {
                     dtde.rejectDrop();
                 }
@@ -41,7 +47,7 @@ public class DropTargetUtils {
         DropTarget dropTarget = new DropTarget(c, DnDConstants.ACTION_COPY_OR_MOVE, dropTargetAdapter);
     }
 
-    public void addJavaFileDropTarget(Consumer<List<File>> listener, Component ... components){
+    public static void addJavaFileDropTarget(Function<List<File>, Boolean> listener, Component ... components){
         if (Objects.isNull(components) || components.length == 0){
             return;
         }
@@ -50,11 +56,13 @@ public class DropTargetUtils {
             public void drop(DropTargetDropEvent dtde) {
                 if (dtde.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
                     try {
+                        dtde.acceptDrop(DnDConstants.ACTION_COPY_OR_MOVE);
                         List<File> list = (List<File>) dtde.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);
                         if (!CollectionUtils.isEmpty(list)) {
-                            listener.accept(list);
+                            dtde.dropComplete(listener.apply(list));
                         }
                     } catch (Exception e) {
+                        dtde.rejectDrop();
                         Log.error("addJavaFileDropTarget error", e);
                     }
                 } else {

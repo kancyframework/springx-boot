@@ -69,6 +69,16 @@ public abstract class FileUtils {
         }
     }
 
+    public static boolean existsClasspathFile(String classpath) {
+        File file = new File(PathUtils.getFileAbsolutePath(String.format("classpath:%s", classpath)));
+        return Objects.nonNull(file) && file.isFile() && file.exists();
+    }
+
+    public static boolean existsFile(String filePath) {
+        File file = new File(PathUtils.getFileAbsolutePath(filePath));
+        return Objects.nonNull(file) && file.isFile() && file.exists();
+    }
+
     public static boolean existsFile(File file) {
         return Objects.nonNull(file) && file.isFile() && file.exists();
     }
@@ -82,6 +92,14 @@ public abstract class FileUtils {
         if (!(file.exists() && file.isFile())){
             file.getParentFile().mkdirs();
             file.createNewFile();
+        }
+        return file;
+    }
+
+    public static File createNewDirectory(String filePath) {
+        File file = new File(filePath);
+        if (!(file.exists() && file.isDirectory())){
+            file.mkdirs();
         }
         return file;
     }

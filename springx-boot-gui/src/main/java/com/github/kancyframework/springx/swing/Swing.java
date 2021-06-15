@@ -11,6 +11,8 @@ import com.github.kancyframework.springx.utils.StringUtils;
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.*;
@@ -313,5 +315,21 @@ public class Swing {
         } catch (IllegalArgumentException e) {
             throw new AlertException(message, e);
         }
+    }
+
+    /**
+     * 添加双击事件
+     * @param component
+     * @param consumer
+     */
+    public static void addDoubleClickListener(Component component, Consumer<MouseEvent> consumer){
+        component.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1){
+                    consumer.accept(e);
+                }
+            }
+        });
     }
 }

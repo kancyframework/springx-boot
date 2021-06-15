@@ -40,4 +40,19 @@ public class PathUtils {
                 .replaceAll("/+","/");
     }
 
+    public static String getFileAbsolutePath(String filePath){
+        String classPathPrefix = "classpath:";
+        if (filePath.startsWith(classPathPrefix)){
+            String classPath = filePath.replace(classPathPrefix, "");
+            if (!classPath.startsWith("/") ){
+                classPath = "/" + classPath;
+            }
+            filePath = path(PathUtils.class.getResource("/").getFile(), classPath) ;
+        }
+        return format(new File(filePath).getAbsolutePath());
+    }
+
+    public static String classPath(String classpath){
+        return String.format("classpath:%s", classpath);
+    }
 }
