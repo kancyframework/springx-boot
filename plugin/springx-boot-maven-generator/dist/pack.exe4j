@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <exe4j version="6.0.2" transformSequenceNumber="2">
   <directoryPresets config="E:/Work/Idea/workspace/springx-boot/plugin/springx-boot-maven-generator/dist" />
-  <application name="application-starter" distributionSourceDir="E:/Work/Idea/workspace/springx-boot/plugin/springx-boot-maven-generator/dist">
+  <application name="springx-boot-maven-generator" distributionSourceDir="E:/Work/Idea/workspace/springx-boot/plugin/springx-boot-maven-generator/dist">
     <languages>
       <principalLanguage id="en" customLocalizationFile="" />
     </languages>
   </application>
-  <executable name="application-starter" type="2" iconSet="true" iconFile="E:/Work/Idea/workspace/springx-boot/plugin/springx-boot-maven-generator/dist/icon.ico" executableDir="." redirectStderr="false" stderrFile="error.log" stderrMode="append" redirectStdout="false" stdoutFile="output.log" stdoutMode="append" failOnStderrOutput="true" executableMode="1" changeWorkingDirectory="true" workingDirectory="." singleInstance="true" serviceStartType="2" serviceDependencies="" serviceDescription="" jreLocation="" executionLevel="asInvoker" checkConsoleParameter="true" globalSingleInstance="false" singleInstanceActivate="true" dpiAware="java9+" amd64="true">
+  <executable name="springx-boot-maven-generator" type="2" iconSet="true" iconFile="E:/Work/Idea/workspace/springx-boot/plugin/springx-boot-maven-generator/dist/icon.ico" executableDir="." redirectStderr="false" stderrFile="error.log" stderrMode="append" redirectStdout="false" stdoutFile="output.log" stdoutMode="append" failOnStderrOutput="true" executableMode="1" changeWorkingDirectory="true" workingDirectory="." singleInstance="true" serviceStartType="2" serviceDependencies="" serviceDescription="" jreLocation="" executionLevel="asInvoker" checkConsoleParameter="true" globalSingleInstance="false" singleInstanceActivate="true" dpiAware="java9+" amd64="true">
     <messageSet>
       <message id="ErrorDialogCaption" text="Ok" />
     </messageSet>
