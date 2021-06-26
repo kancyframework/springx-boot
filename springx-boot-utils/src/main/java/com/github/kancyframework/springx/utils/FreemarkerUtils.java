@@ -88,17 +88,15 @@ public class FreemarkerUtils {
         setDefaultConfiguration(configuration);
         // 加载配置文件的属性
         ArrayList<String> confList = new ArrayList<>();
-        confList.add(PathUtils.classPath("/META-INF/freemarker.properties"));
-        confList.add(PathUtils.classPath("freemarker.properties"));
-        confList.add(PathUtils.classPath("/ftl/freemarker.properties"));
+        confList.add("/META-INF/freemarker.properties");
+        confList.add("freemarker.properties");
+        confList.add("/ftl/freemarker.properties");
         confList.forEach(p ->{
-            if (FileUtils.existsFile(p)){
-                try {
-                    configuration.setSettings(PropertiesUtils.loadProperties(p));
-                    Log.info("load freemarker config file : {}", p);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            try {
+                configuration.setSettings(PropertiesUtils.loadClasspathProperties(p));
+                Log.info("load freemarker config file : {}", p);
+            } catch (Exception e) {
+                // ignore
             }
         });
         return configuration;

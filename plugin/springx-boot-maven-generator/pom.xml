@@ -104,6 +104,7 @@
                 <directory>src/main/resources</directory>
                 <includes>
                     <include>**/*.ftl</include>
+                    <include>**/*.ico</include>
                     <include>**/*.png</include>
                     <include>**/*.html</include>
                     <include>**/*.properties</include>

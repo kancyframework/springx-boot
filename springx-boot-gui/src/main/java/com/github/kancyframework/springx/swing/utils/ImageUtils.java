@@ -38,8 +38,7 @@ public class ImageUtils {
         if (classResourcePath.startsWith("/")){
             return new ImageIcon(ImageUtils.class.getResource(classResourcePath)).getImage();
         }
-        ImageIcon icon = new ImageIcon(ImageUtils.class.getClassLoader().getResource(classResourcePath));
-        return icon.getImage();
+        return new ImageIcon(ImageUtils.class.getClassLoader().getResource(classResourcePath)).getImage();
     }
 
     public static Image createImage(File file) throws MalformedURLException {

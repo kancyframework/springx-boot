@@ -33,6 +33,8 @@ public class GeneratorActionListener extends AbstractActionApplicationListener<A
         Swing.assertNotBlank(projectPath, "请选择项目生成路径！");
 
         File projectFile = FileUtils.createNewDirectory(projectPath);
+        projectPath = PathUtils.format(projectFile.getAbsolutePath());
+
         String artifactId = projectFile.getName();
         String projectName = artifactId.replace("-", "").replace("_", "");
 
@@ -61,6 +63,8 @@ public class GeneratorActionListener extends AbstractActionApplicationListener<A
 
         Map<String, Object> files = new HashMap<>();
         files.put(PathUtils.path(projectPath, "dist/pack.exe4j"), FreemarkerUtils.render("pack.ftl", param).get());
+        files.put(PathUtils.path(projectPath, "dist/package.bat"), FreemarkerUtils.render("package.ftl", param).get());
+        files.put(PathUtils.path(projectPath, "dist/package.sh"), FreemarkerUtils.render("package.ftl", param).get());
         files.put(PathUtils.path(projectPath, "pom.xml"), FreemarkerUtils.render("pom.ftl", param).get());
         files.put(PathUtils.path(projectPath, "src/main/java/com/kancy/", projectName, "Application.java"), FreemarkerUtils.render("application.ftl", param).get());
         files.put(PathUtils.path(projectPath, "src/main/java/com/kancy/", projectName,"ui", "FrameStarter.java"), FreemarkerUtils.render("frame.ftl", param).get());
