@@ -1,5 +1,4 @@
-<#noparse>
-<?xml version="1.0" encoding="UTF-8"?>
+<#noparse><?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -18,8 +17,8 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
 
-        <springx.boot.version>0.0.3-RELEASE</springx.boot.version>
-        <final.package.name>${artifactId}-${version}</final.package.name></#noparse>
+        <springx.boot.version>0.0.4-RELEASE</springx.boot.version>
+        <final.package.name>${artifactId}</final.package.name></#noparse>
         <startup.class.name>${packageName}.Application</startup.class.name><#noparse>
     </properties>
 
@@ -109,6 +108,7 @@
                 <includes>
                     <include>**/*.ftl</include>
                     <include>**/*.png</include>
+                    <include>**/*.ico</include>
                     <include>**/*.html</include>
                     <include>**/*.properties</include>
                     <include>**/*.xls</include>

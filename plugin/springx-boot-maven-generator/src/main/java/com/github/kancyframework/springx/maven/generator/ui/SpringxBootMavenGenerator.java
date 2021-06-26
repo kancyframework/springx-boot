@@ -32,7 +32,6 @@ public class SpringxBootMavenGenerator extends JFrame {
         button1 = new JButton();
 
         //======== this ========
-        setIconImage(new ImageIcon(getClass().getResource("/images/alert.png")).getImage());
         Container contentPane = getContentPane();
         contentPane.setLayout(new MigLayout(
             "hidemode 3",

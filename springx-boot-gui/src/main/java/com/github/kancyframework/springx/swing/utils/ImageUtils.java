@@ -24,6 +24,9 @@ public class ImageUtils {
     }
 
     public static Icon createImageIcon(String classResourcePath) {
+        if (classResourcePath.startsWith("/")){
+            return new ImageIcon(ImageUtils.class.getResource(classResourcePath));
+        }
         return new ImageIcon(ImageUtils.class.getClassLoader().getResource(classResourcePath));
     }
 
@@ -32,6 +35,9 @@ public class ImageUtils {
     }
 
     public static Image createImage(String classResourcePath) {
+        if (classResourcePath.startsWith("/")){
+            return new ImageIcon(ImageUtils.class.getResource(classResourcePath)).getImage();
+        }
         ImageIcon icon = new ImageIcon(ImageUtils.class.getClassLoader().getResource(classResourcePath));
         return icon.getImage();
     }

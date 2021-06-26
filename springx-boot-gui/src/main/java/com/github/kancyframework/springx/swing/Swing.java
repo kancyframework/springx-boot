@@ -4,8 +4,10 @@ import com.github.kancyframework.springx.log.Log;
 import com.github.kancyframework.springx.swing.dialog.*;
 import com.github.kancyframework.springx.swing.exception.AlertException;
 import com.github.kancyframework.springx.swing.themes.Themes;
+import com.github.kancyframework.springx.swing.utils.ImageUtils;
 import com.github.kancyframework.springx.utils.Assert;
 import com.github.kancyframework.springx.utils.ClassUtils;
+import com.github.kancyframework.springx.utils.CollectionUtils;
 import com.github.kancyframework.springx.utils.StringUtils;
 
 import javax.swing.*;
@@ -53,11 +55,21 @@ public class Swing {
         if (frame.getWidth() < 200 || frame.getHeight() < 150){
             frame.setSize(new Dimension(600, 400));
         }
+
         if (StringUtils.isBlank(frame.getTitle())){
             SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
             String title = String.format("%s v1.0 by kancy at %s", frame.getClass().getSimpleName(), df.format(new Date()));
             frame.setTitle(title);
         }
+
+        // 设置默认图标
+        if (CollectionUtils.isEmpty(frame.getIconImages())){
+            try {
+                frame.setIconImage(ImageUtils.createImage("/images/icon.png"));
+            } catch (Exception e) {
+            }
+        }
+
         frame.setLocationRelativeTo(null);
         setUIManager();
         if (!frame.isVisible()){

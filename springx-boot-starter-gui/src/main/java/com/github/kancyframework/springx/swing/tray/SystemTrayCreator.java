@@ -49,11 +49,11 @@ public class SystemTrayCreator implements ActionListener {
         popupMenu.add(exitItem);
 
         CommandLineArgument argument = SpringUtils.getCommandLineArgument();
-        if (argument.getArgument("tray.console", true)
+        if (argument.getArgument("tray.console", false)
                 || argument.getArgument("tray.system.properties", true)){
             popupMenu.addSeparator();
         }
-        if (argument.getArgument("tray.console", true)){
+        if (argument.getArgument("tray.console", false)){
             popupMenu.add(consoleItem);
         }
         if (argument.getArgument("tray.system.properties", true)){
