@@ -157,7 +157,6 @@ public class StringRegistryRedis implements RegistryRedis<String> {
 
     protected RegistryKey getRedisKey() {
         return Registry.HKEY_CURRENT_USER
-                .openSubKey("Software\\ODBC\\ODBC.INI")
-                .createSubKey("Redis");
+                .createSubKey("Springx-boot\\Redis");
     }
 }
