@@ -4,6 +4,7 @@
 
 package com.kancy.tester.ui;
 
+import javax.swing.border.*;
 import com.github.kancyframework.springx.context.InitializingBean;
 import com.github.kancyframework.springx.context.annotation.Component;
 import com.github.kancyframework.springx.swing.utils.PopupMenuUtils;
@@ -247,6 +248,7 @@ public class IdCardPanel extends JPanel implements InitializingBean {
 
         //======== idCardConfigPanel ========
         {
+            idCardConfigPanel.setBorder(new EtchedBorder());
             idCardConfigPanel.setLayout(new MigLayout(
                 "hidemode 3",
                 // columns
@@ -257,39 +259,38 @@ public class IdCardPanel extends JPanel implements InitializingBean {
                 "[97,fill]" +
                 "[fill]",
                 // rows
-                "[]" +
                 "[]"));
 
             //---- label1 ----
             label1.setText("\u59d3\u540d");
-            idCardConfigPanel.add(label1, "cell 0 1,alignx right,growx 0");
+            idCardConfigPanel.add(label1, "cell 0 0,alignx right,growx 0");
 
             //---- nameTextField ----
             nameTextField.setText("\u5f20\u4e09\u4e30");
             nameTextField.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12));
             nameTextField.setForeground(Color.black);
-            idCardConfigPanel.add(nameTextField, "cell 1 1,hmin 21");
+            idCardConfigPanel.add(nameTextField, "cell 1 0,hmin 21");
 
             //---- label2 ----
             label2.setText("\u8eab\u4efd\u8bc1\u53f7\u7801");
-            idCardConfigPanel.add(label2, "cell 2 1,alignx right,growx 0");
+            idCardConfigPanel.add(label2, "cell 2 0,alignx right,growx 0");
 
             //---- idCardNoTextField ----
             idCardNoTextField.setText("350103198207160353");
             idCardNoTextField.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12));
             idCardNoTextField.setForeground(Color.black);
-            idCardConfigPanel.add(idCardNoTextField, "cell 3 1,hmin 21");
+            idCardConfigPanel.add(idCardNoTextField, "cell 3 0,hmin 21");
 
             //---- randomCheckBox ----
             randomCheckBox.setText("\u968f\u673a");
             randomCheckBox.setSelected(true);
             randomCheckBox.addActionListener(e -> randomCheckBoxActionPerformed(e));
-            idCardConfigPanel.add(randomCheckBox, "cell 4 1,alignx right,growx 0");
+            idCardConfigPanel.add(randomCheckBox, "cell 4 0,alignx right,growx 0");
 
             //---- genButton ----
             genButton.setText("\u751f\u6210");
             genButton.addActionListener(e -> genButtonActionPerformed(e));
-            idCardConfigPanel.add(genButton, "cell 5 1,dock center");
+            idCardConfigPanel.add(genButton, "cell 5 0,dock center");
         }
         add(idCardConfigPanel, BorderLayout.NORTH);
 

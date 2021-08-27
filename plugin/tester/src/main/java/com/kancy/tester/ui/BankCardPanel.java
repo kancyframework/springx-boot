@@ -4,6 +4,7 @@
 
 package com.kancy.tester.ui;
 
+import javax.swing.border.*;
 import com.github.kancyframework.springx.context.annotation.Component;
 import com.github.kancyframework.springx.swing.utils.PopupMenuUtils;
 import com.kancy.tester.domain.BankCard;
@@ -97,6 +98,7 @@ public class BankCardPanel extends JPanel {
 
         //======== bankCardGenConfigPanel ========
         {
+            bankCardGenConfigPanel.setBorder(new EtchedBorder());
             bankCardGenConfigPanel.setLayout(new MigLayout(
                 "hidemode 3",
                 // columns
@@ -107,12 +109,11 @@ public class BankCardPanel extends JPanel {
                 "[fill]" +
                 "[fill]",
                 // rows
-                "[]" +
                 "[]"));
 
             //---- bankCardTypeLabel ----
             bankCardTypeLabel.setText("\u5361\u7c7b\u578b");
-            bankCardGenConfigPanel.add(bankCardTypeLabel, "cell 0 1,alignx right,growx 0");
+            bankCardGenConfigPanel.add(bankCardTypeLabel, "cell 0 0,alignx right,growx 0");
 
             //---- bankCardTypeComboBox ----
             bankCardTypeComboBox.setModel(new DefaultComboBoxModel<>(new String[] {
@@ -120,11 +121,11 @@ public class BankCardPanel extends JPanel {
                 "\u4fe1\u7528\u5361"
             }));
             bankCardTypeComboBox.setActionCommand("empty");
-            bankCardGenConfigPanel.add(bankCardTypeComboBox, "cell 1 1");
+            bankCardGenConfigPanel.add(bankCardTypeComboBox, "cell 1 0");
 
             //---- bankNameConfigLabel ----
             bankNameConfigLabel.setText("\u94f6\u884c\u540d\u79f0");
-            bankCardGenConfigPanel.add(bankNameConfigLabel, "cell 2 1,alignx right,growx 0");
+            bankCardGenConfigPanel.add(bankNameConfigLabel, "cell 2 0,alignx right,growx 0");
 
             //---- bankNameComboBox ----
             bankNameComboBox.setModel(new DefaultComboBoxModel<>(new String[] {
@@ -149,12 +150,12 @@ public class BankCardPanel extends JPanel {
                 "\u5176\u4ed6\u94f6\u884c"
             }));
             bankNameComboBox.setActionCommand("empty");
-            bankCardGenConfigPanel.add(bankNameComboBox, "cell 3 1");
+            bankCardGenConfigPanel.add(bankNameComboBox, "cell 3 0");
 
             //---- genBanckCardButton ----
             genBanckCardButton.setText("\u751f\u6210");
             genBanckCardButton.addActionListener(e -> genBanckCardButtonActionPerformed(e));
-            bankCardGenConfigPanel.add(genBanckCardButton, "cell 5 1,dock center");
+            bankCardGenConfigPanel.add(genBanckCardButton, "cell 5 0,dock center");
         }
         add(bankCardGenConfigPanel, BorderLayout.NORTH);
 
@@ -187,7 +188,7 @@ public class BankCardPanel extends JPanel {
             cardBinLabel.setForeground(Color.black);
             cardBinLabel.setText("123456");
             bankCardImagePanel.add(cardBinLabel);
-            cardBinLabel.setBounds(90, 330, 100, cardBinLabel.getPreferredSize().height);
+            cardBinLabel.setBounds(95, 330, 100, cardBinLabel.getPreferredSize().height);
 
             //---- bankCardImageLabel ----
             bankCardImageLabel.setIcon(new ImageIcon(getClass().getResource("/images/bank_card_front_600x400.png")));

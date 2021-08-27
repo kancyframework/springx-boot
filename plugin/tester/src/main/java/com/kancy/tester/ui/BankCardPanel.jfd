@@ -8,9 +8,10 @@ new FormModel {
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 				"$layoutConstraints": "hidemode 3"
 				"$columnConstraints": "[54,fill][131,fill][94,fill][195,fill][fill][fill]"
-				"$rowConstraints": "[][]"
+				"$rowConstraints": "[]"
 			} ) {
 				name: "bankCardGenConfigPanel"
+				"border": new javax.swing.border.EtchedBorder( 1, null, null )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "bankCardTypeLabel"
 					"text": "卡类型"
@@ -18,7 +19,7 @@ new FormModel {
 						"JavaCodeGenerator.variableLocal": true
 					}
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 0 1,alignx right,growx 0"
+					"value": "cell 0 0,alignx right,growx 0"
 				} )
 				add( new FormComponent( "javax.swing.JComboBox" ) {
 					name: "bankCardTypeComboBox"
@@ -29,7 +30,7 @@ new FormModel {
 					}
 					"actionCommand": "empty"
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 1 1"
+					"value": "cell 1 0"
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "bankNameConfigLabel"
@@ -38,7 +39,7 @@ new FormModel {
 						"JavaCodeGenerator.variableLocal": true
 					}
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 2 1,alignx right,growx 0"
+					"value": "cell 2 0,alignx right,growx 0"
 				} )
 				add( new FormComponent( "javax.swing.JComboBox" ) {
 					name: "bankNameComboBox"
@@ -66,7 +67,7 @@ new FormModel {
 					}
 					"actionCommand": "empty"
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 3 1"
+					"value": "cell 3 0"
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "genBanckCardButton"
@@ -76,7 +77,7 @@ new FormModel {
 					}
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "genBanckCardButtonActionPerformed", true ) )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 5 1,dock center"
+					"value": "cell 5 0,dock center"
 				} )
 			}, new FormLayoutConstraints( class java.lang.String ) {
 				"value": "North"
@@ -121,7 +122,7 @@ new FormModel {
 					"foreground": new java.awt.Color( 0, 0, 0, 255 )
 					"text": "123456"
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-					"x": 90
+					"x": 95
 					"y": 330
 					"width": 100
 				} )

@@ -8,9 +8,10 @@ new FormModel {
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 				"$layoutConstraints": "hidemode 3"
 				"$columnConstraints": "[46,fill][85,fill][94,fill][175,fill][97,fill][fill]"
-				"$rowConstraints": "[][]"
+				"$rowConstraints": "[]"
 			} ) {
 				name: "idCardConfigPanel"
+				"border": new javax.swing.border.EtchedBorder( 1, null, null )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "label1"
 					"text": "姓名"
@@ -18,7 +19,7 @@ new FormModel {
 						"JavaCodeGenerator.variableLocal": true
 					}
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 0 1,alignx right,growx 0"
+					"value": "cell 0 0,alignx right,growx 0"
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
 					name: "nameTextField"
@@ -26,7 +27,7 @@ new FormModel {
 					"font": new java.awt.Font( "Microsoft YaHei UI", 1, 12 )
 					"foreground": new java.awt.Color( 0, 0, 0, 255 )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 1 1,hmin 21"
+					"value": "cell 1 0,hmin 21"
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "label2"
@@ -35,7 +36,7 @@ new FormModel {
 						"JavaCodeGenerator.variableLocal": true
 					}
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 2 1,alignx right,growx 0"
+					"value": "cell 2 0,alignx right,growx 0"
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
 					name: "idCardNoTextField"
@@ -43,7 +44,7 @@ new FormModel {
 					"font": new java.awt.Font( "Microsoft YaHei UI", 1, 12 )
 					"foreground": new java.awt.Color( 0, 0, 0, 255 )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 3 1,hmin 21"
+					"value": "cell 3 0,hmin 21"
 				} )
 				add( new FormComponent( "javax.swing.JCheckBox" ) {
 					name: "randomCheckBox"
@@ -51,14 +52,14 @@ new FormModel {
 					"selected": true
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "randomCheckBoxActionPerformed", true ) )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 4 1,alignx right,growx 0"
+					"value": "cell 4 0,alignx right,growx 0"
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "genButton"
 					"text": "生成"
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "genButtonActionPerformed", true ) )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 5 1,dock center"
+					"value": "cell 5 0,dock center"
 				} )
 			}, new FormLayoutConstraints( class java.lang.String ) {
 				"value": "North"
