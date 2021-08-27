@@ -20,7 +20,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.Serializable;
+import java.io.File;
 import java.util.Objects;
 
 /**
@@ -118,14 +118,55 @@ public class IdCardPanel extends JPanel implements InitializingBean {
         // 调整身份证头像和性别
         if (Integer.parseInt(sexStr) % 2 == 0){
             imageSexLabel.setText("女");
-            imageHeadPhotoLabel.setIcon(new ImageIcon(getClass().getResource(
-                    String.format("/images/id_card_front_photo_200x200_girl_%s.png",
-                            RandomUtils.nextInt(1, 5)))));
+            String filePath = MapDb.getData("defaultGirlHeadPhoto");
+            if (!randomCheckBox.isSelected() && StringUtils.isNotBlank(filePath)){
+                try {
+                    String classPathPrefix = "classpath:";
+                    if (filePath.startsWith(classPathPrefix)){
+                        String classPath = filePath.replace(classPathPrefix, "");
+                        if (!classPath.startsWith("/") ){
+                            classPath = "/" + classPath;
+                        }
+                        getImageHeadPhotoLabel().setIcon(new ImageIcon(getClass().getResource(classPath)));
+                    } else {
+                        getImageHeadPhotoLabel().setIcon(new ImageIcon(new File(filePath).toURL()));
+                    }
+                } catch (Exception x) {
+                    imageHeadPhotoLabel.setIcon(new ImageIcon(getClass().getResource(
+                            String.format("/images/id_card_front_photo_200x200_girl_%s.png",
+                                    RandomUtils.nextInt(1, 5)))));
+                }
+            }else{
+                imageHeadPhotoLabel.setIcon(new ImageIcon(getClass().getResource(
+                        String.format("/images/id_card_front_photo_200x200_girl_%s.png",
+                                RandomUtils.nextInt(1, 5)))));
+            }
         }else{
             imageSexLabel.setText("男");
-            imageHeadPhotoLabel.setIcon(new ImageIcon(getClass().getResource(
-                    String.format("/images/id_card_front_photo_200x200_boy_%s.png",
-                    RandomUtils.nextInt(1, 4)))));
+
+            String filePath = MapDb.getData("defaultBoyHeadPhoto");
+            if (!randomCheckBox.isSelected() && StringUtils.isNotBlank(filePath)){
+                try {
+                    String classPathPrefix = "classpath:";
+                    if (filePath.startsWith(classPathPrefix)){
+                        String classPath = filePath.replace(classPathPrefix, "");
+                        if (!classPath.startsWith("/") ){
+                            classPath = "/" + classPath;
+                        }
+                        getImageHeadPhotoLabel().setIcon(new ImageIcon(getClass().getResource(classPath)));
+                    } else {
+                        getImageHeadPhotoLabel().setIcon(new ImageIcon(new File(filePath).toURL()));
+                    }
+                } catch (Exception x) {
+                    imageHeadPhotoLabel.setIcon(new ImageIcon(getClass().getResource(
+                            String.format("/images/id_card_front_photo_200x200_boy_%s.png",
+                                    RandomUtils.nextInt(1, 4)))));
+                }
+            }else{
+                imageHeadPhotoLabel.setIcon(new ImageIcon(getClass().getResource(
+                        String.format("/images/id_card_front_photo_200x200_boy_%s.png",
+                                RandomUtils.nextInt(1, 4)))));
+            }
         }
 
         imageAddressLabel.setText(IDCardUtils.getAddress(idCard));
@@ -189,8 +230,11 @@ public class IdCardPanel extends JPanel implements InitializingBean {
         idCardPopupMenu = new JPopupMenu();
         menu1 = new JMenu();
         menuItem1 = new JMenuItem();
+        menuItem7 = new JMenuItem();
+        menuItem8 = new JMenuItem();
         menuItem4 = new JMenuItem();
         menuItem6 = new JMenuItem();
+        menuItem9 = new JMenuItem();
         menuItem2 = new JMenuItem();
         menuItem3 = new JMenuItem();
         menuItem5 = new JMenuItem();
@@ -390,16 +434,31 @@ public class IdCardPanel extends JPanel implements InitializingBean {
                 //---- menuItem1 ----
                 menuItem1.setText("\u8bbe\u7f6e\u9ed8\u8ba4\u6c11\u65cf");
                 menu1.add(menuItem1);
+                menu1.addSeparator();
+
+                //---- menuItem7 ----
+                menuItem7.setText("\u8bbe\u7f6e\u9ed8\u8ba4\u7537\u5934\u50cf");
+                menu1.add(menuItem7);
+
+                //---- menuItem8 ----
+                menuItem8.setText("\u8bbe\u7f6e\u9ed8\u8ba4\u5973\u5934\u50cf");
+                menu1.add(menuItem8);
+                menu1.addSeparator();
 
                 //---- menuItem4 ----
                 menuItem4.setText("\u8bbe\u7f6e\u5e74\u9f84\u533a\u95f4");
                 menu1.add(menuItem4);
+                menu1.addSeparator();
 
                 //---- menuItem6 ----
                 menuItem6.setText("\u8bbe\u7f6e\u8eab\u4efd\u8bc1\u6709\u6548\u671f");
                 menu1.add(menuItem6);
             }
             idCardPopupMenu.add(menu1);
+
+            //---- menuItem9 ----
+            menuItem9.setText("\u8bbe\u7f6e\u91cd\u7f6e");
+            idCardPopupMenu.add(menuItem9);
             idCardPopupMenu.addSeparator();
 
             //---- menuItem2 ----
@@ -443,8 +502,11 @@ public class IdCardPanel extends JPanel implements InitializingBean {
     private JPopupMenu idCardPopupMenu;
     private JMenu menu1;
     private JMenuItem menuItem1;
+    private JMenuItem menuItem7;
+    private JMenuItem menuItem8;
     private JMenuItem menuItem4;
     private JMenuItem menuItem6;
+    private JMenuItem menuItem9;
     private JMenuItem menuItem2;
     private JMenuItem menuItem3;
     private JMenuItem menuItem5;
