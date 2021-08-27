@@ -237,26 +237,42 @@ new FormModel {
 					name: "separator3"
 				} )
 				add( new FormComponent( "javax.swing.JMenuItem" ) {
+					name: "menuItem4"
+					"text": "设置年龄区间"
+				} )
+				add( new FormComponent( "javax.swing.JMenuItem" ) {
+					name: "menuItem6"
+					"text": "设置身份证有效期"
+				} )
+				add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
+					name: "separator5"
+				} )
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "menu2"
+					"text": "设置生成性别"
+					add( new FormComponent( "javax.swing.JCheckBoxMenuItem" ) {
+						name: "sexBoyCheckBoxMenuItem"
+						"text": "男性身份证"
+						"actionCommand": "设置生成性别"
+						"selected": true
+					} )
+					add( new FormComponent( "javax.swing.JCheckBoxMenuItem" ) {
+						name: "sexGirlCheckBoxMenuItem"
+						"text": "女性身份证"
+						"actionCommand": "设置生成性别"
+						"selected": true
+					} )
+				} )
+				add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
+					name: "separator4"
+				} )
+				add( new FormComponent( "javax.swing.JMenuItem" ) {
 					name: "menuItem7"
 					"text": "设置默认男头像"
 				} )
 				add( new FormComponent( "javax.swing.JMenuItem" ) {
 					name: "menuItem8"
 					"text": "设置默认女头像"
-				} )
-				add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
-					name: "separator4"
-				} )
-				add( new FormComponent( "javax.swing.JMenuItem" ) {
-					name: "menuItem4"
-					"text": "设置年龄区间"
-				} )
-				add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
-					name: "separator5"
-				} )
-				add( new FormComponent( "javax.swing.JMenuItem" ) {
-					name: "menuItem6"
-					"text": "设置身份证有效期"
 				} )
 			} )
 			add( new FormComponent( "javax.swing.JMenuItem" ) {
@@ -283,6 +299,11 @@ new FormModel {
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 660, 395 )
+		} )
+		add( new FormNonVisual( "javax.swing.ButtonGroup" ) {
+			name: "buttonGroup1"
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 1157 )
 		} )
 	}
 }

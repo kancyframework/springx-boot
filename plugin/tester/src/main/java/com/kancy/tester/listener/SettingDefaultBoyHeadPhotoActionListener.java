@@ -36,6 +36,8 @@ public class SettingDefaultBoyHeadPhotoActionListener extends JFrameApplicationL
         String filePath = Swing.getInput(JTextFieldInputDialog.class, null,"设置默认男头像",
                 MapDb.getData("defaultBoyHeadPhoto","classpath:/images/id_card_front_photo_200x200_boy_3.png"));
         if (StringUtils.isBlank(filePath)){
+            MapDb.putData("defaultBoyHeadPhoto", filePath);
+            Swing.msg(idCardPanel, "已清除默认男头像！");
             return;
         }
 

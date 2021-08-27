@@ -32,10 +32,12 @@ public class SettingIdCardValidDateActionListener extends JFrameApplicationListe
     @Override
     public void onApplicationEvent(JFrameApplicationEvent event) {
         String text = Swing.getInput(JTextFieldInputDialog.class, null,
-                "设置身份证有效期（yyyy.MM.dd-yyyy.MM.dd/长期）",
+                "设置默认身份证有效期（yyyy.MM.dd-yyyy.MM.dd/长期）",
                 MapDb.getData("defaultIdCardValidDate", ""));
         if (StringUtils.isBlank(text)){
-            text = "";
+            MapDb.putData("defaultIdCardValidDate", text);
+            Swing.msg(idCardPanel, "已清除默认身份证有效期！");
+            return;
         } else {
             text = text.trim();
             idCardPanel.getImageCardValidDateLabel().setText(text);

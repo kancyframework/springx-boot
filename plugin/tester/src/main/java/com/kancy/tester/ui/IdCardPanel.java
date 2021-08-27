@@ -230,10 +230,13 @@ public class IdCardPanel extends JPanel implements InitializingBean {
         idCardPopupMenu = new JPopupMenu();
         menu1 = new JMenu();
         menuItem1 = new JMenuItem();
-        menuItem7 = new JMenuItem();
-        menuItem8 = new JMenuItem();
         menuItem4 = new JMenuItem();
         menuItem6 = new JMenuItem();
+        menu2 = new JMenu();
+        sexBoyCheckBoxMenuItem = new JCheckBoxMenuItem();
+        sexGirlCheckBoxMenuItem = new JCheckBoxMenuItem();
+        menuItem7 = new JMenuItem();
+        menuItem8 = new JMenuItem();
         menuItem9 = new JMenuItem();
         menuItem2 = new JMenuItem();
         menuItem3 = new JMenuItem();
@@ -436,6 +439,34 @@ public class IdCardPanel extends JPanel implements InitializingBean {
                 menu1.add(menuItem1);
                 menu1.addSeparator();
 
+                //---- menuItem4 ----
+                menuItem4.setText("\u8bbe\u7f6e\u5e74\u9f84\u533a\u95f4");
+                menu1.add(menuItem4);
+
+                //---- menuItem6 ----
+                menuItem6.setText("\u8bbe\u7f6e\u8eab\u4efd\u8bc1\u6709\u6548\u671f");
+                menu1.add(menuItem6);
+                menu1.addSeparator();
+
+                //======== menu2 ========
+                {
+                    menu2.setText("\u8bbe\u7f6e\u751f\u6210\u6027\u522b");
+
+                    //---- sexBoyCheckBoxMenuItem ----
+                    sexBoyCheckBoxMenuItem.setText("\u7537\u6027\u8eab\u4efd\u8bc1");
+                    sexBoyCheckBoxMenuItem.setActionCommand("\u8bbe\u7f6e\u751f\u6210\u6027\u522b");
+                    sexBoyCheckBoxMenuItem.setSelected(true);
+                    menu2.add(sexBoyCheckBoxMenuItem);
+
+                    //---- sexGirlCheckBoxMenuItem ----
+                    sexGirlCheckBoxMenuItem.setText("\u5973\u6027\u8eab\u4efd\u8bc1");
+                    sexGirlCheckBoxMenuItem.setActionCommand("\u8bbe\u7f6e\u751f\u6210\u6027\u522b");
+                    sexGirlCheckBoxMenuItem.setSelected(true);
+                    menu2.add(sexGirlCheckBoxMenuItem);
+                }
+                menu1.add(menu2);
+                menu1.addSeparator();
+
                 //---- menuItem7 ----
                 menuItem7.setText("\u8bbe\u7f6e\u9ed8\u8ba4\u7537\u5934\u50cf");
                 menu1.add(menuItem7);
@@ -443,16 +474,6 @@ public class IdCardPanel extends JPanel implements InitializingBean {
                 //---- menuItem8 ----
                 menuItem8.setText("\u8bbe\u7f6e\u9ed8\u8ba4\u5973\u5934\u50cf");
                 menu1.add(menuItem8);
-                menu1.addSeparator();
-
-                //---- menuItem4 ----
-                menuItem4.setText("\u8bbe\u7f6e\u5e74\u9f84\u533a\u95f4");
-                menu1.add(menuItem4);
-                menu1.addSeparator();
-
-                //---- menuItem6 ----
-                menuItem6.setText("\u8bbe\u7f6e\u8eab\u4efd\u8bc1\u6709\u6548\u671f");
-                menu1.add(menuItem6);
             }
             idCardPopupMenu.add(menu1);
 
@@ -502,10 +523,13 @@ public class IdCardPanel extends JPanel implements InitializingBean {
     private JPopupMenu idCardPopupMenu;
     private JMenu menu1;
     private JMenuItem menuItem1;
-    private JMenuItem menuItem7;
-    private JMenuItem menuItem8;
     private JMenuItem menuItem4;
     private JMenuItem menuItem6;
+    private JMenu menu2;
+    private JCheckBoxMenuItem sexBoyCheckBoxMenuItem;
+    private JCheckBoxMenuItem sexGirlCheckBoxMenuItem;
+    private JMenuItem menuItem7;
+    private JMenuItem menuItem8;
     private JMenuItem menuItem9;
     private JMenuItem menuItem2;
     private JMenuItem menuItem3;

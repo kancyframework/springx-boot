@@ -19,6 +19,8 @@ public class IDCardUtils {
     private static int currYear = 1994;
     private static int minAge = 18;
     private static int maxAge = 60;
+    private static boolean boy = true;
+    private static boolean girl = true;
 
     private static Properties districtProperties = new Properties();
 
@@ -86,22 +88,24 @@ public class IDCardUtils {
         String district = getdistrictcode();
         String birthday = getBirthday();
         String randomNumber = getRandomNumber();
+        String sexCode = getSexCode();
         String checkCode = getCheckCode(district + birthday + randomNumber);
-        return district + birthday + randomNumber + checkCode;
+        return district + birthday + randomNumber + sexCode + checkCode;
     }
 
-    public static String create(String district) {
-        return create(district, getBirthday(), getRandomNumber());
+    private static String getSexCode() {
+        if (boy && girl){
+            return String.valueOf(RandomUtils.nextInt(10));
+        }
+        if (girl){
+            return RandomUtils.nextString("0,2,4,6,8");
+        }
+        return RandomUtils.nextString("1,3,5,7,9");
     }
 
-    public static String create(String district, String birthday) {
-        return create(district, birthday, getRandomNumber());
-    }
-
-    public static String create(String district, String birthday, String randomNumber) {
-        if ((district.length() != 6) || (birthday.length() != 8) || (randomNumber.length() != 3) ||
-                (!executeRegMatcher("^([1-9]\\d{0,}|0)$", district + birthday + randomNumber))) return null;
-        return district + birthday + randomNumber + getCheckCode(new StringBuilder(String.valueOf(district)).append(birthday).append(randomNumber).toString());
+    public static void setSexEnabled(boolean boy, boolean girl) {
+        IDCardUtils.boy = boy;
+        IDCardUtils.girl = girl;
     }
 
     public static void setAgeRange(int minAge, int maxAge) {
@@ -117,7 +121,7 @@ public class IDCardUtils {
     }
 
     private static String getRandomNumber() {
-        return zfill(String.valueOf(new Random().nextInt(999) + 1), 3);
+        return zfill(String.valueOf(new Random().nextInt(100)), 2);
     }
 
     private static String getBirthday() {

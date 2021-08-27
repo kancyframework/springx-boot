@@ -32,6 +32,16 @@ public class Tester extends JFrame implements InitializingBean {
         tabbedPane.setBorder(new EmptyBorder(5, 5, 5, 5));
     }
 
+    /**
+     * Invoked by the containing {@code BeanFactory} after it has set all bean properties
+     * and satisfied, {@code ApplicationContextAware} etc.
+     */
+    @Override
+    public void afterPropertiesSet() {
+        tabbedPane.add("身份证", idCardPanel);
+        tabbedPane.add("银行卡", bankCardPanel);
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         tabbedPane = new JTabbedPane();
@@ -46,15 +56,5 @@ public class Tester extends JFrame implements InitializingBean {
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
     private JTabbedPane tabbedPane;
-
-    /**
-     * Invoked by the containing {@code BeanFactory} after it has set all bean properties
-     * and satisfied, {@code ApplicationContextAware} etc.
-     */
-    @Override
-    public void afterPropertiesSet() {
-        tabbedPane.add("身份证", idCardPanel);
-        tabbedPane.add("银行卡", bankCardPanel);
-    }
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }
