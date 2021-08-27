@@ -320,7 +320,7 @@ public class IdCardPanel extends JPanel implements InitializingBean {
 
             //---- frontImage ----
             frontImage.setIcon(new ImageIcon(getClass().getResource("/images/id_card_front_600x400.png")));
-            frontImage.setToolTipText("\u5355\u673a\u5207\u6362\u5230\u8eab\u4efd\u8bc1\u53cd\u9762\u54e6\uff01");
+            frontImage.setToolTipText("\u5355\u51fb\u5207\u6362\u5230\u8eab\u4efd\u8bc1\u53cd\u9762\u54e6\uff01");
             idCardFrontImagePanel.add(frontImage);
             frontImage.setBounds(0, 0, 600, 380);
 
@@ -360,7 +360,7 @@ public class IdCardPanel extends JPanel implements InitializingBean {
 
             //---- backImage ----
             backImage.setIcon(new ImageIcon(getClass().getResource("/images/id_card_back_600x400.png")));
-            backImage.setToolTipText("\u5355\u673a\u5207\u6362\u5230\u8eab\u4efd\u8bc1\u6b63\u9762\u54e6\uff01");
+            backImage.setToolTipText("\u5355\u51fb\u5207\u6362\u5230\u8eab\u4efd\u8bc1\u6b63\u9762\u54e6\uff01");
             idCardBackImagePanel.add(backImage);
             backImage.setBounds(0, 0, 600, 380);
 

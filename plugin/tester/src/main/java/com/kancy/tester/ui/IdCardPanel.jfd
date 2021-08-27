@@ -175,7 +175,7 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "frontImage"
 				"icon": new com.jformdesigner.model.SwingIcon( 0, "/images/id_card_front_600x400.png" )
-				"toolTipText": "单机切换到身份证反面哦！"
+				"toolTipText": "单击切换到身份证反面哦！"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 0
 				"y": 0
@@ -213,7 +213,7 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "backImage"
 				"icon": new com.jformdesigner.model.SwingIcon( 0, "/images/id_card_back_600x400.png" )
-				"toolTipText": "单机切换到身份证正面哦！"
+				"toolTipText": "单击切换到身份证正面哦！"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 0
 				"y": 0
