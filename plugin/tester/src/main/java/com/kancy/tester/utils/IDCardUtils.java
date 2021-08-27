@@ -27,7 +27,7 @@ public class IDCardUtils {
     static {
         try {
             currYear = Calendar.getInstance().get(1);
-            districtProperties.load(IDCardUtils.class.getClassLoader().getResourceAsStream("data/district.dat"));
+            districtProperties.load(IDCardUtils.class.getClassLoader().getResourceAsStream("data/district.properties"));
             districtList = districtProperties.keySet().toArray(new String[0]);
         } catch (IOException e) {
             e.printStackTrace();
