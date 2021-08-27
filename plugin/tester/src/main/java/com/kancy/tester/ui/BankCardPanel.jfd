@@ -1,0 +1,164 @@
+JFDML JFormDesigner: "7.0.0.6.255" Java: "11.0.8" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+			name: "this"
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+				"$layoutConstraints": "hidemode 3"
+				"$columnConstraints": "[54,fill][131,fill][94,fill][195,fill][fill][fill]"
+				"$rowConstraints": "[][]"
+			} ) {
+				name: "bankCardGenConfigPanel"
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "bankCardTypeLabel"
+					"text": "卡类型"
+					auxiliary() {
+						"JavaCodeGenerator.variableLocal": true
+					}
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 1,alignx right,growx 0"
+				} )
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "bankCardTypeComboBox"
+					"model": new javax.swing.DefaultComboBoxModel {
+						selectedItem: "储蓄卡"
+						addElement( "储蓄卡" )
+						addElement( "信用卡" )
+					}
+					"actionCommand": "empty"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 1 1"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "bankNameConfigLabel"
+					"text": "银行名称"
+					auxiliary() {
+						"JavaCodeGenerator.variableLocal": true
+					}
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 2 1,alignx right,growx 0"
+				} )
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "bankNameComboBox"
+					"model": new javax.swing.DefaultComboBoxModel {
+						selectedItem: "所有"
+						addElement( "所有" )
+						addElement( "中国银行" )
+						addElement( "邮储银行" )
+						addElement( "招商银行" )
+						addElement( "工商银行" )
+						addElement( "中信银行" )
+						addElement( "建设银行" )
+						addElement( "农业银行" )
+						addElement( "交通银行" )
+						addElement( "平安银行" )
+						addElement( "民生银行" )
+						addElement( "广发银行" )
+						addElement( "兴业银行" )
+						addElement( "北京银行" )
+						addElement( "上海银行" )
+						addElement( "华夏银行" )
+						addElement( "浦发银行" )
+						addElement( "光大银行" )
+						addElement( "其他银行" )
+					}
+					"actionCommand": "empty"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 3 1"
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "genBanckCardButton"
+					"text": "生成"
+					auxiliary() {
+						"JavaCodeGenerator.variableLocal": true
+					}
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "genBanckCardButtonActionPerformed", true ) )
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 5 1,dock center"
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "North"
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+				name: "bankCardImagePanel"
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "bankCardNameLabel"
+					"text": "太平洋商会卡  DEBIT CARD"
+					"foreground": &Color0 new java.awt.Color( 0, 0, 0, 255 )
+					"font": new java.awt.Font( "Microsoft YaHei UI", 0, 14 )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"width": 465
+					"height": 30
+					"x": 95
+					"y": 75
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "bankNameLabel"
+					"text": "交 通 银 行"
+					"foreground": #Color0
+					"font": new java.awt.Font( "楷体", 1, 28 )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"width": 460
+					"height": 38
+					"x": 90
+					"y": 35
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "bankCardNoLabel"
+					"text": "6223 483 0123 01277"
+					"foreground": #Color0
+					"font": new java.awt.Font( "Microsoft YaHei UI", 1, 24 )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"width": 480
+					"height": 38
+					"x": 75
+					"y": 210
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "cardBinLabel"
+					"foreground": new java.awt.Color( 0, 0, 0, 255 )
+					"text": "123456"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 90
+					"y": 330
+					"width": 100
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "bankCardImageLabel"
+					"icon": new com.jformdesigner.model.SwingIcon( 0, "/images/bank_card_front_600x400.png" )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"height": 377
+					"x": 0
+					"y": 0
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "Center"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 600, 465 )
+		} )
+		add( new FormContainer( "javax.swing.JPopupMenu", new FormLayoutManager( class javax.swing.JPopupMenu ) ) {
+			name: "bankCardPopupMenu"
+			add( new FormComponent( "javax.swing.JMenuItem" ) {
+				name: "menuItem2"
+				"text": "复制银行卡号码"
+			} )
+			add( new FormComponent( "javax.swing.JMenuItem" ) {
+				name: "menuItem3"
+				"text": "复制银行卡信息"
+			} )
+			add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
+				name: "separator1"
+			} )
+			add( new FormComponent( "javax.swing.JMenuItem" ) {
+				name: "menuItem1"
+				"text": "银行卡另存为"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 100, 540 )
+		} )
+	}
+}

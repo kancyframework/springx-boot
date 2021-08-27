@@ -21,7 +21,7 @@ public abstract class AbstractFileChooser {
 
     private boolean hasSelectedFile;
 
-    private JFileChooser fileChooser = new JFileChooser(new File("."));
+    protected JFileChooser fileChooser = new JFileChooser(new File("."));
 
     public AbstractFileChooser() {
     }

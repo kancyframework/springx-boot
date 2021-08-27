@@ -16,12 +16,11 @@ import com.github.kancyframework.springx.utils.*;
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -46,9 +45,11 @@ public interface SwingApplication<T extends JFrame> extends ApplicationRunner, S
 
         Map<String, ActionApplicationListener> actionMap = SpringUtils.getBeansOfType(ActionApplicationListener.class);
         if (!CollectionUtils.isEmpty(actionMap)){
-            Map<String, Window> windowMap = SpringUtils.getBeansOfType(Window.class);
-            for (Window window : windowMap.values()) {
-                Class<? extends Window> windowClass = window.getClass();
+            Map<String, Object> windowMap = new HashMap<>();
+            windowMap.putAll(SpringUtils.getBeansOfType(Window.class));
+            windowMap.putAll(SpringUtils.getBeansOfType(JPanel.class));
+            for (Object window : windowMap.values()) {
+                Class<?> windowClass = window.getClass();
                 ReflectionUtils.doWithFields(windowClass, field -> {
                     if (Component.class.isAssignableFrom(field.getType())
                             && !TextComponent.class.isAssignableFrom(field.getType())

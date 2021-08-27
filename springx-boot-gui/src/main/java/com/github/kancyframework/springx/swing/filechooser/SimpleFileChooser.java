@@ -1,6 +1,7 @@
 package com.github.kancyframework.springx.swing.filechooser;
 
 import java.awt.*;
+import java.io.File;
 
 /**
  * SimpleFileChooser
@@ -21,6 +22,11 @@ public class SimpleFileChooser extends SimpleFileDirectoryChooser {
 
     public SimpleFileChooser(Component parentComponent, String title) {
         super(parentComponent, title);
+    }
+
+    public AbstractFileChooser setSelectedFile(File file){
+        fileChooser.setSelectedFile(file);
+        return this;
     }
 
 }

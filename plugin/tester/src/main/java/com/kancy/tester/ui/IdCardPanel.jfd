@@ -1,0 +1,267 @@
+JFDML JFormDesigner: "7.0.0.6.255" Java: "11.0.8" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+			name: "this"
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+				"$layoutConstraints": "hidemode 3"
+				"$columnConstraints": "[46,fill][85,fill][94,fill][175,fill][97,fill][fill]"
+				"$rowConstraints": "[][]"
+			} ) {
+				name: "idCardConfigPanel"
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label1"
+					"text": "姓名"
+					auxiliary() {
+						"JavaCodeGenerator.variableLocal": true
+					}
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 1,alignx right,growx 0"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "nameTextField"
+					"text": "张三丰"
+					"font": new java.awt.Font( "Microsoft YaHei UI", 1, 12 )
+					"foreground": new java.awt.Color( 0, 0, 0, 255 )
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 1 1,hmin 21"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label2"
+					"text": "身份证号码"
+					auxiliary() {
+						"JavaCodeGenerator.variableLocal": true
+					}
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 2 1,alignx right,growx 0"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "idCardNoTextField"
+					"text": "350103198207160353"
+					"font": new java.awt.Font( "Microsoft YaHei UI", 1, 12 )
+					"foreground": new java.awt.Color( 0, 0, 0, 255 )
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 3 1,hmin 21"
+				} )
+				add( new FormComponent( "javax.swing.JCheckBox" ) {
+					name: "randomCheckBox"
+					"text": "随机"
+					"selected": true
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "randomCheckBoxActionPerformed", true ) )
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 4 1,alignx right,growx 0"
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "genButton"
+					"text": "生成"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "genButtonActionPerformed", true ) )
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 5 1,dock center"
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "North"
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.CardLayout ) ) {
+				name: "idCardImagePanel"
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "Center"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 605, 310 )
+		} )
+		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+			name: "idCardFrontImagePanel"
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "imageNameLabel"
+				"text": "张三丰"
+				"font": &Font0 new java.awt.Font( "Microsoft YaHei UI", 1, 16 )
+				"foreground": &Color0 new java.awt.Color( 0, 0, 0, 255 )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 70
+				"height": 30
+				"x": 115
+				"y": 50
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "imageSexLabel"
+				"text": "男"
+				"font": &Font1 new java.awt.Font( "Microsoft YaHei UI", 1, 16 )
+				"foreground": #Color0
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 45
+				"height": 30
+				"x": 115
+				"y": 95
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "imageNationLabel"
+				"text": "汉"
+				"font": #Font1
+				"foreground": #Color0
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 45
+				"height": 30
+				"x": 245
+				"y": 95
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "imageYearLabel"
+				"text": "1982"
+				"font": #Font0
+				"foreground": #Color0
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 60
+				"height": 30
+				"x": 115
+				"y": 140
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "imageMonthLabel"
+				"text": "7"
+				"font": #Font0
+				"foreground": #Color0
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 35
+				"height": 30
+				"x": 215
+				"y": 140
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "imageDayLabel"
+				"text": "16"
+				"font": #Font0
+				"foreground": #Color0
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 35
+				"height": 30
+				"x": 265
+				"y": 140
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "imageAddressLabel"
+				"font": #Font0
+				"foreground": #Color0
+				"verticalAlignment": 1
+				"text": "<html>福建省福州市台江区受条路热衣小区<br/>17单元2154室</html>"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 280
+				"height": 95
+				"x": 115
+				"y": 190
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "imageIdCardLabel"
+				"text": "3 5 0 1 0 3 1 9 8 2 0 7 1 6 0 3 5 3"
+				"font": new java.awt.Font( "Microsoft YaHei UI", 1, 18 )
+				"foreground": #Color0
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 300
+				"height": 35
+				"x": 200
+				"y": 305
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "imageHeadPhotoLabel"
+				"icon": new com.jformdesigner.model.SwingIcon( 0, "/images/id_card_front_photo_200x200_boy_3.png" )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 200
+				"height": 200
+				"x": 375
+				"y": 55
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "frontImage"
+				"icon": new com.jformdesigner.model.SwingIcon( 0, "/images/id_card_front_600x400.png" )
+				"toolTipText": "单机切换到身份证反面哦！"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 0
+				"y": 0
+				"width": 600
+				"height": 380
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 325 )
+			"size": new java.awt.Dimension( 610, 400 )
+		} )
+		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+			name: "idCardBackImagePanel"
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "imageQfjgLabel"
+				"text": "福州市台江区公安局"
+				"font": #Font0
+				"foreground": #Color0
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 320
+				"height": 30
+				"x": 260
+				"y": 265
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "imageCardValidDateLabel"
+				"text": "2021.06.05-2041.06.05"
+				"font": #Font0
+				"foreground": #Color0
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 230
+				"height": 35
+				"x": 260
+				"y": 310
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "backImage"
+				"icon": new com.jformdesigner.model.SwingIcon( 0, "/images/id_card_back_600x400.png" )
+				"toolTipText": "单机切换到身份证正面哦！"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 0
+				"y": 0
+				"width": 600
+				"height": 380
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 741 )
+			"size": new java.awt.Dimension( 610, 400 )
+		} )
+		add( new FormContainer( "javax.swing.JPopupMenu", new FormLayoutManager( class javax.swing.JPopupMenu ) ) {
+			name: "idCardPopupMenu"
+			add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+				name: "menu1"
+				"text": "设置"
+				add( new FormComponent( "javax.swing.JMenuItem" ) {
+					name: "menuItem1"
+					"text": "设置默认民族"
+				} )
+				add( new FormComponent( "javax.swing.JMenuItem" ) {
+					name: "menuItem4"
+					"text": "设置年龄区间"
+				} )
+				add( new FormComponent( "javax.swing.JMenuItem" ) {
+					name: "menuItem6"
+					"text": "设置身份证有效期"
+				} )
+			} )
+			add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
+				name: "separator1"
+			} )
+			add( new FormComponent( "javax.swing.JMenuItem" ) {
+				name: "menuItem2"
+				"text": "复制身份证号码"
+			} )
+			add( new FormComponent( "javax.swing.JMenuItem" ) {
+				name: "menuItem3"
+				"text": "复制身份证信息"
+			} )
+			add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
+				name: "separator2"
+			} )
+			add( new FormComponent( "javax.swing.JMenuItem" ) {
+				name: "menuItem5"
+				"text": "身份证另存为"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 660, 395 )
+		} )
+	}
+}
