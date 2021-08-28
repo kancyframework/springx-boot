@@ -46,7 +46,7 @@ public class BatchGenBankCardNoActionListener extends JFrameApplicationListener 
         StringBuilder sb = new StringBuilder();
         sb.append("序号,卡号,卡类型,卡名称,银行名称,卡bin,卡长度").append(lineChar);
 
-        InputDialog inputDialog = new InputDialog() {
+        InputDialog inputDialog = new InputDialog(bankCardPanel, "需要生成多少银行卡测试数据?") {
             @Override
             protected JComponent getInputComponent() {
                 SpinnerModel model = new SpinnerNumberModel(1000, 0, 100000, 10);
@@ -55,7 +55,6 @@ public class BatchGenBankCardNoActionListener extends JFrameApplicationListener 
                 return spinner;
             }
         };
-        inputDialog.setInputPrompt("需要生成多少银行卡测试数据?");
         inputDialog.show();
 
         Object inputValue = inputDialog.getInputValue();

@@ -95,6 +95,9 @@ public class BankCardPanel extends JPanel {
         cardBinLabel = new JLabel();
         bankCardImageLabel = new JLabel();
         bankCardPopupMenu = new JPopupMenu();
+        menu1 = new JMenu();
+        menuItem5 = new JMenuItem();
+        menuItem6 = new JMenuItem();
         menuItem2 = new JMenuItem();
         menuItem3 = new JMenuItem();
         menuItem1 = new JMenuItem();
@@ -223,6 +226,21 @@ public class BankCardPanel extends JPanel {
         //======== bankCardPopupMenu ========
         {
 
+            //======== menu1 ========
+            {
+                menu1.setText("Api\u63a5\u53e3\u670d\u52a1");
+
+                //---- menuItem5 ----
+                menuItem5.setText("\u94f6\u884c\u5361\u5f71\u50cf\u63a5\u53e3");
+                menu1.add(menuItem5);
+
+                //---- menuItem6 ----
+                menuItem6.setText("\u94f6\u884c\u5361\u6570\u636e\u63a5\u53e3");
+                menu1.add(menuItem6);
+            }
+            bankCardPopupMenu.add(menu1);
+            bankCardPopupMenu.addSeparator();
+
             //---- menuItem2 ----
             menuItem2.setText("\u590d\u5236\u94f6\u884c\u5361\u53f7\u7801");
             bankCardPopupMenu.add(menuItem2);
@@ -255,6 +273,9 @@ public class BankCardPanel extends JPanel {
     private JLabel cardBinLabel;
     private JLabel bankCardImageLabel;
     private JPopupMenu bankCardPopupMenu;
+    private JMenu menu1;
+    private JMenuItem menuItem5;
+    private JMenuItem menuItem6;
     private JMenuItem menuItem2;
     private JMenuItem menuItem3;
     private JMenuItem menuItem1;

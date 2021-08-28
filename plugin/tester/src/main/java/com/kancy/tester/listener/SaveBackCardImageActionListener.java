@@ -49,9 +49,9 @@ public class SaveBackCardImageActionListener extends JFrameApplicationListener {
             String selectedFilePath = fileChooser.getSelectedFilePath();
             try {
                 ImageUtils.writeComponentImage(bankCardPanel.getBankCardImagePanel(), selectedFilePath);
-                Swing.msg(bankCardPanel, "保存成功！");
+                Swing.msg(bankCardPanel, "银行卡影像保存成功！");
             } catch (IOException e) {
-                Swing.msg(bankCardPanel, "保存失败！");
+                Swing.msg(bankCardPanel, "银行卡影像保存失败！");
             }
         });
     }

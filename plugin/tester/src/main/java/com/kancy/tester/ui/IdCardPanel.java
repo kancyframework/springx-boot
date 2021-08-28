@@ -4,7 +4,6 @@
 
 package com.kancy.tester.ui;
 
-import javax.swing.border.*;
 import com.github.kancyframework.springx.context.InitializingBean;
 import com.github.kancyframework.springx.context.annotation.Component;
 import com.github.kancyframework.springx.log.Log;
@@ -19,6 +18,7 @@ import lombok.Data;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
+import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
@@ -99,14 +99,29 @@ public class IdCardPanel extends JPanel implements InitializingBean {
                 idCardNoTextField.setEditable(false);
                 nameTextField.setText(NameUtils.fullName());
                 idCardNoTextField.setText(IDCardUtils.create());
+                idCardNoTextField.setForeground(Color.BLACK);
             } else {
                 nameTextField.setEditable(true);
                 idCardNoTextField.setEditable(true);
+                // 验证身份证号码是否合法
+                String idCard = idCardNoTextField.getText().trim();
+                if (idCard.length() != 18){
+                    Swing.msg(this, "身份证号码[{}]非法！", idCard);
+                    idCardNoTextField.setForeground(Color.RED);
+                    return;
+                }
+                if(!IDCardUtils.isPersonId(idCard)){
+                    Swing.msg(this, "请注意，该身份证号码[{}]不合法！", idCard);
+                    idCardNoTextField.setForeground(Color.RED);
+                }else{
+                    idCardNoTextField.setForeground(Color.BLACK);
+                }
             }
+            String idCard = idCardNoTextField.getText().trim();
 
             // 渲染图片
             imageNameLabel.setText(nameTextField.getText());
-            String idCard = idCardNoTextField.getText().trim();
+
             imageIdCardLabel.setText(addSpace(idCard));
 
             imageYearLabel.setText(idCard.substring(6, 10));
@@ -250,6 +265,9 @@ public class IdCardPanel extends JPanel implements InitializingBean {
         menuItem7 = new JMenuItem();
         menuItem8 = new JMenuItem();
         menuItem9 = new JMenuItem();
+        menu3 = new JMenu();
+        menuItem14 = new JMenuItem();
+        menuItem15 = new JMenuItem();
         menuItem2 = new JMenuItem();
         menuItem3 = new JMenuItem();
         menuItem5 = new JMenuItem();
@@ -505,6 +523,21 @@ public class IdCardPanel extends JPanel implements InitializingBean {
             idCardPopupMenu.add(menu1);
             idCardPopupMenu.addSeparator();
 
+            //======== menu3 ========
+            {
+                menu3.setText("Api\u63a5\u53e3\u670d\u52a1");
+
+                //---- menuItem14 ----
+                menuItem14.setText("\u8eab\u4efd\u8bc1\u5f71\u50cf\u63a5\u53e3");
+                menu3.add(menuItem14);
+
+                //---- menuItem15 ----
+                menuItem15.setText("\u8eab\u4efd\u8bc1\u6570\u636e\u63a5\u53e3");
+                menu3.add(menuItem15);
+            }
+            idCardPopupMenu.add(menu3);
+            idCardPopupMenu.addSeparator();
+
             //---- menuItem2 ----
             menuItem2.setText("\u590d\u5236\u8eab\u4efd\u8bc1\u53f7\u7801");
             idCardPopupMenu.add(menuItem2);
@@ -565,6 +598,9 @@ public class IdCardPanel extends JPanel implements InitializingBean {
     private JMenuItem menuItem7;
     private JMenuItem menuItem8;
     private JMenuItem menuItem9;
+    private JMenu menu3;
+    private JMenuItem menuItem14;
+    private JMenuItem menuItem15;
     private JMenuItem menuItem2;
     private JMenuItem menuItem3;
     private JMenuItem menuItem5;

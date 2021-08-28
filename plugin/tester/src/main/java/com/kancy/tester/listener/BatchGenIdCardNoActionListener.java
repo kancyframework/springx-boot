@@ -21,7 +21,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.Date;
 import java.util.Objects;
 
@@ -53,7 +52,7 @@ public class BatchGenIdCardNoActionListener extends JFrameApplicationListener {
         boolean selectedRandom = idCardPanel.getRandomCheckBox().isSelected();
         String defaultIdCardValidDate = MapDb.getData("defaultIdCardValidDate");
 
-        InputDialog inputDialog = new InputDialog() {
+        InputDialog inputDialog = new InputDialog(idCardPanel, "需要生成多少身份证测试数据?") {
             @Override
             protected JComponent getInputComponent() {
                 SpinnerModel model = new SpinnerNumberModel(1000, 0, 100000, 10);
@@ -62,7 +61,6 @@ public class BatchGenIdCardNoActionListener extends JFrameApplicationListener {
                 return spinner;
             }
         };
-        inputDialog.setInputPrompt("需要生成多少身份证测试数据?");
         inputDialog.show();
 
         Object inputValue = inputDialog.getInputValue();

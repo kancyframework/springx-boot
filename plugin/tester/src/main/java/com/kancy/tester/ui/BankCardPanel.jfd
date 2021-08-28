@@ -144,6 +144,21 @@ new FormModel {
 		} )
 		add( new FormContainer( "javax.swing.JPopupMenu", new FormLayoutManager( class javax.swing.JPopupMenu ) ) {
 			name: "bankCardPopupMenu"
+			add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+				name: "menu1"
+				"text": "Api接口服务"
+				add( new FormComponent( "javax.swing.JMenuItem" ) {
+					name: "menuItem5"
+					"text": "银行卡影像接口"
+				} )
+				add( new FormComponent( "javax.swing.JMenuItem" ) {
+					name: "menuItem6"
+					"text": "银行卡数据接口"
+				} )
+			} )
+			add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
+				name: "separator3"
+			} )
 			add( new FormComponent( "javax.swing.JMenuItem" ) {
 				name: "menuItem2"
 				"text": "复制银行卡号码"

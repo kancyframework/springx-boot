@@ -1,8 +1,12 @@
 package com.kancy.tester.server.handler;
 
 import com.github.kancyframework.springx.context.annotation.Component;
+import com.github.kancyframework.springx.utils.BeanUtils;
+import com.github.kancyframework.springx.utils.RandomUtils;
 import com.github.kancyframework.springx.utils.StringUtils;
 import com.kancy.spring.minidb.MapDb;
+import com.kancy.tester.domain.BankCard;
+import com.kancy.tester.service.BankCardService;
 import com.kancy.tester.utils.IDCardUtils;
 import com.kancy.tester.utils.MockDataUtils;
 import com.kancy.tester.utils.NameUtils;
@@ -28,6 +32,26 @@ public class DataHttpHandler extends BaseHttpHandler{
 
         Map<String, Object> responseMap = new HashMap<>();
         if (Objects.equals(params.getOrDefault("type", "idcard"), "bankcard")){
+            BankCardService bankCardService = new BankCardService();
+            String cardType = params.getOrDefault("cardType","所有").toUpperCase();
+            String bankName = params.getOrDefault("bankName", "所有");
+
+            Object indexKey = null;
+            String searchCardType = "";
+            if (Objects.equals(cardType,"所有") || (cardType.contains("DEBIT") && cardType.contains("CREDIT"))){
+                searchCardType = RandomUtils.nextBoolean() ? "DEBIT" : "CREDIT";
+            }else {
+                searchCardType = cardType;
+            }
+            if (Objects.equals(bankName,"所有")){
+                indexKey = searchCardType;
+            }else {
+                indexKey = String.format("%s@%s", bankName, searchCardType);
+            }
+            BankCard bankCard = bankCardService.generateCard(String.valueOf(indexKey));
+
+            responseMap.putAll(BeanUtils.beanToMap(bankCard.getCardBin()));
+            responseMap.put("cardNo", bankCard.getCardNo());
             return StringUtils.toJSONString(responseMap);
         }
 

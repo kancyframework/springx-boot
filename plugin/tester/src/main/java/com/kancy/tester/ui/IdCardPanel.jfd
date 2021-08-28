@@ -292,6 +292,21 @@ new FormModel {
 				} )
 			} )
 			add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
+				name: "separator8"
+			} )
+			add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+				name: "menu3"
+				"text": "Api接口服务"
+				add( new FormComponent( "javax.swing.JMenuItem" ) {
+					name: "menuItem14"
+					"text": "身份证影像接口"
+				} )
+				add( new FormComponent( "javax.swing.JMenuItem" ) {
+					name: "menuItem15"
+					"text": "身份证数据接口"
+				} )
+			} )
+			add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
 				name: "separator1"
 			} )
 			add( new FormComponent( "javax.swing.JMenuItem" ) {

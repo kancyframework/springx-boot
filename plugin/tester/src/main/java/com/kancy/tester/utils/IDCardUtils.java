@@ -111,7 +111,7 @@ public class IDCardUtils {
         String birthday = getBirthday();
         String randomNumber = getRandomNumber();
         String sexCode = getSexCode();
-        String checkCode = getCheckCode(district + birthday + randomNumber);
+        String checkCode = getCheckCode(district + birthday + randomNumber + sexCode);
         return district + birthday + randomNumber + sexCode + checkCode;
     }
 
