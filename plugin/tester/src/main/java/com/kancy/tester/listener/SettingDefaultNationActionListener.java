@@ -12,6 +12,8 @@ import com.github.kancyframework.springx.utils.StringUtils;
 import com.kancy.spring.minidb.MapDb;
 import com.kancy.tester.ui.IdCardPanel;
 
+import java.util.Objects;
+
 /**
  * SettingDefaultNationActionListener
  *
@@ -31,7 +33,7 @@ public class SettingDefaultNationActionListener extends JFrameApplicationListene
      */
     @Override
     public void onApplicationEvent(JFrameApplicationEvent event) {
-        String nation = Swing.getInput(JTextFieldInputDialog.class, null,"设置默认民族",
+        String nation = Swing.getInput(JTextFieldInputDialog.class, idCardPanel,"设置默认民族",
                 MapDb.getData("defaultNation", "汉"));
         if (StringUtils.isBlank(nation)){
             return;

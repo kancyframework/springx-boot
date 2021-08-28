@@ -34,7 +34,10 @@ public class VerifyIdCardNoActionListener extends JFrameApplicationListener {
      */
     @Override
     public void onApplicationEvent(JFrameApplicationEvent event) {
-        String idCardNo = Swing.getInput(JTextFieldInputDialog.class, null,"请输入需要验证的身份证号码");
+        String idCardNo = Swing.getInput(JTextFieldInputDialog.class, idCardPanel,"请输入需要验证的身份证号码");
+        if (Objects.isNull(idCardNo)){
+            return;
+        }
         if (StringUtils.isBlank(idCardNo)){
             Swing.msg(idCardPanel, "请先输入身份证号码！");
             return;
@@ -42,7 +45,7 @@ public class VerifyIdCardNoActionListener extends JFrameApplicationListener {
 
         if (IDCardUtils.isPersonId(idCardNo)){
             Town town = District.getInstance().getTowns().get(idCardNo.substring(0, 6));
-            if (Objects.nonNull(town)){
+            if (Objects.nonNull(town) && idCardNo.length() == 18){
                 Swing.msg(idCardPanel, "<html>身份证号码[<font color=green>{}</font>]有效！<br/><br/>" +
                         "性别：{}<br/>" +
                         "年龄：{}<br/>" +

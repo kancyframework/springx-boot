@@ -302,7 +302,6 @@ public class Swing {
         inputDialog.show();
         return (T) inputDialog.getInputValue();
     }
-
     /**
      * 断言不能不为空
      * @param object 支持的类型：字符串，数组，集合，Map

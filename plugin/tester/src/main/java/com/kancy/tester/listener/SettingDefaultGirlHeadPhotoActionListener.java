@@ -15,6 +15,7 @@ import com.kancy.tester.ui.IdCardPanel;
 import javax.swing.*;
 import java.io.File;
 import java.net.MalformedURLException;
+import java.util.Objects;
 
 /**
  * SettingDefaultGirlHeadPhotoActionListener
@@ -34,8 +35,11 @@ public class SettingDefaultGirlHeadPhotoActionListener extends JFrameApplication
      */
     @Override
     public void onApplicationEvent(JFrameApplicationEvent event) {
-        String filePath = Swing.getInput(JTextFieldInputDialog.class, null,"设置默认女头像",
+        String filePath = Swing.getInput(JTextFieldInputDialog.class, idCardPanel,"设置默认女头像",
                 MapDb.getData("defaultGirlHeadPhoto", "classpath:/images/id_card_front_photo_200x200_girl_3.png"));
+        if (Objects.isNull(filePath)){
+            return;
+        }
         if (StringUtils.isBlank(filePath)){
             MapDb.putData("defaultGirlHeadPhoto", filePath);
             Swing.msg(idCardPanel, "已清除默认女头像！");

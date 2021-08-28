@@ -14,6 +14,7 @@ import com.kancy.tester.ui.IdCardPanel;
 import javax.swing.*;
 import java.io.File;
 import java.net.MalformedURLException;
+import java.util.Objects;
 
 /**
  * SettingDefaultBoyHeadPhotoActionListener
@@ -33,8 +34,11 @@ public class SettingDefaultBoyHeadPhotoActionListener extends JFrameApplicationL
      */
     @Override
     public void onApplicationEvent(JFrameApplicationEvent event) {
-        String filePath = Swing.getInput(JTextFieldInputDialog.class, null,"设置默认男头像",
+        String filePath = Swing.getInput(JTextFieldInputDialog.class, idCardPanel,"设置默认男头像",
                 MapDb.getData("defaultBoyHeadPhoto","classpath:/images/id_card_front_photo_200x200_boy_3.png"));
+        if (Objects.isNull(filePath)){
+            return;
+        }
         if (StringUtils.isBlank(filePath)){
             MapDb.putData("defaultBoyHeadPhoto", filePath);
             Swing.msg(idCardPanel, "已清除默认男头像！");

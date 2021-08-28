@@ -14,6 +14,11 @@ public class JSpinnerInputDialog extends InputDialog {
     private int width = 150;
     private int height = 30;
 
+    private int initValue = 0;
+    private int minimum = 0;
+    private int maximum = Integer.MAX_VALUE;
+    private int stepSize = 1;
+
     public JSpinnerInputDialog() {
     }
 
@@ -27,12 +32,7 @@ public class JSpinnerInputDialog extends InputDialog {
 
     @Override
     protected JComponent getInputComponent() {
-        int min = 0;
-        int max = 100000;
-        int step = 1;  //步数间隔
-        int initValue = 0;  //初始值
-        SpinnerModel model = new SpinnerNumberModel(initValue, min, max, step);
-        JSpinner spinner = new JSpinner(model);
+        JSpinner spinner = new JSpinner(new SpinnerNumberModel(initValue, minimum, maximum, stepSize));
         spinner.setPreferredSize(new Dimension(width, height));
         return spinner;
     }
@@ -48,5 +48,21 @@ public class JSpinnerInputDialog extends InputDialog {
     public void setSize(int width, int height){
         setWidth(width);
         setHeight(height);
+    }
+
+    public void setInitValue(int initValue) {
+        this.initValue = initValue;
+    }
+
+    public void setMinimum(int minimum) {
+        this.minimum = minimum;
+    }
+
+    public void setMaximum(int maximum) {
+        this.maximum = maximum;
+    }
+
+    public void setStepSize(int stepSize) {
+        this.stepSize = stepSize;
     }
 }

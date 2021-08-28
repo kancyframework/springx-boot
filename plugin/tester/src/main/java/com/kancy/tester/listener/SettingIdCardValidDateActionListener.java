@@ -12,6 +12,8 @@ import com.github.kancyframework.springx.utils.StringUtils;
 import com.kancy.spring.minidb.MapDb;
 import com.kancy.tester.ui.IdCardPanel;
 
+import java.util.Objects;
+
 /**
  * SettingDefaultNationActionListener
  *
@@ -31,18 +33,21 @@ public class SettingIdCardValidDateActionListener extends JFrameApplicationListe
      */
     @Override
     public void onApplicationEvent(JFrameApplicationEvent event) {
-        String text = Swing.getInput(JTextFieldInputDialog.class, null,
+        String cardValidDate = Swing.getInput(JTextFieldInputDialog.class, idCardPanel,
                 "设置默认身份证有效期（yyyy.MM.dd-yyyy.MM.dd/长期）",
                 MapDb.getData("defaultIdCardValidDate", ""));
-        if (StringUtils.isBlank(text)){
-            MapDb.putData("defaultIdCardValidDate", text);
+        if (Objects.isNull(cardValidDate)){
+            return;
+        }
+        if (StringUtils.isBlank(cardValidDate)){
+            MapDb.putData("defaultIdCardValidDate", cardValidDate);
             Swing.msg(idCardPanel, "已清除默认身份证有效期！");
             return;
         } else {
-            text = text.trim();
-            idCardPanel.getImageCardValidDateLabel().setText(text);
+            cardValidDate = cardValidDate.trim();
+            idCardPanel.getImageCardValidDateLabel().setText(cardValidDate);
         }
-        MapDb.putData("defaultIdCardValidDate", text);
+        MapDb.putData("defaultIdCardValidDate", cardValidDate);
         Swing.msg(idCardPanel, "设置成功！");
     }
 }

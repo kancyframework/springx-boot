@@ -137,7 +137,7 @@ public abstract class ClassUtils {
             paramClasses[i] = args[i].getClass();
         }
         try {
-            Constructor<?> constructor = ReflectionUtils.accessibleConstructor(cls, paramClasses);
+            Constructor constructor = getDeclaredConstructor(cls, paramClasses);
             ReflectionUtils.makeAccessible(constructor);
             return (T) constructor.newInstance(args);
         } catch (Exception e) {
@@ -153,6 +153,33 @@ public abstract class ClassUtils {
         }
         return null;
     }
+
+    public static <T> Constructor getDeclaredConstructor(Class<T> cls, Class<?>[] paramClasses)
+            throws NoSuchMethodException {
+        Constructor constructor = null;
+        try {
+            constructor = ReflectionUtils.accessibleConstructor(cls, paramClasses);
+        } catch (NoSuchMethodException e) {
+            Constructor<?>[] constructors = cls.getDeclaredConstructors();
+            for (Constructor<?> c : constructors) {
+                if (c.getParameterCount() == paramClasses.length){
+                    constructor = c;
+                    Class<?>[] parameterTypes = c.getParameterTypes();
+                    for (int i = 0; i < parameterTypes.length; i++) {
+                        if (!ClassUtils.isAssignableFrom(parameterTypes[i], paramClasses[i])){
+                            constructor = null;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        if (Objects.isNull(constructor)){
+            throw new NoSuchMethodException("Not found available constructor");
+        }
+        return constructor;
+    }
+
 
     /**
      * 在类上是否有注解

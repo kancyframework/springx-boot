@@ -13,6 +13,8 @@ import com.kancy.spring.minidb.MapDb;
 import com.kancy.tester.ui.IdCardPanel;
 import com.kancy.tester.utils.IDCardUtils;
 
+import java.util.Objects;
+
 /**
  * SettingDefaultNationActionListener
  *
@@ -32,9 +34,8 @@ public class SettingIdCardAgeRangeActionListener extends JFrameApplicationListen
      */
     @Override
     public void onApplicationEvent(JFrameApplicationEvent event) {
-        String idCardAgeRange = Swing.getInput(JTextFieldInputDialog.class, null,"设置年龄区间（格式：年龄1-年龄2）",
-                MapDb.getData("idCardAgeRange", "18-50"));
-
+        String idCardAgeRange = Swing.getInput(JTextFieldInputDialog.class, idCardPanel,"设置年龄区间（格式：年龄1-年龄2）",
+                MapDb.getData("idCardAgeRange", "18-60"));
         if (StringUtils.isBlank(idCardAgeRange)){
             return;
         }
