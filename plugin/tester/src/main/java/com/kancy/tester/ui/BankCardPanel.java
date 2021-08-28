@@ -4,9 +4,9 @@
 
 package com.kancy.tester.ui;
 
-import javax.swing.border.*;
 import com.github.kancyframework.springx.context.annotation.Component;
 import com.github.kancyframework.springx.swing.utils.PopupMenuUtils;
+import com.github.kancyframework.springx.utils.RandomUtils;
 import com.kancy.tester.domain.BankCard;
 import com.kancy.tester.domain.CardBin;
 import com.kancy.tester.service.BankCardService;
@@ -14,6 +14,7 @@ import lombok.Data;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
+import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.Objects;
@@ -36,7 +37,10 @@ public class BankCardPanel extends JPanel {
 
     private void genBanckCardButtonActionPerformed(ActionEvent e) {
 
-        Object searchCardType = Objects.equals(getBankCardTypeComboBox().getSelectedItem(), "储蓄卡") ? "DEBIT" : "CREDIT";
+        Object selectedItem = getBankCardTypeComboBox().getSelectedItem();
+        Object searchCardType = Objects.equals(selectedItem, "储蓄卡") ? "DEBIT" :
+                Objects.equals(selectedItem, "信用卡") ? "CREDIT" :
+                        (RandomUtils.nextInt(10000) % 2 == 0 ? "DEBIT" : "CREDIT");
         Object searchBankName = getBankNameComboBox().getSelectedItem();
 
         Object indexKey = null;
@@ -92,6 +96,7 @@ public class BankCardPanel extends JPanel {
         menuItem2 = new JMenuItem();
         menuItem3 = new JMenuItem();
         menuItem1 = new JMenuItem();
+        menuItem4 = new JMenuItem();
 
         //======== this ========
         setLayout(new BorderLayout());
@@ -117,6 +122,7 @@ public class BankCardPanel extends JPanel {
 
             //---- bankCardTypeComboBox ----
             bankCardTypeComboBox.setModel(new DefaultComboBoxModel<>(new String[] {
+                "\u6240\u6709",
                 "\u50a8\u84c4\u5361",
                 "\u4fe1\u7528\u5361"
             }));
@@ -227,6 +233,11 @@ public class BankCardPanel extends JPanel {
             //---- menuItem1 ----
             menuItem1.setText("\u94f6\u884c\u5361\u53e6\u5b58\u4e3a");
             bankCardPopupMenu.add(menuItem1);
+            bankCardPopupMenu.addSeparator();
+
+            //---- menuItem4 ----
+            menuItem4.setText("\u6279\u91cf\u751f\u6210\u94f6\u884c\u5361");
+            bankCardPopupMenu.add(menuItem4);
         }
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
@@ -245,5 +256,6 @@ public class BankCardPanel extends JPanel {
     private JMenuItem menuItem2;
     private JMenuItem menuItem3;
     private JMenuItem menuItem1;
+    private JMenuItem menuItem4;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

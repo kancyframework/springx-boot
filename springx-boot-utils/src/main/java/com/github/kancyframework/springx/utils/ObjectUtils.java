@@ -72,6 +72,41 @@ public abstract class ObjectUtils {
     public static boolean isNotBlank(Object object){
         return !isBlank(object);
     }
+
+    /**
+     * 为null时取默认值
+     * @param object
+     * @return
+     */
+    public static <T> T defaultNull(Object object, T def){
+        if (Objects.isNull(object)){
+            return def;
+        }
+        return (T) object;
+    }
+    /**
+     * 为空时取默认值
+     * @param object
+     * @return
+     */
+    public static <T> T defaultEmpty(Object object, T def){
+        if (isEmpty(object)){
+            return def;
+        }
+        return (T) object;
+    }
+    /**
+     * 为空时取默认值
+     * @param object
+     * @return
+     */
+    public static <T> T defaultBlank(Object object, T def){
+        if (isBlank(object)){
+            return def;
+        }
+        return (T) object;
+    }
+
     /**
      * 对象转换类型
      * @param value

@@ -7,6 +7,8 @@ package com.kancy.tester.ui;
 import javax.swing.border.*;
 import com.github.kancyframework.springx.context.InitializingBean;
 import com.github.kancyframework.springx.context.annotation.Component;
+import com.github.kancyframework.springx.log.Log;
+import com.github.kancyframework.springx.swing.Swing;
 import com.github.kancyframework.springx.swing.utils.PopupMenuUtils;
 import com.github.kancyframework.springx.utils.RandomUtils;
 import com.github.kancyframework.springx.utils.StringUtils;
@@ -92,96 +94,101 @@ public class IdCardPanel extends JPanel implements InitializingBean {
     }
 
     private void genButtonActionPerformed(ActionEvent e) {
-        if (randomCheckBox.isSelected()){
-            nameTextField.setEditable(false);
-            idCardNoTextField.setEditable(false);
-            nameTextField.setText(NameUtils.fullName());
-            idCardNoTextField.setText(IDCardUtils.create());
-        } else {
-            nameTextField.setEditable(true);
-            idCardNoTextField.setEditable(true);
-        }
+        try {
+            if (randomCheckBox.isSelected()){
+                nameTextField.setEditable(false);
+                idCardNoTextField.setEditable(false);
+                nameTextField.setText(NameUtils.fullName());
+                idCardNoTextField.setText(IDCardUtils.create());
+            } else {
+                nameTextField.setEditable(true);
+                idCardNoTextField.setEditable(true);
+            }
 
-        // 渲染图片
-        imageNameLabel.setText(nameTextField.getText());
-        String idCard = idCardNoTextField.getText().trim();
-        imageIdCardLabel.setText(addSpace(idCard));
+            // 渲染图片
+            imageNameLabel.setText(nameTextField.getText());
+            String idCard = idCardNoTextField.getText().trim();
+            imageIdCardLabel.setText(addSpace(idCard));
 
-        imageYearLabel.setText(idCard.substring(6, 10));
+            imageYearLabel.setText(idCard.substring(6, 10));
 
-        String monthStr = idCard.substring(10, 12);
-        imageMonthLabel.setText(monthStr.startsWith("0")?monthStr.substring(1):monthStr);
+            String monthStr = idCard.substring(10, 12);
+            imageMonthLabel.setText(monthStr.startsWith("0")?monthStr.substring(1):monthStr);
 
-        String dayStr = idCard.substring(12, 14);
-        imageDayLabel.setText(dayStr.startsWith("0")?dayStr.substring(1):dayStr);
+            String dayStr = idCard.substring(12, 14);
+            imageDayLabel.setText(dayStr.startsWith("0")?dayStr.substring(1):dayStr);
 
-        String sexStr = idCard.substring(16, 17);
-        // 调整身份证头像和性别
-        if (Integer.parseInt(sexStr) % 2 == 0){
-            imageSexLabel.setText("女");
-            String filePath = MapDb.getData("defaultGirlHeadPhoto");
-            if (!randomCheckBox.isSelected() && StringUtils.isNotBlank(filePath)){
-                try {
-                    String classPathPrefix = "classpath:";
-                    if (filePath.startsWith(classPathPrefix)){
-                        String classPath = filePath.replace(classPathPrefix, "");
-                        if (!classPath.startsWith("/") ){
-                            classPath = "/" + classPath;
+            String sexStr = idCard.substring(16, 17);
+            // 调整身份证头像和性别
+            if (Integer.parseInt(sexStr) % 2 == 0){
+                imageSexLabel.setText("女");
+                String filePath = MapDb.getData("defaultGirlHeadPhoto");
+                if (!randomCheckBox.isSelected() && StringUtils.isNotBlank(filePath)){
+                    try {
+                        String classPathPrefix = "classpath:";
+                        if (filePath.startsWith(classPathPrefix)){
+                            String classPath = filePath.replace(classPathPrefix, "");
+                            if (!classPath.startsWith("/") ){
+                                classPath = "/" + classPath;
+                            }
+                            getImageHeadPhotoLabel().setIcon(new ImageIcon(getClass().getResource(classPath)));
+                        } else {
+                            getImageHeadPhotoLabel().setIcon(new ImageIcon(new File(filePath).toURL()));
                         }
-                        getImageHeadPhotoLabel().setIcon(new ImageIcon(getClass().getResource(classPath)));
-                    } else {
-                        getImageHeadPhotoLabel().setIcon(new ImageIcon(new File(filePath).toURL()));
+                    } catch (Exception x) {
+                        imageHeadPhotoLabel.setIcon(new ImageIcon(getClass().getResource(
+                                String.format("/images/id_card_front_photo_200x200_girl_%s.png",
+                                        RandomUtils.nextInt(1, 5)))));
                     }
-                } catch (Exception x) {
+                }else{
                     imageHeadPhotoLabel.setIcon(new ImageIcon(getClass().getResource(
                             String.format("/images/id_card_front_photo_200x200_girl_%s.png",
                                     RandomUtils.nextInt(1, 5)))));
                 }
             }else{
-                imageHeadPhotoLabel.setIcon(new ImageIcon(getClass().getResource(
-                        String.format("/images/id_card_front_photo_200x200_girl_%s.png",
-                                RandomUtils.nextInt(1, 5)))));
-            }
-        }else{
-            imageSexLabel.setText("男");
+                imageSexLabel.setText("男");
 
-            String filePath = MapDb.getData("defaultBoyHeadPhoto");
-            if (!randomCheckBox.isSelected() && StringUtils.isNotBlank(filePath)){
-                try {
-                    String classPathPrefix = "classpath:";
-                    if (filePath.startsWith(classPathPrefix)){
-                        String classPath = filePath.replace(classPathPrefix, "");
-                        if (!classPath.startsWith("/") ){
-                            classPath = "/" + classPath;
+                String filePath = MapDb.getData("defaultBoyHeadPhoto");
+                if (!randomCheckBox.isSelected() && StringUtils.isNotBlank(filePath)){
+                    try {
+                        String classPathPrefix = "classpath:";
+                        if (filePath.startsWith(classPathPrefix)){
+                            String classPath = filePath.replace(classPathPrefix, "");
+                            if (!classPath.startsWith("/") ){
+                                classPath = "/" + classPath;
+                            }
+                            getImageHeadPhotoLabel().setIcon(new ImageIcon(getClass().getResource(classPath)));
+                        } else {
+                            getImageHeadPhotoLabel().setIcon(new ImageIcon(new File(filePath).toURL()));
                         }
-                        getImageHeadPhotoLabel().setIcon(new ImageIcon(getClass().getResource(classPath)));
-                    } else {
-                        getImageHeadPhotoLabel().setIcon(new ImageIcon(new File(filePath).toURL()));
+                    } catch (Exception x) {
+                        imageHeadPhotoLabel.setIcon(new ImageIcon(getClass().getResource(
+                                String.format("/images/id_card_front_photo_200x200_boy_%s.png",
+                                        RandomUtils.nextInt(1, 4)))));
                     }
-                } catch (Exception x) {
+                }else{
                     imageHeadPhotoLabel.setIcon(new ImageIcon(getClass().getResource(
                             String.format("/images/id_card_front_photo_200x200_boy_%s.png",
                                     RandomUtils.nextInt(1, 4)))));
                 }
+            }
+
+            imageAddressLabel.setText(IDCardUtils.getAddress(idCard));
+
+            // 反面
+            imageQfjgLabel.setText(String.format("%s公安局", IDCardUtils.getCityAndTown(idCard)));
+            if (randomCheckBox.isSelected()){
+                imageCardValidDateLabel.setText(IDCardUtils.getCardValidDate(idCard));
             }else{
-                imageHeadPhotoLabel.setIcon(new ImageIcon(getClass().getResource(
-                        String.format("/images/id_card_front_photo_200x200_boy_%s.png",
-                                RandomUtils.nextInt(1, 4)))));
+                String cardValidDate = MapDb.getData("defaultIdCardValidDate");
+                if(StringUtils.isBlank(cardValidDate)){
+                    cardValidDate = IDCardUtils.getCardValidDate(idCard);
+                }
+                imageCardValidDateLabel.setText(cardValidDate);
             }
-        }
-
-        imageAddressLabel.setText(IDCardUtils.getAddress(idCard));
-
-        // 反面
-        imageQfjgLabel.setText(String.format("%s公安局", IDCardUtils.getCityAndTown(idCard)));
-        if (randomCheckBox.isSelected()){
-            imageCardValidDateLabel.setText(IDCardUtils.getCardValidDate(idCard));
-        }else{
-            String cardValidDate = MapDb.getData("defaultIdCardValidDate");
-            if(StringUtils.isBlank(cardValidDate)){
-                cardValidDate = IDCardUtils.getCardValidDate(idCard);
-            }
-            imageCardValidDateLabel.setText(cardValidDate);
+        } catch (Exception ex) {
+            Log.error(ex.getMessage(), ex);
+            Swing.msg(this, "处理失败！");
         }
     }
 
@@ -231,6 +238,7 @@ public class IdCardPanel extends JPanel implements InitializingBean {
         idCardPopupMenu = new JPopupMenu();
         menu1 = new JMenu();
         menuItem1 = new JMenuItem();
+        menuItem10 = new JMenuItem();
         menuItem4 = new JMenuItem();
         menuItem6 = new JMenuItem();
         menu2 = new JMenu();
@@ -242,6 +250,8 @@ public class IdCardPanel extends JPanel implements InitializingBean {
         menuItem2 = new JMenuItem();
         menuItem3 = new JMenuItem();
         menuItem5 = new JMenuItem();
+        menuItem11 = new JMenuItem();
+        menuItem12 = new JMenuItem();
 
         //======== this ========
         setLayout(new BorderLayout());
@@ -305,7 +315,7 @@ public class IdCardPanel extends JPanel implements InitializingBean {
             idCardFrontImagePanel.setLayout(null);
 
             //---- imageNameLabel ----
-            imageNameLabel.setText("\u5f20\u4e09\u4e30");
+            imageNameLabel.setText("\u7f8e\u7334\u738b");
             imageNameLabel.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 16));
             imageNameLabel.setForeground(Color.black);
             idCardFrontImagePanel.add(imageNameLabel);
@@ -440,6 +450,10 @@ public class IdCardPanel extends JPanel implements InitializingBean {
                 menu1.add(menuItem1);
                 menu1.addSeparator();
 
+                //---- menuItem10 ----
+                menuItem10.setText("\u8bbe\u7f6e\u884c\u653f\u533a\u5212");
+                menu1.add(menuItem10);
+
                 //---- menuItem4 ----
                 menuItem4.setText("\u8bbe\u7f6e\u5e74\u9f84\u533a\u95f4");
                 menu1.add(menuItem4);
@@ -475,12 +489,13 @@ public class IdCardPanel extends JPanel implements InitializingBean {
                 //---- menuItem8 ----
                 menuItem8.setText("\u8bbe\u7f6e\u9ed8\u8ba4\u5973\u5934\u50cf");
                 menu1.add(menuItem8);
+                menu1.addSeparator();
+
+                //---- menuItem9 ----
+                menuItem9.setText("\u8bbe\u7f6e\u91cd\u7f6e");
+                menu1.add(menuItem9);
             }
             idCardPopupMenu.add(menu1);
-
-            //---- menuItem9 ----
-            menuItem9.setText("\u8bbe\u7f6e\u91cd\u7f6e");
-            idCardPopupMenu.add(menuItem9);
             idCardPopupMenu.addSeparator();
 
             //---- menuItem2 ----
@@ -495,6 +510,15 @@ public class IdCardPanel extends JPanel implements InitializingBean {
             //---- menuItem5 ----
             menuItem5.setText("\u8eab\u4efd\u8bc1\u53e6\u5b58\u4e3a");
             idCardPopupMenu.add(menuItem5);
+            idCardPopupMenu.addSeparator();
+
+            //---- menuItem11 ----
+            menuItem11.setText("\u9a8c\u8bc1\u8eab\u4efd\u8bc1\u53f7\u7801");
+            idCardPopupMenu.add(menuItem11);
+
+            //---- menuItem12 ----
+            menuItem12.setText("\u6279\u91cf\u751f\u6210\u8eab\u4efd\u8bc1");
+            idCardPopupMenu.add(menuItem12);
         }
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
@@ -524,6 +548,7 @@ public class IdCardPanel extends JPanel implements InitializingBean {
     private JPopupMenu idCardPopupMenu;
     private JMenu menu1;
     private JMenuItem menuItem1;
+    private JMenuItem menuItem10;
     private JMenuItem menuItem4;
     private JMenuItem menuItem6;
     private JMenu menu2;
@@ -535,5 +560,7 @@ public class IdCardPanel extends JPanel implements InitializingBean {
     private JMenuItem menuItem2;
     private JMenuItem menuItem3;
     private JMenuItem menuItem5;
+    private JMenuItem menuItem11;
+    private JMenuItem menuItem12;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

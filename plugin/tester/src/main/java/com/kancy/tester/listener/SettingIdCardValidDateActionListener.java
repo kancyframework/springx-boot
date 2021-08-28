@@ -19,7 +19,7 @@ import com.kancy.tester.ui.IdCardPanel;
  * @date 2021/8/27 18:51
  */
 @Action({"设置身份证有效期"})
-@KeyStroke("ctrl 3")
+@KeyStroke("ctrl 4")
 @Component
 public class SettingIdCardValidDateActionListener extends JFrameApplicationListener {
     @Autowired

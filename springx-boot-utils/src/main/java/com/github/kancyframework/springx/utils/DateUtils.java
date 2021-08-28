@@ -1,5 +1,6 @@
 package com.github.kancyframework.springx.utils;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -41,5 +42,46 @@ public abstract class DateUtils {
     }
     public static String getNowPathStr(){
         return new SimpleDateFormat("yyyy/MM/dd").format(new Date());
+    }
+    public static Date toDate(String dateStr){
+        Date date = null;
+        try {
+            date = new SimpleDateFormat("yyyy-MM-dd").parse(dateStr);
+        } catch (ParseException e1) {
+            try {
+                date = new SimpleDateFormat("yyyy/MM/dd").parse(dateStr);
+            } catch (ParseException e2) {
+                try {
+                    date = new SimpleDateFormat("yyyyMMdd").parse(dateStr);
+                } catch (ParseException e3) {
+                    try {
+                        date = new SimpleDateFormat("yyyy年MM月dd日").parse(dateStr);
+                    } catch (ParseException e4) {
+                        e4.printStackTrace();
+                    }
+                }
+            }
+        }
+        return date;
+    }
+    public static Date toDateTime(String dateStr) {
+        Date date = null;
+        try {
+            date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dateStr);
+        } catch (ParseException e1) {
+            try {
+                date = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").parse(dateStr);
+            } catch (ParseException e2) {
+                e2.printStackTrace();
+            }
+        }
+        return date;
+    }
+    public static Date toTime(String dateStr , String format) {
+        try {
+            return new SimpleDateFormat(format).parse(dateStr);
+        } catch (ParseException e) {
+            return null;
+        }
     }
 }

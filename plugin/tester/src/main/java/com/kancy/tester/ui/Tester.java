@@ -7,7 +7,6 @@ package com.kancy.tester.ui;
 import com.github.kancyframework.springx.context.InitializingBean;
 import com.github.kancyframework.springx.context.annotation.Autowired;
 import com.github.kancyframework.springx.context.annotation.Component;
-import com.sun.awt.AWTUtilities;
 import lombok.Data;
 
 import javax.swing.*;

@@ -8,6 +8,7 @@ import com.github.kancyframework.springx.swing.action.JFrameApplicationEvent;
 import com.github.kancyframework.springx.swing.action.JFrameApplicationListener;
 import com.kancy.spring.minidb.MapDb;
 import com.kancy.tester.ui.IdCardPanel;
+import com.kancy.tester.utils.IDCardUtils;
 
 /**
  * SettingResetActionListener
@@ -28,6 +29,9 @@ public class SettingResetActionListener extends JFrameApplicationListener {
     @Override
     public void onApplicationEvent(JFrameApplicationEvent event) {
         MapDb.clearAll();
+        IDCardUtils.setAddressEnabled(null,null,null);
+        IDCardUtils.setSexEnabled(true, true);
+        IDCardUtils.setAgeRange(18, 60);
         Swing.msg(idCardPanel, "重置成功！");
     }
 }

@@ -24,7 +24,8 @@ new FormModel {
 				add( new FormComponent( "javax.swing.JComboBox" ) {
 					name: "bankCardTypeComboBox"
 					"model": new javax.swing.DefaultComboBoxModel {
-						selectedItem: "储蓄卡"
+						selectedItem: "所有"
+						addElement( "所有" )
 						addElement( "储蓄卡" )
 						addElement( "信用卡" )
 					}
@@ -157,6 +158,13 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JMenuItem" ) {
 				name: "menuItem1"
 				"text": "银行卡另存为"
+			} )
+			add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
+				name: "separator2"
+			} )
+			add( new FormComponent( "javax.swing.JMenuItem" ) {
+				name: "menuItem4"
+				"text": "批量生成银行卡"
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 100, 540 )

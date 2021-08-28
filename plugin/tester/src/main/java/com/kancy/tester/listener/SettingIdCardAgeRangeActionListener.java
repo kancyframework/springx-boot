@@ -20,7 +20,7 @@ import com.kancy.tester.utils.IDCardUtils;
  * @date 2021/8/27 18:51
  */
 @Action({"设置年龄区间"})
-@KeyStroke("ctrl 2")
+@KeyStroke("ctrl 3")
 @Component
 public class SettingIdCardAgeRangeActionListener extends JFrameApplicationListener {
     @Autowired

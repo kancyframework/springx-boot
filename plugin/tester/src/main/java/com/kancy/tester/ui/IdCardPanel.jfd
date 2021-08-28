@@ -77,7 +77,7 @@ new FormModel {
 			name: "idCardFrontImagePanel"
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "imageNameLabel"
-				"text": "张三丰"
+				"text": "美猴王"
 				"font": &Font0 new java.awt.Font( "Microsoft YaHei UI", 1, 16 )
 				"foreground": &Color0 new java.awt.Color( 0, 0, 0, 255 )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
@@ -238,6 +238,10 @@ new FormModel {
 					name: "separator3"
 				} )
 				add( new FormComponent( "javax.swing.JMenuItem" ) {
+					name: "menuItem10"
+					"text": "设置行政区划"
+				} )
+				add( new FormComponent( "javax.swing.JMenuItem" ) {
 					name: "menuItem4"
 					"text": "设置年龄区间"
 				} )
@@ -275,10 +279,13 @@ new FormModel {
 					name: "menuItem8"
 					"text": "设置默认女头像"
 				} )
-			} )
-			add( new FormComponent( "javax.swing.JMenuItem" ) {
-				name: "menuItem9"
-				"text": "设置重置"
+				add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
+					name: "separator6"
+				} )
+				add( new FormComponent( "javax.swing.JMenuItem" ) {
+					name: "menuItem9"
+					"text": "设置重置"
+				} )
 			} )
 			add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
 				name: "separator1"
@@ -298,13 +305,19 @@ new FormModel {
 				name: "menuItem5"
 				"text": "身份证另存为"
 			} )
+			add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
+				name: "separator7"
+			} )
+			add( new FormComponent( "javax.swing.JMenuItem" ) {
+				name: "menuItem11"
+				"text": "验证身份证号码"
+			} )
+			add( new FormComponent( "javax.swing.JMenuItem" ) {
+				name: "menuItem12"
+				"text": "批量生成身份证"
+			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 660, 395 )
-		} )
-		add( new FormNonVisual( "javax.swing.ButtonGroup" ) {
-			name: "buttonGroup1"
-		}, new FormLayoutConstraints( null ) {
-			"location": new java.awt.Point( 0, 1157 )
 		} )
 	}
 }
