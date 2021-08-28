@@ -87,7 +87,9 @@ public class VerifyBankCardNoActionListener extends JFrameApplicationListener {
                         "卡长度：{}<br/>" +
                         "卡bin：{}<br/>" +
                         "</html>", bankCardNo.trim(),
-                cardBin.getBankName(),cardBin.getCardName(),cardBin.getCardType(),bankCardNo.length(),cardBin.getId()
+                cardBin.getBankName(),cardBin.getCardName(),
+                Objects.equals(cardBin.getCardType(), "DEBIT") ? "储蓄卡" : "信用卡"
+                ,bankCardNo.length(),cardBin.getId()
         );
     }
 
