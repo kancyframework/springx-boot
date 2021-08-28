@@ -92,8 +92,7 @@ public class IdCardPanel extends JPanel implements InitializingBean {
             idCardNoTextField.setEditable(true);
         }
     }
-
-    private void genButtonActionPerformed(ActionEvent e) {
+    public void genButtonActionPerformed() {
         try {
             if (randomCheckBox.isSelected()){
                 nameTextField.setEditable(false);
@@ -191,6 +190,9 @@ public class IdCardPanel extends JPanel implements InitializingBean {
             Swing.msg(this, "处理失败！");
         }
     }
+    private void genButtonActionPerformed(ActionEvent e) {
+        genButtonActionPerformed();
+    }
 
     private String addSpace(String str){
         return addSpace(str, 1);
@@ -236,6 +238,7 @@ public class IdCardPanel extends JPanel implements InitializingBean {
         imageCardValidDateLabel = new JLabel();
         backImage = new JLabel();
         idCardPopupMenu = new JPopupMenu();
+        menuItem13 = new JMenuItem();
         menu1 = new JMenu();
         menuItem1 = new JMenuItem();
         menuItem10 = new JMenuItem();
@@ -441,6 +444,10 @@ public class IdCardPanel extends JPanel implements InitializingBean {
         //======== idCardPopupMenu ========
         {
 
+            //---- menuItem13 ----
+            menuItem13.setText("\u5173\u4e8e");
+            idCardPopupMenu.add(menuItem13);
+
             //======== menu1 ========
             {
                 menu1.setText("\u8bbe\u7f6e");
@@ -546,6 +553,7 @@ public class IdCardPanel extends JPanel implements InitializingBean {
     private JLabel imageCardValidDateLabel;
     private JLabel backImage;
     private JPopupMenu idCardPopupMenu;
+    private JMenuItem menuItem13;
     private JMenu menu1;
     private JMenuItem menuItem1;
     private JMenuItem menuItem10;

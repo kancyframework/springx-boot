@@ -227,6 +227,10 @@ new FormModel {
 		} )
 		add( new FormContainer( "javax.swing.JPopupMenu", new FormLayoutManager( class javax.swing.JPopupMenu ) ) {
 			name: "idCardPopupMenu"
+			add( new FormComponent( "javax.swing.JMenuItem" ) {
+				name: "menuItem13"
+				"text": "关于"
+			} )
 			add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
 				name: "menu1"
 				"text": "设置"

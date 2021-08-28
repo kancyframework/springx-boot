@@ -25,11 +25,4 @@ public class ExceptionUtils {
             pw.close();
         }
     }
-
-    public static <T extends Throwable> void throwRuntimeException(T t) {
-        if (t instanceof RuntimeException){
-            throw RuntimeException.class.cast(t);
-        }
-        throw new RuntimeException(t);
-    }
 }

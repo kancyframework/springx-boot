@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -50,6 +51,15 @@ public class ImageUtils {
     public static Image createImage(File file) throws MalformedURLException {
         ImageIcon icon = new ImageIcon(file.toURL());
         return icon.getImage();
+    }
+
+    public static byte[] getComponentImage(Component component) throws IOException {
+        BufferedImage bi = new BufferedImage(component.getWidth(), component.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        Graphics2D  g2d = bi.createGraphics();
+        component.paint(g2d);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        ImageIO.write(bi, "PNG", byteArrayOutputStream);
+        return byteArrayOutputStream.toByteArray();
     }
 
     public static boolean writeComponentImage(Component component, String filePath) throws IOException {

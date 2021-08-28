@@ -34,8 +34,10 @@ public class BankCardPanel extends JPanel {
 
         PopupMenuUtils.addPopupMenu(bankCardImageLabel, bankCardPopupMenu);
     }
-
     private void genBanckCardButtonActionPerformed(ActionEvent e) {
+        genBanckCardButtonActionPerformed();
+    }
+    public void genBanckCardButtonActionPerformed() {
 
         Object selectedItem = getBankCardTypeComboBox().getSelectedItem();
         Object searchCardType = Objects.equals(selectedItem, "储蓄卡") ? "DEBIT" :

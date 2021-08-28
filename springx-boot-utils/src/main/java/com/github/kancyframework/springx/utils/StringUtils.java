@@ -275,4 +275,15 @@ public abstract class StringUtils {
         }
         return null;
     }
+
+    /**
+     * 转json str
+     * @param bean
+     * @return
+     */
+    public static String toJSONString(Object bean){
+        return SimpleJsonUtils.toJSONString(bean);
+    }
+
+
 }
