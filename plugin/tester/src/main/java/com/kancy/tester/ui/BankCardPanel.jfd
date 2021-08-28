@@ -178,6 +178,10 @@ new FormModel {
 				name: "separator2"
 			} )
 			add( new FormComponent( "javax.swing.JMenuItem" ) {
+				name: "menuItem7"
+				"text": "验证银行卡号码"
+			} )
+			add( new FormComponent( "javax.swing.JMenuItem" ) {
 				name: "menuItem4"
 				"text": "批量生成银行卡"
 			} )

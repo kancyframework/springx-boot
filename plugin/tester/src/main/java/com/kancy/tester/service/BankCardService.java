@@ -54,7 +54,7 @@ public class BankCardService {
      * @param nonCheckCodeCardId
      * @return
      */
-    private static char getBankCardCheckCode(String nonCheckCodeCardId){
+    public char getBankCardCheckCode(String nonCheckCodeCardId){
         if(nonCheckCodeCardId == null || nonCheckCodeCardId.trim().length() == 0
                 || !nonCheckCodeCardId.matches("\\d+")) {
             //如果传的不是数据返回N

@@ -40,6 +40,7 @@ public class CardBinData {
                     createCardBinIndex(String.format("其他银行@%s", cardBin.getCardType()), cardBin);
                 }
                 createCardBinIndex(cardBin.getCardType(), cardBin);
+                createCardBinIndex(cardBin.getId(), cardBin);
             }
         } catch (Exception e) {
             Log.error("加载cardbin数据失败：{}", e.getMessage());

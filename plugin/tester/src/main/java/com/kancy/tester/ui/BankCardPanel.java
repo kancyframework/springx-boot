@@ -101,6 +101,7 @@ public class BankCardPanel extends JPanel {
         menuItem2 = new JMenuItem();
         menuItem3 = new JMenuItem();
         menuItem1 = new JMenuItem();
+        menuItem7 = new JMenuItem();
         menuItem4 = new JMenuItem();
 
         //======== this ========
@@ -255,6 +256,10 @@ public class BankCardPanel extends JPanel {
             bankCardPopupMenu.add(menuItem1);
             bankCardPopupMenu.addSeparator();
 
+            //---- menuItem7 ----
+            menuItem7.setText("\u9a8c\u8bc1\u94f6\u884c\u5361\u53f7\u7801");
+            bankCardPopupMenu.add(menuItem7);
+
             //---- menuItem4 ----
             menuItem4.setText("\u6279\u91cf\u751f\u6210\u94f6\u884c\u5361");
             bankCardPopupMenu.add(menuItem4);
@@ -279,6 +284,7 @@ public class BankCardPanel extends JPanel {
     private JMenuItem menuItem2;
     private JMenuItem menuItem3;
     private JMenuItem menuItem1;
+    private JMenuItem menuItem7;
     private JMenuItem menuItem4;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }
