@@ -14,6 +14,7 @@ import com.github.kancyframework.springx.utils.StringUtils;
 import com.kancy.spring.minidb.MapDb;
 import com.kancy.tester.ui.IdCardPanel;
 import com.kancy.tester.utils.IDCardUtils;
+import com.kancy.tester.utils.MockDataUtils;
 import com.kancy.tester.utils.NameUtils;
 
 import javax.swing.*;
@@ -47,7 +48,7 @@ public class BatchGenIdCardNoActionListener extends JFrameApplicationListener {
         String splitChar = ",";
 
         StringBuilder sb = new StringBuilder();
-        sb.append("序号,身份证号码,姓名,性别,年龄,生日,星座,生肖,户籍地址,签发机关,有效期限").append(lineChar);
+        sb.append("序号,身份证号码,姓名,性别,年龄,生日,星座,生肖,户籍地址,签发机关,有效期限,手机号,邮箱").append(lineChar);
 
         boolean selectedRandom = idCardPanel.getRandomCheckBox().isSelected();
         String defaultIdCardValidDate = MapDb.getData("defaultIdCardValidDate");
@@ -106,11 +107,13 @@ public class BatchGenIdCardNoActionListener extends JFrameApplicationListener {
                                     .replace("<html>","")
                                     .replace("</html>","")).append(splitChar)
                             .append(String.format("%s公安局", IDCardUtils.getCityAndTown(idCardNo))).append(splitChar)
-                            .append(cardValidDate).append(lineChar);
+                            .append(cardValidDate).append(splitChar)
+                            .append(MockDataUtils.mobile()).append("\t").append(splitChar)
+                            .append(MockDataUtils.email()).append(lineChar);
                 }
 
                 // 写到文件
-                FileUtils.writeByteArrayToFile(sb.toString().getBytes(Charset.defaultCharset()), new File(selectedFilePath));
+                FileUtils.writeByteArrayToFile(sb.toString().getBytes("GBK"), new File(selectedFilePath));
                 Swing.msg(idCardPanel, "身份证数据生成成功！");
             } catch (IOException e) {
                 Swing.msg(idCardPanel, "身份证数据生成失败！");

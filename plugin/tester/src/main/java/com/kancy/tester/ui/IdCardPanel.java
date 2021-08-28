@@ -276,7 +276,7 @@ public class IdCardPanel extends JPanel implements InitializingBean {
             idCardConfigPanel.add(label1, "cell 0 0,alignx right,growx 0");
 
             //---- nameTextField ----
-            nameTextField.setText("\u5f20\u4e09\u4e30");
+            nameTextField.setText("\u7f8e\u7334\u738b");
             nameTextField.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12));
             nameTextField.setForeground(Color.black);
             idCardConfigPanel.add(nameTextField, "cell 1 0,hmin 21");
