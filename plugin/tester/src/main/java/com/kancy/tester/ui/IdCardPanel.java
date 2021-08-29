@@ -393,7 +393,7 @@ public class IdCardPanel extends JPanel implements InitializingBean {
             imageIdCardLabel.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 18));
             imageIdCardLabel.setForeground(Color.black);
             idCardFrontImagePanel.add(imageIdCardLabel);
-            imageIdCardLabel.setBounds(200, 305, 300, 35);
+            imageIdCardLabel.setBounds(200, 305, 380, 35);
 
             //---- imageHeadPhotoLabel ----
             imageHeadPhotoLabel.setIcon(new ImageIcon(getClass().getResource("/images/id_card_front_photo_200x200_boy_3.png")));

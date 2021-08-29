@@ -37,8 +37,6 @@ public class DistrictDialog extends JDialog {
 
     private void initData() {
         provinceComboBox.addItem(DEFAULT_PROVINCE);
-        cityComboBox.addItem(DEFAULT_CITY);
-        townComboBox.addItem(DEFAULT_TOWN);
 
         for (Province value : District.getInstance().getProvinces().values()) {
             provinceComboBox.addItem(value);
