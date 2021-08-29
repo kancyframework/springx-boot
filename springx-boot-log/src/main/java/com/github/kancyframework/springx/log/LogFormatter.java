@@ -3,6 +3,7 @@ package com.github.kancyframework.springx.log;
 import java.lang.management.ManagementFactory;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 /**
  * LogFormatter
@@ -11,6 +12,10 @@ import java.time.format.DateTimeFormatter;
  * @date 2020/2/18 6:03
  */
 class LogFormatter {
+
+    private static final String OS = System.getProperty("os.name").toLowerCase();
+
+    private static String pid;
 
     private static DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss,SSS");
 
@@ -56,8 +61,22 @@ class LogFormatter {
      * @return
      */
     private static String getPid(){
-        String name = ManagementFactory.getRuntimeMXBean().getName();
-        return name.split("@")[0];
+        if (Objects.nonNull(pid)){
+            return pid;
+        }
+        synchronized (LogFormatter.class){
+            if (isWindows()){
+                String name = ManagementFactory.getRuntimeMXBean().getName();
+                pid = name.split("@")[0];
+            } else {
+                pid = "12345";
+            }
+        }
+        return pid;
+    }
+
+    private static boolean isWindows() {
+        return OS.indexOf("windows") >= 0;
     }
 
     /**
