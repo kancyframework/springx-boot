@@ -33,7 +33,6 @@ public class DistrictDialog extends JDialog {
         initComponents();
         initData();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setSize(new Dimension(500, 150));
     }
 
     private void initData() {

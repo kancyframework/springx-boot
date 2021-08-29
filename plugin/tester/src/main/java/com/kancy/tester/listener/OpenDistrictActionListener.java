@@ -12,6 +12,7 @@ import com.github.kancyframework.springx.swing.action.Action;
 import com.github.kancyframework.springx.swing.action.JFrameApplicationEvent;
 import com.github.kancyframework.springx.swing.action.JFrameApplicationListener;
 import com.github.kancyframework.springx.swing.action.KeyStroke;
+import com.github.kancyframework.springx.swing.utils.SystemUtils;
 import com.kancy.tester.ui.DistrictDialog;
 
 import java.awt.*;
@@ -30,7 +31,11 @@ public class OpenDistrictActionListener extends JFrameApplicationListener {
     public void onApplicationEvent(JFrameApplicationEvent event) {
         DistrictDialog dialog = new DistrictDialog(event.getSource());
         dialog.setTitle("请选择行政区划");
-        dialog.setSize(new Dimension(600, 120));
+        if (SystemUtils.isMacOS()){
+            dialog.setSize(new Dimension(500, 100));
+        }else {
+            dialog.setSize(new Dimension(600, 120));
+        }
         dialog.setResizable(false);
         dialog.setVisible(true);
     }
