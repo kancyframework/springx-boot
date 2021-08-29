@@ -51,6 +51,9 @@ public class IdCardPanel extends JPanel implements InitializingBean {
         MouseAdapter mouseAdapter = new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                if (e.getButton() != MouseEvent.BUTTON1){
+                    return;
+                }
                 if (Objects.equals(e.getSource(), frontImage)) {
                     CardLayout layout = (CardLayout) idCardImagePanel.getLayout();
                     layout.next(idCardImagePanel);
