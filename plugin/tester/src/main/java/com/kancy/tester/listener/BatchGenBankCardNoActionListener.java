@@ -44,7 +44,7 @@ public class BatchGenBankCardNoActionListener extends JFrameApplicationListener 
         String splitChar = ",";
 
         StringBuilder sb = new StringBuilder();
-        sb.append("序号,卡号,卡类型,卡名称,银行名称,卡bin,卡长度").append(lineChar);
+        sb.append("序号,卡号,卡类型,卡名称,银行名称,银行简称,卡bin,卡长度").append(lineChar);
 
         InputDialog inputDialog = new InputDialog(bankCardPanel, "需要生成多少银行卡测试数据?") {
             @Override
@@ -74,9 +74,8 @@ public class BatchGenBankCardNoActionListener extends JFrameApplicationListener 
                 for (int i = 1; i <= maxSize; i++) {
 
                     Object selectedItem = bankCardPanel.getBankCardTypeComboBox().getSelectedItem();
-                    Object searchCardType = Objects.equals(selectedItem, "储蓄卡") ? "DEBIT" :
-                            Objects.equals(selectedItem, "信用卡") ? "CREDIT" :
-                                    (RandomUtils.nextInt(10000) % 2 == 0 ? "DEBIT" : "CREDIT");
+                    Object searchCardType = Objects.equals(selectedItem, "所有") ?
+                            (RandomUtils.nextInt(10000) % 2 == 0 ? "储蓄卡" : "信用卡") : selectedItem;
                     Object searchBankName = bankCardPanel.getBankNameComboBox().getSelectedItem();
 
                     Object indexKey = null;
@@ -89,9 +88,10 @@ public class BatchGenBankCardNoActionListener extends JFrameApplicationListener 
                     CardBin cardBin = bankCard.getCardBin();
                     sb.append(i).append(splitChar)
                             .append(bankCard.getCardNo()).append("\t").append(splitChar)
-                            .append(Objects.equals(cardBin.getCardType(), "DEBIT") ? "储蓄卡":"信用卡").append(splitChar)
+                            .append(cardBin.getCardType()).append(splitChar)
                             .append(cardBin.getCardName()).append(splitChar)
                             .append(cardBin.getBankName()).append(splitChar)
+                            .append(Objects.isNull(cardBin.getBankAbbr()) ? "":cardBin.getBankAbbr()).append(splitChar)
                             .append(cardBin.getId()).append(splitChar)
                             .append(cardBin.getCardLength()).append(lineChar);
                 }

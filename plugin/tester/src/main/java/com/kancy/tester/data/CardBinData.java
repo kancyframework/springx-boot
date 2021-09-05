@@ -20,20 +20,21 @@ public class CardBinData {
 
     private static final Map<String, List<CardBin>> cardBinIndexs = new HashMap<>();
 
-    private static Set<String> bankNames;
+    private static List<String> bankNames;
 
     static {
-        bankNames = StringUtils.toSet("中国银行,邮储银行,招商银行,工商银行,中信银行,建设银行,农业银行,交通银行,平安银行,民生银行,广发银行,兴业银行,北京银行,上海银行,华夏银行,浦发银行,光大银行");
+        bankNames = StringUtils.toList("中国银行,邮储银行,招商银行,工商银行,中信银行,建设银行,农业银行,交通银行,平安银行,民生银行,广发银行,兴业银行,北京银行,上海银行,华夏银行,浦发银行,光大银行");
         try {
             List<String> allCardBins = IoUtils.readLines(CardBinData.class.getResourceAsStream("/data/cardbin.txt"), "UTF-8");
             for (String cardBinStr : allCardBins) {
-                String[] datas = cardBinStr.split(",", 5);
+                String[] datas = cardBinStr.split(",", 6);
                 CardBin cardBin = new CardBin();
                 cardBin.setId(datas[0]);
                 cardBin.setCardType(datas[1]);
                 cardBin.setCardLength(Integer.parseInt(datas[2]));
                 cardBin.setCardName(datas[3]);
                 cardBin.setBankName(datas[4]);
+                cardBin.setBankAbbr(StringUtils.isBlank(datas[5]) ? null : datas[5]);
                 if (bankNames.contains(cardBin.getBankName())){
                     createCardBinIndex(String.format("%s@%s", cardBin.getBankName(), cardBin.getCardType()), cardBin);
                 }else {
@@ -58,21 +59,15 @@ public class CardBinData {
         }
     }
 
-    public static CardBin randomCreditCardBin(){
-        List<CardBin> credit = cardBinIndexs.get("CREDIT");
-        return credit.get(RandomUtils.nextInt(0, credit.size()));
-    }
-
-    public static CardBin randomDebitCardBin(){
-        List<CardBin> debit = cardBinIndexs.get("DEBIT");
-        return debit.get(RandomUtils.nextInt(0, debit.size()));
-    }
-
     public static CardBin randomCardBin(String key){
         List<CardBin> cardBins = cardBinIndexs.get(key);
         if (Objects.isNull(cardBins)){
             return null;
         }
         return cardBins.get(RandomUtils.nextInt(0, cardBins.size()));
+    }
+
+    public static List<String> getBankNames() {
+        return bankNames;
     }
 }

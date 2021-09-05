@@ -82,13 +82,16 @@ public class VerifyBankCardNoActionListener extends JFrameApplicationListener {
 
         Swing.msg(bankCardPanel, "<html>银行卡号码[<font color=green>{}</font>]有效！<br/><br/>" +
                         "银行名称：{}<br/>" +
+                        "银行简称：{}<br/>" +
                         "卡名称：{}<br/>" +
                         "卡类型：{}<br/>" +
                         "卡长度：{}<br/>" +
                         "卡bin：{}<br/>" +
                         "</html>", bankCardNo.trim(),
-                cardBin.getBankName(),cardBin.getCardName(),
-                Objects.equals(cardBin.getCardType(), "DEBIT") ? "储蓄卡" : "信用卡"
+                cardBin.getBankName(),
+                Objects.isNull(cardBin.getBankAbbr()) ? "无" : cardBin.getBankAbbr(),
+                cardBin.getCardName(),
+                cardBin.getCardType()
                 ,bankCardNo.length(),cardBin.getId()
         );
     }

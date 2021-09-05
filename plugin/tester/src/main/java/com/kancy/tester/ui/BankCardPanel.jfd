@@ -28,6 +28,8 @@ new FormModel {
 						addElement( "所有" )
 						addElement( "储蓄卡" )
 						addElement( "信用卡" )
+						addElement( "准贷记卡" )
+						addElement( "预付费卡" )
 					}
 					"actionCommand": "empty"
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {

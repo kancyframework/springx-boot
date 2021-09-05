@@ -5,8 +5,10 @@
 package com.kancy.tester.ui;
 
 import com.github.kancyframework.springx.context.annotation.Component;
+import com.github.kancyframework.springx.swing.Swing;
 import com.github.kancyframework.springx.swing.utils.PopupMenuUtils;
 import com.github.kancyframework.springx.utils.RandomUtils;
+import com.kancy.tester.data.CardBinData;
 import com.kancy.tester.domain.BankCard;
 import com.kancy.tester.domain.CardBin;
 import com.kancy.tester.service.BankCardService;
@@ -17,6 +19,7 @@ import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -30,6 +33,12 @@ public class BankCardPanel extends JPanel {
 
     public BankCardPanel() {
         initComponents();
+
+        ArrayList<String> bankNames = new ArrayList<>(CardBinData.getBankNames());
+        bankNames.add(0, "所有");
+        bankNames.add("其他银行");
+        bankNameComboBox.setModel(new DefaultComboBoxModel(bankNames.toArray()));
+
         genBanckCardButtonActionPerformed(null);
 
         PopupMenuUtils.addPopupMenu(bankCardImageLabel, bankCardPopupMenu);
@@ -40,9 +49,8 @@ public class BankCardPanel extends JPanel {
     public void genBanckCardButtonActionPerformed() {
 
         Object selectedItem = getBankCardTypeComboBox().getSelectedItem();
-        Object searchCardType = Objects.equals(selectedItem, "储蓄卡") ? "DEBIT" :
-                Objects.equals(selectedItem, "信用卡") ? "CREDIT" :
-                        (RandomUtils.nextInt(10000) % 2 == 0 ? "DEBIT" : "CREDIT");
+        Object searchCardType = Objects.equals(selectedItem, "所有") ?
+                (RandomUtils.nextInt(10000) % 2 == 0 ? "储蓄卡" : "信用卡") : selectedItem;
         Object searchBankName = getBankNameComboBox().getSelectedItem();
 
         Object indexKey = null;
@@ -52,14 +60,17 @@ public class BankCardPanel extends JPanel {
             indexKey = String.format("%s@%s", searchBankName, searchCardType);
         }
         BankCard bankCard = bankCardService.generateCard(String.valueOf(indexKey));
-
+        if (Objects.isNull(bankCard)){
+            Swing.msg(this, "{}没有{}！", searchBankName, searchCardType);
+            return;
+        }
         CardBin cardBin = bankCard.getCardBin();
         bankCardNoLabel.setText(bankCardService.formatCardNo(bankCard));
         cardBinLabel.setText(cardBin.getId());
         bankNameLabel.setText(addSpace(cardBin.getBankName()));
-        bankCardNameLabel.setText(String.format("%s  %s CARD",
-                bankCard.getCardBin().getCardName(),
-                bankCard.getCardBin().getCardType()));
+        bankCardNameLabel.setText(String.format("%s  %s",
+                bankCard.getCardBin().showCardName(),
+                bankCard.getCardBin().showCardType()));
 
     }
     private String addSpace(String str){
@@ -130,7 +141,9 @@ public class BankCardPanel extends JPanel {
             bankCardTypeComboBox.setModel(new DefaultComboBoxModel<>(new String[] {
                 "\u6240\u6709",
                 "\u50a8\u84c4\u5361",
-                "\u4fe1\u7528\u5361"
+                "\u4fe1\u7528\u5361",
+                "\u51c6\u8d37\u8bb0\u5361",
+                "\u9884\u4ed8\u8d39\u5361"
             }));
             bankCardTypeComboBox.setActionCommand("empty");
             bankCardGenConfigPanel.add(bankCardTypeComboBox, "cell 1 0");
@@ -140,27 +153,6 @@ public class BankCardPanel extends JPanel {
             bankCardGenConfigPanel.add(bankNameConfigLabel, "cell 2 0,alignx right,growx 0");
 
             //---- bankNameComboBox ----
-            bankNameComboBox.setModel(new DefaultComboBoxModel<>(new String[] {
-                "\u6240\u6709",
-                "\u4e2d\u56fd\u94f6\u884c",
-                "\u90ae\u50a8\u94f6\u884c",
-                "\u62db\u5546\u94f6\u884c",
-                "\u5de5\u5546\u94f6\u884c",
-                "\u4e2d\u4fe1\u94f6\u884c",
-                "\u5efa\u8bbe\u94f6\u884c",
-                "\u519c\u4e1a\u94f6\u884c",
-                "\u4ea4\u901a\u94f6\u884c",
-                "\u5e73\u5b89\u94f6\u884c",
-                "\u6c11\u751f\u94f6\u884c",
-                "\u5e7f\u53d1\u94f6\u884c",
-                "\u5174\u4e1a\u94f6\u884c",
-                "\u5317\u4eac\u94f6\u884c",
-                "\u4e0a\u6d77\u94f6\u884c",
-                "\u534e\u590f\u94f6\u884c",
-                "\u6d66\u53d1\u94f6\u884c",
-                "\u5149\u5927\u94f6\u884c",
-                "\u5176\u4ed6\u94f6\u884c"
-            }));
             bankNameComboBox.setActionCommand("empty");
             bankCardGenConfigPanel.add(bankNameComboBox, "cell 3 0");
 

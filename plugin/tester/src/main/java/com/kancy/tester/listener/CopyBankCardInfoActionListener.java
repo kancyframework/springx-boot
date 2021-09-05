@@ -9,7 +9,11 @@ import com.github.kancyframework.springx.swing.action.JFrameApplicationListener;
 import com.github.kancyframework.springx.swing.action.KeyStroke;
 import com.github.kancyframework.springx.swing.utils.SystemUtils;
 import com.github.kancyframework.springx.utils.StringUtils;
+import com.kancy.tester.data.CardBinData;
+import com.kancy.tester.domain.CardBin;
 import com.kancy.tester.ui.BankCardPanel;
+
+import java.util.Objects;
 
 /**
  * SettingDefaultNationActionListener
@@ -36,17 +40,18 @@ public class CopyBankCardInfoActionListener extends JFrameApplicationListener {
             return;
         }
 
+        CardBin cardBin = CardBinData.randomCardBin(bankCardPanel.getCardBinLabel().getText());
+        if (Objects.isNull(cardBin)){
+            return;
+        }
         StringBuilder sb = new StringBuilder();
-        sb.append("银行名称：").append(bankCardPanel.getBankNameLabel().getText().replace(" ", "")).append("\r\n");
+        sb.append("银行名称：").append(cardBin.getBankName()).append("\r\n");
+        sb.append("银行简称：").append(Objects.isNull(cardBin.getBankAbbr()) ? "无":cardBin.getBankAbbr()).append("\r\n");
         sb.append("卡号：").append(bankCardNo.replace(" ", "")).append("\r\n");
-
-        String text = bankCardPanel.getBankCardNameLabel().getText();
-        String[] strings = text.split("  ");
-        sb.append("卡名称：").append(strings[0]).append("\r\n");
-        sb.append("卡类型：").append(strings[1].replace(" CARD", "")).append("\r\n");
-
+        sb.append("卡名称：").append(cardBin.getCardName()).append("\r\n");
+        sb.append("卡类型：").append(cardBin.getCardType()).append("\r\n");
+        sb.append("卡bin：").append(cardBin.getId()).append("\r\n");
         sb.append("卡长度：").append(bankCardNo.replace(" ", "").length()).append("\r\n");
-        sb.append("卡bin：").append(bankCardPanel.getCardBinLabel().getText()).append("\r\n");
         SystemUtils.setClipboardText(sb.toString());
         Swing.msg(bankCardPanel, "复制成功！");
     }

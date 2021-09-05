@@ -39,7 +39,7 @@ public class DataHttpHandler extends BaseHttpHandler{
             Object indexKey = null;
             String searchCardType = "";
             if (Objects.equals(cardType,"所有") || (cardType.contains("DEBIT") && cardType.contains("CREDIT"))){
-                searchCardType = RandomUtils.nextBoolean() ? "DEBIT" : "CREDIT";
+                searchCardType = RandomUtils.nextBoolean() ? "储蓄卡" : "信用卡";
             }else {
                 searchCardType = cardType;
             }

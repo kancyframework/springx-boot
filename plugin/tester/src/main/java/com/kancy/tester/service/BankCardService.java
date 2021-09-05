@@ -1,9 +1,12 @@
 package com.kancy.tester.service;
 
+import com.github.kancyframework.springx.swing.exception.AlertException;
 import com.github.kancyframework.springx.utils.RandomUtils;
 import com.kancy.tester.data.CardBinData;
 import com.kancy.tester.domain.BankCard;
 import com.kancy.tester.domain.CardBin;
+
+import java.util.Objects;
 
 /**
  * BankCardService
@@ -13,18 +16,11 @@ import com.kancy.tester.domain.CardBin;
  */
 public class BankCardService {
 
-    public BankCard generateDebitCard(){
-        CardBin cardBin = CardBinData.randomDebitCardBin();
-        BankCard bankCard = generate(cardBin);
-        return bankCard;
-    }
-    public BankCard generateCreditCard(){
-        CardBin cardBin = CardBinData.randomCreditCardBin();
-        BankCard bankCard = generate(cardBin);
-        return bankCard;
-    }
     public BankCard generateCard(String indexkey){
         CardBin cardBin = CardBinData.randomCardBin(indexkey);
+        if (Objects.isNull(cardBin)){
+            return null;
+        }
         BankCard bankCard = generate(cardBin);
         return bankCard;
     }
