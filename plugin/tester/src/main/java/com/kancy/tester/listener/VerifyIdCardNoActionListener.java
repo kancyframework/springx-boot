@@ -7,6 +7,7 @@ import com.github.kancyframework.springx.swing.action.Action;
 import com.github.kancyframework.springx.swing.action.JFrameApplicationEvent;
 import com.github.kancyframework.springx.swing.action.JFrameApplicationListener;
 import com.github.kancyframework.springx.swing.dialog.JTextFieldInputDialog;
+import com.github.kancyframework.springx.utils.CalendarUtils;
 import com.github.kancyframework.springx.utils.StringUtils;
 import com.kancy.tester.domain.District;
 import com.kancy.tester.domain.Town;
@@ -46,6 +47,19 @@ public class VerifyIdCardNoActionListener extends JFrameApplicationListener {
         if (IDCardUtils.isPersonId(idCardNo)){
             Town town = District.getInstance().getTowns().get(idCardNo.substring(0, 6));
             if (Objects.nonNull(town) && idCardNo.length() == 18){
+
+                String solarConstellation = null;
+                try {
+                    String solarDate = CalendarUtils.lunarToSolar(idCardNo.trim().substring(6, 14));
+                    solarConstellation = IDCardUtils.getConstellation(
+                            Integer.parseInt(solarDate.substring(4, 6)), Integer.parseInt(solarDate.substring(6, 8))
+                    );
+                } catch (Exception e) {
+                }
+
+                String constellation = StringUtils.isBlank(solarConstellation) ? IDCardUtils.getConstellationByIdCard(idCardNo) :
+                        String.format("%s（阳历）、%s（农历）", IDCardUtils.getConstellationByIdCard(idCardNo), solarConstellation);
+
                 Swing.msg(idCardPanel, "<html>身份证号码[<font color=green>{}</font>]有效！<br/><br/>" +
                         "性别：{}<br/>" +
                         "年龄：{}<br/>" +
@@ -56,7 +70,7 @@ public class VerifyIdCardNoActionListener extends JFrameApplicationListener {
                         "</html>",idCardNo.trim(),
                             Integer.parseInt(idCardNo.substring(16,17)) % 2 == 0 ? "女" : "男",
                             new Date().getYear() + 1900 - Integer.parseInt(idCardNo.substring(6,10)),
-                            IDCardUtils.getConstellationByIdCard(idCardNo),
+                            constellation,
                             IDCardUtils.getAnimalByIdCard(idCardNo),
                             idCardNo.substring(6,10),Integer.parseInt(idCardNo.substring(10,12)),Integer.parseInt(idCardNo.substring(12,14)),
                             town.getProvince().getProvinceName(),town.getCity().getCityName(),town.getTownName()

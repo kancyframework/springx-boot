@@ -2,12 +2,14 @@ package com.kancy.tester.listener;
 
 import com.github.kancyframework.springx.context.annotation.Autowired;
 import com.github.kancyframework.springx.context.annotation.Component;
+import com.github.kancyframework.springx.log.Log;
 import com.github.kancyframework.springx.swing.Swing;
 import com.github.kancyframework.springx.swing.action.Action;
 import com.github.kancyframework.springx.swing.action.JFrameApplicationEvent;
 import com.github.kancyframework.springx.swing.action.JFrameApplicationListener;
 import com.github.kancyframework.springx.swing.action.KeyStroke;
 import com.github.kancyframework.springx.swing.utils.SystemUtils;
+import com.github.kancyframework.springx.utils.CalendarUtils;
 import com.github.kancyframework.springx.utils.StringUtils;
 import com.kancy.tester.ui.IdCardPanel;
 import com.kancy.tester.utils.IDCardUtils;
@@ -39,12 +41,29 @@ public class CopyIdCardInfoActionListener extends JFrameApplicationListener {
             return;
         }
 
+        String solarConstellation = null;
+        try {
+            String solarDate = CalendarUtils.lunarToSolar(idCardNo.substring(6, 14));
+            solarConstellation = IDCardUtils.getConstellation(
+                    Integer.parseInt(solarDate.substring(4, 6)), Integer.parseInt(solarDate.substring(6, 8))
+            );
+        } catch (Exception e) {
+        }
+
         StringBuilder sb = new StringBuilder();
         sb.append("姓名：").append(idCardPanel.getNameTextField().getText()).append("\r\n");
         sb.append("性别：").append(idCardPanel.getImageSexLabel().getText()).append("\r\n");
         sb.append("名族：").append(idCardPanel.getImageNationLabel().getText()).append("\r\n");
         sb.append("年龄：").append(new Date().getYear() + 1900 - Integer.parseInt(idCardNo.substring(6,10))).append("\r\n");
-        sb.append("星座：").append(IDCardUtils.getConstellationByIdCard(idCardNo)).append("\r\n");
+
+        if (StringUtils.isBlank(solarConstellation)){
+            sb.append("星座：").append(IDCardUtils.getConstellationByIdCard(idCardNo)).append("\r\n");
+        }else {
+            sb.append("星座：")
+                    .append(IDCardUtils.getConstellationByIdCard(idCardNo)).append("（阳历）")
+                    .append("、")
+                    .append(solarConstellation).append("（农历）").append("\r\n");
+        }
         sb.append("生肖：").append(IDCardUtils.getAnimalByIdCard(idCardNo)).append("\r\n");
         sb.append("身份证号码：").append(idCardNo).append("\r\n");
         sb.append("出生生日：").append(String.format("%s年%s月%s日",

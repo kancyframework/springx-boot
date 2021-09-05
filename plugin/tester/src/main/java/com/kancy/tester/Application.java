@@ -31,7 +31,7 @@ public class Application implements SwingSpringApplication<JFrame> {
     @Override
     public void customSettings(JFrame frame) {
         frame.setSize(new Dimension(625, 505));
-        frame.setTitle("影像生成器 1.0 by kancy at 20210827");
+        frame.setTitle("影像生成器 1.1 by kancy at 20210905");
         frame.setResizable(false);
     }
 }

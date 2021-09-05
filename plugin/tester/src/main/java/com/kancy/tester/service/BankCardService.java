@@ -73,9 +73,13 @@ public class BankCardService {
         StringBuilder sb = new StringBuilder();
         String spaceChar = "  ";
         String str = card.getCardNo();
-        while (str.length() >=4){
-            sb.append(str, 0, 4).append(spaceChar);
-            str = str.substring(4);
+        int size = 4;
+        if (str.length() == 18){
+            size = 6;
+        }
+        while (str.length() >=size){
+            sb.append(str, 0, size).append(spaceChar);
+            str = str.substring(size);
         }
         sb.append(str);
         return sb.toString();
