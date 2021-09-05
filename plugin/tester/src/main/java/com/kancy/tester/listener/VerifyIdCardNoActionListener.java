@@ -49,8 +49,9 @@ public class VerifyIdCardNoActionListener extends JFrameApplicationListener {
             if (Objects.nonNull(town) && idCardNo.length() == 18){
 
                 String solarConstellation = null;
+                String solarDate = null;
                 try {
-                    String solarDate = CalendarUtils.lunarToSolar(idCardNo.trim().substring(6, 14));
+                    solarDate = CalendarUtils.lunarToSolar(idCardNo.trim().substring(6, 14));
                     solarConstellation = IDCardUtils.getConstellation(
                             Integer.parseInt(solarDate.substring(4, 6)), Integer.parseInt(solarDate.substring(6, 8))
                     );
