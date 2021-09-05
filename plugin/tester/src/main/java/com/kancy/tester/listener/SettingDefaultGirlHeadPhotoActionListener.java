@@ -6,7 +6,6 @@ import com.github.kancyframework.springx.swing.Swing;
 import com.github.kancyframework.springx.swing.action.Action;
 import com.github.kancyframework.springx.swing.action.JFrameApplicationEvent;
 import com.github.kancyframework.springx.swing.action.JFrameApplicationListener;
-import com.github.kancyframework.springx.swing.action.KeyStroke;
 import com.github.kancyframework.springx.swing.dialog.JTextFieldInputDialog;
 import com.github.kancyframework.springx.utils.StringUtils;
 import com.kancy.spring.minidb.MapDb;
@@ -14,7 +13,6 @@ import com.kancy.tester.ui.IdCardPanel;
 
 import javax.swing.*;
 import java.io.File;
-import java.net.MalformedURLException;
 import java.util.Objects;
 
 /**
@@ -45,22 +43,22 @@ public class SettingDefaultGirlHeadPhotoActionListener extends JFrameApplication
             Swing.msg(idCardPanel, "已清除默认女头像！");
             return;
         }
-
-        String classPathPrefix = "classpath:";
-        if (filePath.startsWith(classPathPrefix)){
-            String classPath = filePath.replace(classPathPrefix, "");
-            if (!classPath.startsWith("/") ){
-                classPath = "/" + classPath;
-            }
-            idCardPanel.getImageHeadPhotoLabel().setIcon(new ImageIcon(getClass().getResource(classPath)));
-        } else {
-            try {
+        try {
+            String classPathPrefix = "classpath:";
+            if (filePath.startsWith(classPathPrefix)){
+                String classPath = filePath.replace(classPathPrefix, "");
+                if (!classPath.startsWith("/") ){
+                    classPath = "/" + classPath;
+                }
+                idCardPanel.getImageHeadPhotoLabel().setIcon(new ImageIcon(getClass().getResource(classPath)));
+            } else {
                 idCardPanel.getImageHeadPhotoLabel().setIcon(new ImageIcon(new File(filePath).toURL()));
-            } catch (MalformedURLException e) {
-                Swing.msg(idCardPanel, "设置失败！");
-                return;
             }
+        } catch (Exception e) {
+            Swing.msg(idCardPanel, "设置失败！");
+            return;
         }
+
         MapDb.putData("defaultGirlHeadPhoto", filePath);
         Swing.msg(idCardPanel, "设置成功！");
     }

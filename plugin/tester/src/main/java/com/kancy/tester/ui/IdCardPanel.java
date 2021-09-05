@@ -261,6 +261,7 @@ public class IdCardPanel extends JPanel implements InitializingBean {
         menuItem1 = new JMenuItem();
         menuItem10 = new JMenuItem();
         menuItem4 = new JMenuItem();
+        menuItem16 = new JMenuItem();
         menuItem6 = new JMenuItem();
         menu2 = new JMenu();
         sexBoyCheckBoxMenuItem = new JCheckBoxMenuItem();
@@ -486,6 +487,10 @@ public class IdCardPanel extends JPanel implements InitializingBean {
                 menuItem4.setText("\u8bbe\u7f6e\u5e74\u9f84\u533a\u95f4");
                 menu1.add(menuItem4);
 
+                //---- menuItem16 ----
+                menuItem16.setText("\u8bbe\u7f6e\u51fa\u751f\u65e5\u671f");
+                menu1.add(menuItem16);
+
                 //---- menuItem6 ----
                 menuItem6.setText("\u8bbe\u7f6e\u8eab\u4efd\u8bc1\u6709\u6548\u671f");
                 menu1.add(menuItem6);
@@ -594,6 +599,7 @@ public class IdCardPanel extends JPanel implements InitializingBean {
     private JMenuItem menuItem1;
     private JMenuItem menuItem10;
     private JMenuItem menuItem4;
+    private JMenuItem menuItem16;
     private JMenuItem menuItem6;
     private JMenu menu2;
     private JCheckBoxMenuItem sexBoyCheckBoxMenuItem;

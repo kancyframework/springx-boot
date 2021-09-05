@@ -34,6 +34,8 @@ public class IDCardUtils {
     private static City city;
     private static Town town;
 
+    private static Date birthDate;
+
     private static Properties districtProperties;
 
     static {
@@ -50,6 +52,7 @@ public class IDCardUtils {
                 District.getInstance().getTowns().getOrDefault(MapDb.getData("defaultDistrictTownCode"), null)
         );
 
+        setBirthday(MapDb.getData("defaultBirthDate"));
     }
     public static String getCardValidDate(String idCardNo){
         Integer minYear = Integer.parseInt(idCardNo.substring(6, 10));
@@ -152,7 +155,15 @@ public class IDCardUtils {
         return zfill(String.valueOf(new Random().nextInt(100)), 2);
     }
 
+
+    public static void setBirthday(Date birthDate) {
+        IDCardUtils.birthDate = birthDate;
+    }
+
     private static String getBirthday() {
+        if (Objects.nonNull(IDCardUtils.birthDate)){
+            return DateUtils.getDateStr(IDCardUtils.birthDate, "yyyyMMdd");
+        }
         Random random = new Random();
         String year = String.valueOf(currYear - random.nextInt(maxAge - minAge) - minAge);
         int iMonth = random.nextInt(12) + 1;

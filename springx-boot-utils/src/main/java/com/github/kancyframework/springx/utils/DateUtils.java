@@ -84,4 +84,25 @@ public abstract class DateUtils {
             return null;
         }
     }
+
+    public static int getCurrYear(){
+        return getYear(new Date());
+    }
+    public static int getYear(Date date){
+        return Integer.parseInt(getDateStr(date, "yyyy"));
+    }
+
+    public static int getCurrMonths(){
+        return getMonths(new Date());
+    }
+    public static int getMonths(Date date){
+        return Integer.parseInt(getDateStr(date, "MM"));
+    }
+
+    public static int getCurrDays(){
+        return getDays(new Date());
+    }
+    public static int getDays(Date date){
+        return Integer.parseInt(getDateStr(date, "dd"));
+    }
 }
