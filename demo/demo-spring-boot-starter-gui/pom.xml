@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.kancyframework</groupId>
     <artifactId>demo-spring-boot-starter-gui</artifactId>
-    <version>0.0.4-SNAPSHOT</version>
+    <version>0.0.5-SNAPSHOT</version>
     <name>demo-spring-boot-starter-gui</name>
     <description>demo-spring-boot-starter-gui</description>
 

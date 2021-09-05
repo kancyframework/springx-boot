@@ -25,7 +25,7 @@
       <envVar name="JDK_HOME" />
     </searchSequence>
     <classPath>
-      <archive location="E:/Work/Idea/workspace/springx-boot/plugin/springx-boot-maven-generator/target/springx-boot-maven-generator-0.0.4-SNAPSHOT.jar" failOnError="false" />
+      <archive location="E:/Work/Idea/workspace/springx-boot/plugin/springx-boot-maven-generator/target/springx-boot-maven-generator-0.0.5-SNAPSHOT.jar" failOnError="false" />
     </classPath>
     <modulePath />
     <nativeLibraryDirectories />

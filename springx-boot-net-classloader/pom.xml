@@ -5,7 +5,7 @@
     <parent>
         <artifactId>springx-boot</artifactId>
         <groupId>com.github.kancyframework</groupId>
-        <version>0.0.4-SNAPSHOT</version>
+        <version>0.0.5-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>springx-boot-net-classloader</artifactId>

@@ -16,7 +16,7 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
 
-        <springx.boot.version>0.0.4-SNAPSHOT</springx.boot.version>
+        <springx.boot.version>0.0.5-SNAPSHOT</springx.boot.version>
         <final.package.name>${artifactId}-${version}</final.package.name>
         <startup.class.name>com.kancy.imageconvertor.Application</startup.class.name>
     </properties>
