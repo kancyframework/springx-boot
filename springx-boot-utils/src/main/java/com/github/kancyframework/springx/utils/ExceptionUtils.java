@@ -11,6 +11,19 @@ import java.io.StringWriter;
  */
 public class ExceptionUtils {
     /**
+     * 不采用 RuntimeException 包装，直接抛出，使异常更加精准
+     *
+     * @param throwable Throwable
+     * @param <T>       泛型标记
+     * @return Throwable
+     * @throws T 泛型
+     */
+    @SuppressWarnings("unchecked")
+    private static <T extends Throwable> T runtime(Throwable throwable) throws T {
+        throw (T) throwable;
+    }
+    
+    /**
      * 获取异常的堆栈信息
      * @param t
      * @return
