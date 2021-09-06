@@ -1,5 +1,7 @@
 package com.github.kancyframework.springx.swing.themes;
 
+import com.github.kancyframework.springx.utils.StringUtils;
+
 /**
  * Themes
  *
@@ -36,6 +38,13 @@ public class Themes {
             case "seaGlass" : LookAndFeels.useSeaGlass();break;
             default:
                 LookAndFeels.useDefault();
+        }
+    }
+
+    public static void useTheme(){
+        String theme = System.getProperty("theme", System.getenv("theme"));
+        if (StringUtils.isNotBlank(theme)){
+            useTheme(theme);
         }
     }
 }

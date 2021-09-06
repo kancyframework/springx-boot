@@ -1,6 +1,7 @@
 package com.github.kancyframework.springx.swing.themes;
 
 import com.github.kancyframework.springx.log.Log;
+
 import javax.swing.*;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
@@ -77,6 +78,7 @@ public class LookAndFeels {
             Log.info("LookAndFeel set : %s", lookAndFeelClassName);
         } catch (Exception e) {
             Log.error("LookAndFeel set fail : %s", e.getMessage());
+            useDefault();
         }
     }
 }
