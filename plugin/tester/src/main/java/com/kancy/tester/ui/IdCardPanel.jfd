@@ -290,6 +290,18 @@ new FormModel {
 				add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
 					name: "separator6"
 				} )
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "menu4"
+					"text": "其他设置"
+					add( new FormComponent( "javax.swing.JCheckBoxMenuItem" ) {
+						name: "idCardImageMergeCheckBoxMenuItem"
+						"text": "身份证影像合并"
+						"selected": true
+					} )
+				} )
+				add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
+					name: "separator9"
+				} )
 				add( new FormComponent( "javax.swing.JMenuItem" ) {
 					name: "menuItem9"
 					"text": "设置重置"

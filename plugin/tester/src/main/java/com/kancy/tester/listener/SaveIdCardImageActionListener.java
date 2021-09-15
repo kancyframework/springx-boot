@@ -7,9 +7,11 @@ import com.github.kancyframework.springx.swing.action.Action;
 import com.github.kancyframework.springx.swing.action.JFrameApplicationEvent;
 import com.github.kancyframework.springx.swing.action.JFrameApplicationListener;
 import com.github.kancyframework.springx.swing.action.KeyStroke;
+import com.github.kancyframework.springx.swing.filechooser.SimpleDirectoryChooser;
 import com.github.kancyframework.springx.swing.filechooser.SimpleFileChooser;
 import com.github.kancyframework.springx.swing.utils.ImageUtils;
 import com.github.kancyframework.springx.utils.FileUtils;
+import com.github.kancyframework.springx.utils.PathUtils;
 import com.github.kancyframework.springx.utils.StringUtils;
 import com.kancy.tester.ui.IdCardPanel;
 
@@ -44,22 +46,46 @@ public class SaveIdCardImageActionListener extends JFrameApplicationListener {
             return;
         }
 
-        SimpleFileChooser dialog = new SimpleFileChooser(event.getSource(), "身份证图片另存为");
-        dialog.setFileNameExtensionFilter("支持png，jpg格式", new String[]{"png", "jpg"});
-        dialog.setSelectedFile(new File(String.format("身份证_%s_%s.png",
-                idCardPanel.getNameTextField().getText(),
-                idCardPanel.getIdCardNoTextField().getText().replace(" ",""))
-        ));
+        boolean selected = idCardPanel.getIdCardImageMergeCheckBoxMenuItem().isSelected();
 
-        dialog.showSaveDialog(fileChooser -> {
-            String selectedFilePath = fileChooser.getSelectedFilePath();
-            try {
-                mergeAndWriteIdCardImages(selectedFilePath);
-                Swing.msg(idCardPanel, "身份证影像保存成功！");
-            } catch (IOException e) {
-                Swing.msg(idCardPanel, "身份证影像保存失败！");
-            }
-        });
+        if (selected){
+            SimpleFileChooser dialog = new SimpleFileChooser(event.getSource(), "身份证图片另存为");
+            dialog.setFileNameExtensionFilter("支持png，jpg格式", new String[]{"png", "jpg"});
+            dialog.setSelectedFile(new File(String.format("身份证_%s_%s.png",
+                    idCardPanel.getNameTextField().getText(),
+                    idCardPanel.getIdCardNoTextField().getText().replace(" ",""))
+            ));
+
+            dialog.showSaveDialog(fileChooser -> {
+                String selectedFilePath = fileChooser.getSelectedFilePath();
+                try {
+                    mergeAndWriteIdCardImages(selectedFilePath);
+                    Swing.msg(idCardPanel, "身份证影像保存成功！");
+                } catch (IOException e) {
+                    Swing.msg(idCardPanel, "身份证影像保存失败！");
+                }
+            });
+        }else {
+            SimpleDirectoryChooser dialog = new SimpleDirectoryChooser(event.getSource(), "身份证图片另存为");
+            dialog.setOnlyDirectorySelection();
+            dialog.showSaveDialog(fileChooser -> {
+                String selectedFilePath = fileChooser.getSelectedFilePath();
+                try {
+                    ImageUtils.writeComponentImage(idCardPanel.getIdCardFrontImagePanel(),
+                            PathUtils.path(selectedFilePath, String.format("身份证正面_%s_%s.png",
+                                    idCardPanel.getNameTextField().getText(),
+                                    idCardPanel.getIdCardNoTextField().getText().replace(" ",""))));
+                    ImageUtils.writeComponentImage(idCardPanel.getIdCardBackImagePanel(),
+                            PathUtils.path(selectedFilePath, String.format("身份证反面_%s_%s.png",
+                                    idCardPanel.getNameTextField().getText(),
+                                    idCardPanel.getIdCardNoTextField().getText().replace(" ",""))));
+                    Swing.msg(idCardPanel, "保存成功！");
+                } catch (IOException e) {
+                    Swing.msg(idCardPanel, "保存失败！");
+                }
+            });
+        }
+
     }
 
     public void mergeAndWriteIdCardImages(String filePath) throws IOException {

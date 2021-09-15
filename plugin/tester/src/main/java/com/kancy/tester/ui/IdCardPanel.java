@@ -74,6 +74,7 @@ public class IdCardPanel extends JPanel implements InitializingBean {
     }
 
     private void setDeFaultValue() {
+        idCardImageMergeCheckBoxMenuItem.setSelected(MapDb.getData("idCardImageMergeEnabled", true));
         imageNationLabel.setText(MapDb.getData("defaultNation", "汉"));
         String[] strings = StringUtils.toArray(MapDb.getData("idCardAgeRange", "18-50"), "-");
         IDCardUtils.setAgeRange(Integer.parseInt(strings[0]), Integer.parseInt(strings[1]));
@@ -268,6 +269,8 @@ public class IdCardPanel extends JPanel implements InitializingBean {
         sexGirlCheckBoxMenuItem = new JCheckBoxMenuItem();
         menuItem7 = new JMenuItem();
         menuItem8 = new JMenuItem();
+        menu4 = new JMenu();
+        idCardImageMergeCheckBoxMenuItem = new JCheckBoxMenuItem();
         menuItem9 = new JMenuItem();
         menu3 = new JMenu();
         menuItem14 = new JMenuItem();
@@ -524,6 +527,18 @@ public class IdCardPanel extends JPanel implements InitializingBean {
                 menu1.add(menuItem8);
                 menu1.addSeparator();
 
+                //======== menu4 ========
+                {
+                    menu4.setText("\u5176\u4ed6\u8bbe\u7f6e");
+
+                    //---- idCardImageMergeCheckBoxMenuItem ----
+                    idCardImageMergeCheckBoxMenuItem.setText("\u8eab\u4efd\u8bc1\u5f71\u50cf\u5408\u5e76");
+                    idCardImageMergeCheckBoxMenuItem.setSelected(true);
+                    menu4.add(idCardImageMergeCheckBoxMenuItem);
+                }
+                menu1.add(menu4);
+                menu1.addSeparator();
+
                 //---- menuItem9 ----
                 menuItem9.setText("\u8bbe\u7f6e\u91cd\u7f6e");
                 menu1.add(menuItem9);
@@ -606,6 +621,8 @@ public class IdCardPanel extends JPanel implements InitializingBean {
     private JCheckBoxMenuItem sexGirlCheckBoxMenuItem;
     private JMenuItem menuItem7;
     private JMenuItem menuItem8;
+    private JMenu menu4;
+    private JCheckBoxMenuItem idCardImageMergeCheckBoxMenuItem;
     private JMenuItem menuItem9;
     private JMenu menu3;
     private JMenuItem menuItem14;

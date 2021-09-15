@@ -1,6 +1,7 @@
 package com.github.kancyframework.springx.swing.themes;
 
 import com.github.kancyframework.springx.log.Log;
+import com.github.kancyframework.springx.utils.ClassUtils;
 
 import javax.swing.*;
 import java.util.*;
@@ -20,6 +21,7 @@ public class LookAndFeels {
     static {
         // 安装主题
         installLookAndFeel("SeaGlass", "com.seaglasslookandfeel.SeaGlassLookAndFeel");
+        installLookAndFeel("pgs", "com.pagosoft.plaf.PgsLookAndFeel");
 
         // 不好看的主题
         List<String> excludeLookAndFeels = Arrays.asList(new String[]{"CDE/Motif","Windows Classic","Windows"});
@@ -63,7 +65,10 @@ public class LookAndFeels {
 
     private static void installLookAndFeel(String name, String className) {
         try {
-            UIManager.installLookAndFeel(name, className);
+            Class<?> lookAndFeelClass = Class.forName(className);
+            if (ClassUtils.isAssignableFrom(LookAndFeel.class, lookAndFeelClass)){
+                UIManager.installLookAndFeel(name, className);
+            }
         } catch (Exception e) {
         }
     }
