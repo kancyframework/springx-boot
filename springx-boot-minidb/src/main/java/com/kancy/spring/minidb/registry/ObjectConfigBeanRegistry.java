@@ -3,6 +3,7 @@ package com.kancy.spring.minidb.registry;
 import com.github.kancyframework.springx.context.ApplicationContext;
 import com.github.kancyframework.springx.context.DynamicBeanRegistry;
 import com.github.kancyframework.springx.context.factory.BeanDefinition;
+import com.github.kancyframework.springx.utils.IDUtils;
 import com.github.kancyframework.springx.utils.SpringUtils;
 import com.kancy.spring.minidb.MapDb;
 import com.kancy.spring.minidb.ObjectConfig;
@@ -36,8 +37,9 @@ public class ObjectConfigBeanRegistry implements DynamicBeanRegistry {
             objectConfigBeanMap.put(beanName, beanDefinition);
         });
 
-        if (!SpringUtils.existBean(MapDb.class) && !SpringUtils.existBean("mapObjectDataConfig")){
-            objectConfigBeanMap.put("mapObjectDataConfig", new BeanDefinition(MapDb.get(), MapDb.class));
+        if (!SpringUtils.existBean(MapDb.class)){
+            objectConfigBeanMap.put(String.format("mapObjectDataConfig-%s", IDUtils.getUUIDString()),
+                    new BeanDefinition(MapDb.get(), MapDb.class));
         }
         return objectConfigBeanMap;
     }
