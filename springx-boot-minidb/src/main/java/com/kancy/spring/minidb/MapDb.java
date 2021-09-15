@@ -1,6 +1,7 @@
 package com.kancy.spring.minidb;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.github.kancyframework.springx.utils.ReflectionUtils;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -166,4 +167,51 @@ public final class MapDb extends ObjectData implements Serializable {
     private void store() {
         save();
     }
+
+    /**
+     * 获取属性
+     *
+     * @param name
+     * @return
+     */
+    @Override
+    public <T extends Serializable> T getProperty(String name) {
+        return getData(name);
+    }
+
+    /**
+     * 获取属性
+     *
+     * @param name
+     * @param def
+     * @return
+     */
+    @Override
+    public <T extends Serializable> T getProperty(String name, T def) {
+        return getOrDefault(name, def);
+    }
+
+    /**
+     * 获取属性
+     *
+     * @param name
+     * @param valueType
+     * @return
+     */
+    public <T extends Serializable> T getProperty(String name, Class<T> valueType) {
+        return ReflectionUtils.getField(name, this, valueType);
+    }
+
+    /**
+     * 获取属性
+     *
+     * @param name
+     * @param value
+     * @return
+     */
+    @Override
+    public void setProperty(String name, Serializable value) {
+        putData(name, value);
+    }
+
 }

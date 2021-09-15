@@ -4,7 +4,7 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 import com.github.kancyframework.springx.utils.IoUtils;
-import com.kancy.spring.minidb.ObjectData;
+import com.kancy.spring.minidb.ObjectConfig;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -22,7 +22,7 @@ public class KryoObjectDataSerializer implements ObjectDataSerializer {
     private final Kryo kryo = new Kryo();
 
     @Override
-    public <T extends ObjectData> void write(T objectData, OutputStream outputStream) throws Exception {
+    public <T extends ObjectConfig> void write(T objectData, OutputStream outputStream) throws Exception {
         Output output = null;
         try {
             Kryo kryo = new Kryo();
@@ -34,7 +34,7 @@ public class KryoObjectDataSerializer implements ObjectDataSerializer {
     }
 
     @Override
-    public <T extends ObjectData> T read(InputStream inputStream, Class<T> cls) throws Exception {
+    public <T extends ObjectConfig> T read(InputStream inputStream, Class<T> cls) throws Exception {
         Input input = null;
         try {
             input = new Input(inputStream);

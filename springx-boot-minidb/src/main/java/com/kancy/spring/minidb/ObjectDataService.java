@@ -38,7 +38,7 @@ public class ObjectDataService {
      * @return
      * @throws Exception
      */
-    public static <T extends ObjectData> T initObjectData(Class<T> dataClass) throws Exception {
+    public static <T extends ObjectConfig> T initObjectData(Class<T> dataClass) throws Exception {
         T objectDataProxy = null;
         if (isUseProxy(dataClass)){
             objectDataProxy = (T) createProxyMethod.invoke(createProxyMethod.getDeclaringClass(), dataClass, objectDataMethodInterceptor);

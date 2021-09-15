@@ -30,7 +30,7 @@ public class ObjectDataManager {
 
     private static final String DEFAULT_APP_NAME = System.getProperty("spring.application.name", "application");
 
-    private static final Map<String, ObjectData> OBJECT_CACHE = new ConcurrentHashMap<>();
+    private static final Map<String, ObjectConfig> OBJECT_CACHE = new ConcurrentHashMap<>();
 
     private static final ObjectDataSerializer OBJECT_DATA_SERIALIZER = ObjectDataSerializerHolder.get();
 
@@ -49,11 +49,11 @@ public class ObjectDataManager {
         File dataFile = null;
         try {
             dataFile = FileUtils.createNewFile(path);
-            ObjectData object = OBJECT_CACHE.get(dataFileName);
+            ObjectConfig object = OBJECT_CACHE.get(dataFileName);
             synchronized (object){
                 if (ObjectDataService.isProxy(object)){
-                    Class<ObjectData> superclass = (Class<ObjectData>) object.getClass().getSuperclass();
-                    ObjectData newObject = BeanUtils.copyProperties(object, superclass);
+                    Class<ObjectConfig> superclass = (Class<ObjectConfig>) object.getClass().getSuperclass();
+                    ObjectConfig newObject = BeanUtils.copyProperties(object, superclass);
                     OBJECT_DATA_SERIALIZER.write(newObject, new FileOutputStream(dataFile));
                 } else {
                     OBJECT_DATA_SERIALIZER.write(object, new FileOutputStream(dataFile));
@@ -65,11 +65,11 @@ public class ObjectDataManager {
         }
     }
 
-    public static <T extends ObjectData> T load(Class<T> dataClass) {
+    public static <T extends ObjectConfig> T load(Class<T> dataClass) {
         return load(SpringUtils.getApplicationName(DEFAULT_APP_NAME), dataClass);
     }
 
-    private static <T extends ObjectData> T load(String appName, Class<T> dataClass) {
+    private static <T extends ObjectConfig> T load(String appName, Class<T> dataClass) {
         String basePath = getUserHome();
         String dataFileName = getDataFileName(appName, dataClass);
 

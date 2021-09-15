@@ -1,7 +1,7 @@
 package com.kancy.spring.minidb.serialize;
 
 import com.github.kancyframework.springx.utils.CollectionUtils;
-import com.kancy.spring.minidb.ObjectData;
+import com.kancy.spring.minidb.ObjectConfig;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -16,9 +16,9 @@ import java.util.Set;
  */
 public interface ObjectDataSerializer {
 
-    <T extends ObjectData> void write(T objectData, OutputStream outputStream) throws Exception;
+    <T extends ObjectConfig> void write(T objectData, OutputStream outputStream) throws Exception;
 
-    <T extends ObjectData> T read(InputStream inputStream, Class<T> cls) throws Exception;
+    <T extends ObjectConfig> T read(InputStream inputStream, Class<T> cls) throws Exception;
 
     String getSerializableType();
 
