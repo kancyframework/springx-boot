@@ -5,8 +5,10 @@ import com.github.kancyframework.springx.context.ApplicationContext;
 import com.github.kancyframework.springx.context.env.Environment;
 import com.github.kancyframework.springx.context.event.ApplicationEvent;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * SpringUtils
@@ -45,6 +47,7 @@ public abstract class SpringUtils {
     public static Object getBean(String beanName) {
         return applicationContext.getBean(beanName);
     }
+
     /**
      * getBean
      */
@@ -64,6 +67,25 @@ public abstract class SpringUtils {
     public static <T> Map<String, T> getBeansOfType(Class<T> beanClass){
         return applicationContext.getBeansOfType(beanClass);
     }
+
+    public static <T> List<T> getBeans(Class<T> beanClass){
+        Map<String, T> beanMap = getBeansOfType(beanClass);
+        return OrderUtils.sort(beanMap.values().stream().distinct().collect(Collectors.toList()));
+    }
+
+    /**
+     * hasBean
+     */
+    public static boolean existBean(String beanName) {
+        return Objects.nonNull(getBean(beanName));
+    }
+    /**
+     * hasBean
+     */
+    public static boolean existBean(Class<?> beanClass) {
+        return CollectionUtils.isEmpty(getBeansOfType(beanClass));
+    }
+
     /**
      * 获取环境
      */
