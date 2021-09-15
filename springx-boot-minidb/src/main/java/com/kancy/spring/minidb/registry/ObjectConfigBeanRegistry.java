@@ -36,7 +36,7 @@ public class ObjectConfigBeanRegistry implements DynamicBeanRegistry {
             objectConfigBeanMap.put(beanName, beanDefinition);
         });
 
-        if (!SpringUtils.existBean(MapDb.class)){
+        if (!SpringUtils.existBean(MapDb.class) && !SpringUtils.existBean("mapObjectDataConfig")){
             objectConfigBeanMap.put("mapObjectDataConfig", new BeanDefinition(MapDb.get(), MapDb.class));
         }
         return objectConfigBeanMap;
