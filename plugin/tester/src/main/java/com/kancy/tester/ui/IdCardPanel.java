@@ -35,6 +35,7 @@ public class IdCardPanel extends JPanel implements InitializingBean {
 
     public IdCardPanel() {
         initComponents();
+        genButtonActionPerformed();
     }
 
     /**
@@ -85,11 +86,12 @@ public class IdCardPanel extends JPanel implements InitializingBean {
         if (randomCheckBox.isSelected()){
             nameTextField.setEditable(false);
             idCardNoTextField.setEditable(false);
-            if (StringUtils.isBlank(nameTextField.getText())){
-                nameTextField.setText(NameUtils.fullName());
-            }
             if (StringUtils.isBlank(idCardNoTextField.getText())){
                 idCardNoTextField.setText(IDCardUtils.create());
+            }
+            if (StringUtils.isBlank(nameTextField.getText())){
+                String cardNoTextFieldText = idCardNoTextField.getText();
+                nameTextField.setText(NameUtils.fullName(cardNoTextFieldText));
             }
         } else {
             nameTextField.setEditable(true);
@@ -98,17 +100,18 @@ public class IdCardPanel extends JPanel implements InitializingBean {
     }
     public void genButtonActionPerformed() {
         try {
+            String idCard = idCardNoTextField.getText().trim();
             if (randomCheckBox.isSelected()){
+                idCard = IDCardUtils.create();
                 nameTextField.setEditable(false);
                 idCardNoTextField.setEditable(false);
-                nameTextField.setText(NameUtils.fullName());
-                idCardNoTextField.setText(IDCardUtils.create());
+                idCardNoTextField.setText(idCard);
+                nameTextField.setText(NameUtils.fullName(idCard));
                 idCardNoTextField.setForeground(Color.BLACK);
             } else {
                 nameTextField.setEditable(true);
                 idCardNoTextField.setEditable(true);
                 // 验证身份证号码是否合法
-                String idCard = idCardNoTextField.getText().trim();
                 if (idCard.length() != 18){
                     Swing.msg(this, "身份证号码[{}]非法！", idCard);
                     idCardNoTextField.setForeground(Color.RED);
@@ -121,7 +124,6 @@ public class IdCardPanel extends JPanel implements InitializingBean {
                     idCardNoTextField.setForeground(Color.BLACK);
                 }
             }
-            String idCard = idCardNoTextField.getText().trim();
 
             // 渲染图片
             imageNameLabel.setText(nameTextField.getText());

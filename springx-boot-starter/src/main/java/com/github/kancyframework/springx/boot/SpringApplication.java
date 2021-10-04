@@ -1,6 +1,8 @@
 package com.github.kancyframework.springx.boot;
 
 import com.github.kancyframework.springx.context.*;
+import com.github.kancyframework.springx.context.event.InitializedApplicationEvent;
+import com.github.kancyframework.springx.context.event.StartedApplicationEvent;
 import com.github.kancyframework.springx.log.Logger;
 import com.github.kancyframework.springx.log.LoggerFactory;
 import com.github.kancyframework.springx.utils.OrderUtils;
@@ -59,6 +61,9 @@ public class SpringApplication {
         // here maybe exist a hidden cast
         initializer.initialize(applicationContext);
 
+        // 发送初始化完成事件
+        applicationContext.publishEvent(new InitializedApplicationEvent(applicationContext));
+
         // InitializingBean
         Map<String, InitializingBean> beanMaps = applicationContext.getBeansOfType(InitializingBean.class);
         beanMaps.values().forEach(InitializingBean::afterPropertiesSet);
@@ -76,6 +81,10 @@ public class SpringApplication {
         log.info("Started {} success in {} seconds!",
                 applicationContext.getEnvironment().getApplicationName(),
                 (System.currentTimeMillis() *1.0 - applicationContext.getStartupDate())/1000);
+
+        // 发送启动事件
+        applicationContext.publishEvent(new StartedApplicationEvent(applicationContext));
+
     }
 
     private SimpleApplicationContextInitializer createSimpleApplicationContextInitializer(Class<?> entryClass) {

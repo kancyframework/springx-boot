@@ -32,6 +32,7 @@ new FormModel {
 						addElement( "预付费卡" )
 					}
 					"actionCommand": "empty"
+					"selectedIndex": 1
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 1 0"
 				} )

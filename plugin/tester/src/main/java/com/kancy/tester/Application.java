@@ -2,10 +2,15 @@ package com.kancy.tester;
 
 import com.github.kancyframework.springx.boot.SpringApplication;
 import com.github.kancyframework.springx.boot.SpringBootApplication;
+import com.github.kancyframework.springx.context.annotation.Autowired;
 import com.github.kancyframework.springx.swing.SwingSpringApplication;
+import com.github.kancyframework.springx.utils.ClassUtils;
+import com.kancy.spring.minidb.MapDb;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import java.util.Set;
 
 /**
  * <p>
@@ -31,7 +36,7 @@ public class Application implements SwingSpringApplication<JFrame> {
     @Override
     public void customSettings(JFrame frame) {
         frame.setSize(new Dimension(625, 505));
-        frame.setTitle("影像生成器 1.1 by kancy at 20210905");
+        frame.setTitle("影像生成器 1.2 by kancy at 20211005");
         frame.setResizable(false);
     }
 }

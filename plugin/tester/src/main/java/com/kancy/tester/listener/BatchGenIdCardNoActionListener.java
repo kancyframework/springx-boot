@@ -91,7 +91,7 @@ public class BatchGenIdCardNoActionListener extends JFrameApplicationListener {
 
                     sb.append(i).append(splitChar)
                             .append(idCardNo).append("\t").append(splitChar)
-                            .append(NameUtils.fullName()).append(splitChar)
+                            .append(NameUtils.fullName(idCardNo)).append(splitChar)
                             .append(Integer.parseInt(idCardNo.substring(16,17)) % 2 == 0 ? "女" : "男").append(splitChar)
                             .append(new Date().getYear() + 1900 - Integer.parseInt(idCardNo.substring(6,10))).append(splitChar)
                             .append(String.format("%s年%s月%s日",

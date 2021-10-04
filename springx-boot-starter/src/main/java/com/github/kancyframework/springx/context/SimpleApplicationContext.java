@@ -1,15 +1,18 @@
 package com.github.kancyframework.springx.context;
 
+import com.github.kancyframework.springx.Version;
+import com.github.kancyframework.springx.boot.SpringBootApplication;
 import com.github.kancyframework.springx.context.annotation.*;
+import com.github.kancyframework.springx.context.env.Environment;
 import com.github.kancyframework.springx.context.env.EnvironmentAware;
 import com.github.kancyframework.springx.context.event.ApplicationEvent;
 import com.github.kancyframework.springx.context.event.ApplicationEventMulticaster;
+import com.github.kancyframework.springx.context.event.AutowiredCompletedApplicationEvent;
 import com.github.kancyframework.springx.context.factory.BeanDefinition;
-import com.github.kancyframework.springx.boot.SpringBootApplication;
-import com.github.kancyframework.springx.utils.*;
-import com.github.kancyframework.springx.context.env.Environment;
+import com.github.kancyframework.springx.log.LogColorPrinter;
 import com.github.kancyframework.springx.log.Logger;
 import com.github.kancyframework.springx.log.LoggerFactory;
+import com.github.kancyframework.springx.utils.*;
 
 import javax.annotation.Resource;
 import java.io.IOException;
@@ -109,7 +112,7 @@ public class SimpleApplicationContext implements ApplicationContext {
             BeanDefinition myBeanDefinition = entry.getValue();
             try {
                 if (autowireFields(myBeanDefinition.getObject(), myBeanDefinition.getClazz(), true)) {
-                    registeredBeans.put(entry.getKey(), myBeanDefinition);
+                    putRegisteredBean(entry.getKey(), myBeanDefinition);
                     earlyBeans.remove(entry.getKey());
                 }
             } catch (IllegalAccessException e) {
@@ -127,6 +130,8 @@ public class SimpleApplicationContext implements ApplicationContext {
         // set banner
         try {
             String bannerString = IoUtils.toString(getClass().getClassLoader().getResourceAsStream("banner.txt"), "utf-8");
+            bannerString = bannerString.replace("1.0.0-RELEASE",Version.VERSION);
+            bannerString = LogColorPrinter.getColorString(bannerString, LogColorPrinter.WHITE);
             System.out.println(bannerString);
         } catch (IOException e) {
             e.printStackTrace();
@@ -199,7 +204,7 @@ public class SimpleApplicationContext implements ApplicationContext {
                         log.info("dynamic registry bean [{}] , class : {}", beanName, clazz.getName());
 
                         if (autowireFields(instance, clazz, false)) {
-                            registeredBeans.put(beanName, entry.getValue());
+                            putRegisteredBean(beanName, entry.getValue());
                         } else {
                             earlyBeans.put(beanName, entry.getValue());
                         }
@@ -211,6 +216,9 @@ public class SimpleApplicationContext implements ApplicationContext {
         }
 
         processEarlyBeans();
+
+        // 发送自动装配完成事件
+        publishEvent(new AutowiredCompletedApplicationEvent(this));
 
         log.info("scan over!");
     }
@@ -293,7 +301,7 @@ public class SimpleApplicationContext implements ApplicationContext {
 
         try {
             if (autowireFields(instance, clazz, false)) {
-                registeredBeans.put(beanName, new BeanDefinition(instance, clazz));
+                putRegisteredBean(beanName, new BeanDefinition(instance, clazz));
             } else {
                 earlyBeans.put(beanName, new BeanDefinition(instance, clazz));
             }
@@ -363,7 +371,7 @@ public class SimpleApplicationContext implements ApplicationContext {
                 }
 
                 // register bean
-                registeredBeans.put(beanName, new BeanDefinition(methodBean, methodBeanClass));
+                putRegisteredBean(beanName, new BeanDefinition(methodBean, methodBeanClass));
             }
         }
     }
@@ -522,6 +530,10 @@ public class SimpleApplicationContext implements ApplicationContext {
             beanName = clazz.getName() + "_" + beanId + "_" + nameConflictCount.getAndIncrement();
         }
         return beanName;
+    }
+
+    private void putRegisteredBean(String beanName, BeanDefinition beanDefinition){
+        registeredBeans.put(beanName, beanDefinition);
     }
 
     private String getBeanNameByMethodName(Method method, long beanId) {

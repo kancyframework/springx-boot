@@ -1,5 +1,6 @@
 package com.github.kancyframework.springx.boot;
 
+import com.github.kancyframework.springx.utils.ObjectUtils;
 import com.github.kancyframework.springx.utils.StringUtils;
 
 import java.util.Objects;
@@ -20,6 +21,14 @@ public class CommandLineArgument {
 		this.args = args;
 		init();
 	}
+	public <T> T getArgument(String paramName, Class<T> clazz) {
+		return ObjectUtils.cast(getArgument(paramName), clazz);
+	}
+
+	public <T> T getArgument(String paramName, Class<T> clazz, T def) {
+		return ObjectUtils.cast(getArgument(paramName), clazz, def);
+	}
+
 	public String getArgument(String paramName) {
         return getPrefixArgument(paramName, "");
     }
@@ -77,5 +86,10 @@ public class CommandLineArgument {
 			return true;
 		}
 		return !param.contains("=");
+	}
+
+	@Override
+	public String toString() {
+		return p.toString();
 	}
 }

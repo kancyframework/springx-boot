@@ -15,15 +15,35 @@ public class NameUtils {
      * 百家姓
      */
     private static List<String> hundredFamilyNameList = new ArrayList<String>();
+    private static List<String> girlNameList = new ArrayList<String>();
+    private static List<String> boyNameList = new ArrayList<String>();
     static {
 
         String resString = MessageUtils.getResString("lastname");
         String[] strings = resString.split("[|]");
         hundredFamilyNameList.addAll(Arrays.asList(strings));
+
+        resString = MessageUtils.getResString("girlname");
+        strings = resString.split("[|]");
+        girlNameList.addAll(Arrays.asList(strings));
+
+        resString = MessageUtils.getResString("boyname");
+        strings = resString.split("[|]");
+        boyNameList.addAll(Arrays.asList(strings));
+
     }
 
     public static String fullName() {
         return fullName(3);
+    }
+
+    public static String fullName(String idCardNo) {
+        String sexStr = idCardNo.substring(16, 17);
+        int iSex = Integer.parseInt(sexStr);
+        if (iSex % 2 == 0){
+            return getGirlFullName();
+        }
+        return getBoyFullName();
     }
 
     public static String fullName(int fullNameLen) {
@@ -49,6 +69,17 @@ public class NameUtils {
     }
     public static String getRandomChinese(int len) {
         return getRandomChinese(0, len);
+    }
+
+    public static String getGirlFullName() {
+        StringBuffer sb = new StringBuffer();
+        sb.append(getName()).append(girlNameList.get(ThreadLocalRandom.current().nextInt(girlNameList.size())));
+        return sb.toString();
+    }
+    public static String getBoyFullName() {
+        StringBuffer sb = new StringBuffer();
+        sb.append(getName()).append(boyNameList.get(ThreadLocalRandom.current().nextInt(boyNameList.size())));
+        return sb.toString();
     }
 
 }

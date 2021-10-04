@@ -55,8 +55,8 @@ public class DataHttpHandler extends BaseHttpHandler{
             return StringUtils.toJSONString(responseMap);
         }
 
-        String name = NameUtils.fullName();
         String idCardNo = IDCardUtils.create();
+        String name = NameUtils.fullName(idCardNo);
         responseMap.put("name", name);
         responseMap.put("idCardNo", idCardNo);
         responseMap.put("sex", Integer.parseInt(idCardNo.substring(16,17)) % 2 == 0 ? "女" : "男");

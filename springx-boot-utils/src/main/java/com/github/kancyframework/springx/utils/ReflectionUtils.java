@@ -168,14 +168,37 @@ public abstract class ReflectionUtils {
      * (may be {@code null} to indicate any signature)
      * @return the Method object, or {@code null} if none found
      */
-    
-    public static Method findMethod(Class<?> clazz, String name,  Class<?>... paramTypes) {
+    public static Method findMethod(Class<?> clazz, String name, boolean exact, Class<?>... paramTypes) {
         Assert.notNull(clazz, "Class must not be null");
         Assert.notNull(name, "Method name must not be null");
         Class<?> searchType = clazz;
         while (searchType != null) {
             Method[] methods = (searchType.isInterface() ? searchType.getMethods() : getDeclaredMethods(searchType));
             for (Method method : methods) {
+                if (name.equals(method.getName())){
+                    if (exact){
+                        if (Arrays.equals(paramTypes, method.getParameterTypes())){
+                            return method;
+                        }
+                    }else {
+                        if (paramTypes == null || paramTypes.length == 0){
+                            return method;
+                        }
+                        boolean hasMatch = true;
+                        Class<?>[] parameterTypes = method.getParameterTypes();
+                        for (int i = 0; i < parameterTypes.length; i++) {
+                            if (paramTypes.length > i){
+                                if (!ClassUtils.isAssignableFrom(paramTypes[i], parameterTypes[i])){
+                                    hasMatch = false;
+                                    break;
+                                }
+                            }
+                        }
+                        if (hasMatch){
+                            return method;
+                        }
+                    }
+                }
                 if (name.equals(method.getName()) &&
                         (paramTypes == null || Arrays.equals(paramTypes, method.getParameterTypes()))) {
                     return method;
@@ -184,6 +207,10 @@ public abstract class ReflectionUtils {
             searchType = searchType.getSuperclass();
         }
         return null;
+    }
+
+    public static Method findMethod(Class<?> clazz, String name,  Class<?>... paramTypes) {
+        return findMethod(clazz, name, true, paramTypes);
     }
 
     /**
@@ -196,7 +223,7 @@ public abstract class ReflectionUtils {
      * @see #invokeMethod(java.lang.reflect.Method, Object, Object[])
      */
     
-    public static Object invokeMethod(Method method,  Object target) {
+    public static Object invokeMethod(Method method, Object target) {
         return invokeMethod(method, target, new Object[0]);
     }
 

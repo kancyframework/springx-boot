@@ -146,6 +146,7 @@ public class BankCardPanel extends JPanel {
                 "\u9884\u4ed8\u8d39\u5361"
             }));
             bankCardTypeComboBox.setActionCommand("empty");
+            bankCardTypeComboBox.setSelectedIndex(1);
             bankCardGenConfigPanel.add(bankCardTypeComboBox, "cell 1 0");
 
             //---- bankNameConfigLabel ----
@@ -153,6 +154,27 @@ public class BankCardPanel extends JPanel {
             bankCardGenConfigPanel.add(bankNameConfigLabel, "cell 2 0,alignx right,growx 0");
 
             //---- bankNameComboBox ----
+            bankNameComboBox.setModel(new DefaultComboBoxModel<>(new String[] {
+                "\u6240\u6709",
+                "\u4e2d\u56fd\u94f6\u884c",
+                "\u90ae\u50a8\u94f6\u884c",
+                "\u62db\u5546\u94f6\u884c",
+                "\u5de5\u5546\u94f6\u884c",
+                "\u4e2d\u4fe1\u94f6\u884c",
+                "\u5efa\u8bbe\u94f6\u884c",
+                "\u519c\u4e1a\u94f6\u884c",
+                "\u4ea4\u901a\u94f6\u884c",
+                "\u5e73\u5b89\u94f6\u884c",
+                "\u6c11\u751f\u94f6\u884c",
+                "\u5e7f\u53d1\u94f6\u884c",
+                "\u5174\u4e1a\u94f6\u884c",
+                "\u5317\u4eac\u94f6\u884c",
+                "\u4e0a\u6d77\u94f6\u884c",
+                "\u534e\u590f\u94f6\u884c",
+                "\u6d66\u53d1\u94f6\u884c",
+                "\u5149\u5927\u94f6\u884c",
+                "\u5176\u4ed6\u94f6\u884c"
+            }));
             bankNameComboBox.setActionCommand("empty");
             bankCardGenConfigPanel.add(bankNameComboBox, "cell 3 0");
 
