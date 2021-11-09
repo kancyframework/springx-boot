@@ -43,6 +43,7 @@
         <module>springx-boot-gui-miglayout</module>
         <module>springx-boot-net-classloader</module>
         <module>springx-boot-registry</module>
+        <module>springx-boot-webdav</module>
     </modules>
 
     <properties>
