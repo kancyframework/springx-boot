@@ -44,6 +44,7 @@
         <module>springx-boot-net-classloader</module>
         <module>springx-boot-registry</module>
         <module>springx-boot-webdav</module>
+        <module>springx-boot-dingtalk-client</module>
     </modules>
 
     <properties>
