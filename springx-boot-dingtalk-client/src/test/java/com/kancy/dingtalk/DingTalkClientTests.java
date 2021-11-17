@@ -1,7 +1,9 @@
 package com.kancy.dingtalk;
 
-import com.kancy.dingtalk.request.ActionCardDingTalkRequest;
-import com.kancy.dingtalk.request.FeedCardDingTalkRequest;
+import com.github.kancyframework.dingtalk.DingTalkClient;
+import com.github.kancyframework.dingtalk.DingTalkClientImpl;
+import com.github.kancyframework.dingtalk.request.ActionCardDingTalkRequest;
+import com.github.kancyframework.dingtalk.request.FeedCardDingTalkRequest;
 import org.junit.Before;
 import org.junit.Test;
 

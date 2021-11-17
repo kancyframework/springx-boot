@@ -35,6 +35,14 @@
         <url>https://github.com/kancyframework/springx-boot.git</url>
     </scm>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.github.kancyframework</groupId>
+            <artifactId>dingtalk-client-core</artifactId>
+            <version>0.0.1-RELEASE</version>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <!-- 源码 -->
