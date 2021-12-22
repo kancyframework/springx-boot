@@ -8,6 +8,7 @@ package com.kancy.jevel.classloader;
  */
 
 import com.github.kancyframework.springx.utils.Md5Utils;
+import com.github.kancyframework.springx.utils.StringUtils;
 
 import javax.tools.*;
 import javax.tools.JavaFileObject.Kind;
@@ -17,6 +18,7 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.CharBuffer;
 import java.util.*;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,6 +26,7 @@ import java.util.regex.Pattern;
  * 把一段Java字符串变成类
  */
 public class MemoryClassLoader extends URLClassLoader {
+    private static Logger logger = Logger.getLogger(MemoryClassLoader.class.getSimpleName());
 
     private Map<String, byte[]> classBytes = new HashMap<>();
     private Map<String, String> srcMd5ClassBytes = new HashMap<>();
@@ -51,6 +54,9 @@ public class MemoryClassLoader extends URLClassLoader {
      * @param javaStr   Java字符串
      */
     public synchronized Class<?> registerJava(String javaStr) throws ClassNotFoundException {
+        if (StringUtils.isBlank(javaStr)){
+            return null;
+        }
         String className = getClassNameByJavaSrc(javaStr);
         registerJava(className, javaStr);
         Class<?> aClass = findClass(className);
@@ -65,6 +71,11 @@ public class MemoryClassLoader extends URLClassLoader {
      * @param javaStr   Java字符串
      */
     public synchronized void registerJava(String className, String javaStr) {
+        if (StringUtils.isBlank(className) || StringUtils.isBlank(javaStr)){
+            return;
+        }
+
+        javaStr = javaStr.trim();
         String srcMd5 = Md5Utils.md5(javaStr);
         if (Objects.equals(this.srcMd5ClassBytes.get(className), srcMd5)){
             return;
@@ -73,6 +84,7 @@ public class MemoryClassLoader extends URLClassLoader {
         if (compile!=null && !compile.isEmpty()){
             this.classBytes.putAll(compile);
             this.srcMd5ClassBytes.put(className, srcMd5);
+            logger.info(String.format("重新加载class成功，类名 = %s ，源文件MD5 = %s", className, srcMd5));
         }
 
     }
@@ -103,7 +115,11 @@ public class MemoryClassLoader extends URLClassLoader {
     }
 
     public String getClassNameByJavaSrc(String javaStr) {
-        return String.format("%s.%s", getPackageName(javaStr), getPublicClass(javaStr));
+        String packageName = getPackageName(javaStr);
+        if (packageName.isEmpty()){
+            return getPublicClass(javaStr);
+        }
+        return String.format("%s.%s", packageName, getPublicClass(javaStr));
     }
 
     private String getPackageName(String fileStr){
@@ -118,7 +134,7 @@ public class MemoryClassLoader extends URLClassLoader {
         if(m.find()){
             return m.group(1).trim();
         }
-        throw new IllegalArgumentException("class name is empty.");
+        throw new IllegalArgumentException("public class name is empty.");
     }
 }
 
