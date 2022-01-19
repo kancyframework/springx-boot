@@ -5,10 +5,10 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.kancy</groupId>
-    <artifactId>tester</artifactId>
+    <artifactId>imagebeder</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>tester</name>
-    <description>tester</description>
+    <name>imagebeder</name>
+    <description>imagebeder</description>
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -17,11 +17,17 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
 
         <springx.boot.version>0.0.5-SNAPSHOT</springx.boot.version>
-        <final.package.name>${artifactId}-${version}</final.package.name>
-        <startup.class.name>com.kancy.tester.Application</startup.class.name>
+        <final.package.name>${artifactId}</final.package.name>
+        <startup.class.name>com.kancy.imagebeder.Application</startup.class.name>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>net.coobird</groupId>
+            <artifactId>thumbnailator</artifactId>
+            <version>0.4.8</version>
+        </dependency>
+
         <dependency>
             <groupId>com.github.kancyframework</groupId>
             <artifactId>springx-boot-starter-gui</artifactId>
@@ -36,11 +42,6 @@
             <groupId>com.github.kancyframework</groupId>
             <artifactId>springx-boot-minidb</artifactId>
             <version>${springx.boot.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.kancyframework</groupId>
-            <artifactId>dingtalk-client-core</artifactId>
-            <version>0.0.1-RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -111,11 +112,12 @@
                 <includes>
                     <include>**/*.ftl</include>
                     <include>**/*.png</include>
+                    <include>**/*.jpg</include>
+                    <include>**/*.ico</include>
                     <include>**/*.html</include>
                     <include>**/*.properties</include>
                     <include>**/*.xls</include>
                     <include>**/*.txt</include>
-                    <include>**/*.dat</include>
                 </includes>
             </resource>
         </resources>

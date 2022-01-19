@@ -1,11 +1,8 @@
 package com.github.kancyframework.springx.swing.utils;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.datatransfer.*;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.Reader;
 import java.net.URI;
 
 /**
@@ -131,6 +128,20 @@ public class SystemUtils {
             return (Image) cc.getTransferData(DataFlavor.imageFlavor);
         return null;
 
+    }
+
+    /**
+     * 从剪切板获得图片。
+     */
+    public static byte[] getImageBytesFromClipboard() throws Exception {
+        return ImageUtils.getImageBytes(getImageFromClipboard());
+    }
+
+    /**
+     * 复制图片到剪切板。
+     */
+    public static void setClipboardImage(final byte[] imageBytes) {
+        setClipboardImage(new ImageIcon(imageBytes).getImage());
     }
 
     /**

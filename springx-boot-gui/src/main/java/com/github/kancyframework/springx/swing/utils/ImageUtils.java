@@ -7,10 +7,12 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.Objects;
 
 /**
  * ImageUtils
@@ -19,6 +21,8 @@ import java.net.MalformedURLException;
  * @date 2021/1/9 19:14
  */
 public class ImageUtils {
+
+    private static final byte[] EMPTY_BYTES = new byte[0];
 
     private static final Icon questionMarkIcon = createImageIcon("images/question_mark_16x16.png");
 
@@ -52,6 +56,23 @@ public class ImageUtils {
         ImageIcon icon = new ImageIcon(file.toURL());
         return icon.getImage();
     }
+
+    public static byte[] getImageBytes(Image image){
+        if (Objects.isNull(image)){
+            return EMPTY_BYTES;
+        }
+        if (image instanceof RenderedImage){
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            try {
+                ImageIO.write((RenderedImage)image, "png", outputStream);
+                return outputStream.toByteArray();
+            } catch (IOException e) {
+                // ignore
+            }
+        }
+        return EMPTY_BYTES;
+    }
+
 
     public static byte[] getComponentImage(Component component) throws IOException {
         BufferedImage bi = new BufferedImage(component.getWidth(), component.getHeight(), BufferedImage.TYPE_INT_ARGB);

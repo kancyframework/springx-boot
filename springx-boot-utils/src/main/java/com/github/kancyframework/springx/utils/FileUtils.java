@@ -1,6 +1,7 @@
 package com.github.kancyframework.springx.utils;
 
 import java.io.*;
+import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Objects;
@@ -13,6 +14,14 @@ import java.util.Objects;
  */
 public abstract class FileUtils {
 
+    public static String readClasspathFileToString(final String classpath, final Charset encoding) throws IOException {
+        return new String(readClasspathFileToByteArray(classpath), encoding);
+    }
+
+    public static String readClasspathFileToString(final String classpath) throws IOException {
+        return readClasspathFileToString(classpath, Charset.defaultCharset());
+    }
+
     public static String readFileToString(final File file, final Charset encoding) throws IOException {
         return new String(readFileToByteArray(file), encoding);
     }
@@ -23,6 +32,13 @@ public abstract class FileUtils {
 
     public static byte[] readFileToByteArray(final File file) throws IOException {
         InputStream in = new FileInputStream(file);
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        IoUtils.copy(in, out);
+        return out.toByteArray();
+    }
+
+    public static byte[] readClasspathFileToByteArray(final String classpath) throws IOException {
+        InputStream in = FileUtils.class.getResourceAsStream(getClasspath(classpath));
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         IoUtils.copy(in, out);
         return out.toByteArray();
@@ -42,6 +58,20 @@ public abstract class FileUtils {
         FileInputStream fileInputStream = null;
         try {
             fileInputStream = new FileInputStream(file);
+            return IoUtils.readLines(fileInputStream, encoding);
+        } finally {
+            IoUtils.closeResource(fileInputStream);
+        }
+    }
+
+    public static List<String> readClasspathFileLines(String classpath) throws IOException {
+        return readClasspathFileLines(classpath, Charset.defaultCharset().displayName());
+    }
+
+    public static List<String> readClasspathFileLines(String classpath, String encoding) throws IOException {
+        InputStream fileInputStream = null;
+        try {
+            fileInputStream = FileUtils.class.getResourceAsStream(getClasspath(classpath));
             return IoUtils.readLines(fileInputStream, encoding);
         } finally {
             IoUtils.closeResource(fileInputStream);
@@ -72,6 +102,15 @@ public abstract class FileUtils {
     public static boolean existsFile(String filePath) {
         File file = new File(PathUtils.getFileAbsolutePath(filePath));
         return Objects.nonNull(file) && file.isFile() && file.exists();
+    }
+
+    public static boolean existsClassPathFile(String filePath) {
+        if (StringUtils.isBlank(filePath)){
+            return false;
+        }
+        String resourcePath = getClasspath(filePath);
+        URL resource = FileUtils.class.getResource(resourcePath);
+        return Objects.nonNull(resource);
     }
 
     public static boolean existsFile(File file) {
@@ -106,6 +145,22 @@ public abstract class FileUtils {
                 dataFile.deleteOnExit();
             }
         }
+    }
+
+    private static String getClasspath(String filePath) {
+        filePath = filePath.trim();
+        String resourcePath = null;
+        if (filePath.startsWith("classpath:/")){
+            resourcePath = filePath.substring(10);
+        } else if (filePath.startsWith("classpath:")){
+            resourcePath = "/".concat(filePath.substring(10));
+        }else {
+            resourcePath = filePath;
+        }
+        if (!resourcePath.startsWith("/")){
+            resourcePath = "/".concat(resourcePath);
+        }
+        return resourcePath;
     }
 
 }

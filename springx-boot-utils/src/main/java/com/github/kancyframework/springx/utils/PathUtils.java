@@ -47,7 +47,7 @@ public class PathUtils {
             if (!classPath.startsWith("/") ){
                 classPath = "/" + classPath;
             }
-            filePath = path(PathUtils.class.getResource("/").getFile(), classPath) ;
+            filePath = path(PathUtils.class.getResource("/").getFile(), classPath);
         }
         return format(new File(filePath).getAbsolutePath());
     }

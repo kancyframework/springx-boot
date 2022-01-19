@@ -1,0 +1,103 @@
+JFDML JFormDesigner: "7.0.0.6.255" Java: "11.0.8" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JDialog", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+			"$layoutConstraints": "hidemode 3"
+			"$columnConstraints": "[fill][fill][396,fill][fill][fill]"
+			"$rowConstraints": "[][][][][][]"
+		} ) {
+			name: "this"
+			"title": "上传成功"
+			"resizable": false
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label4"
+				"text": "图片名称："
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 1 1,alignx right,growx 0"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textField_img_name"
+				"preferredSize": new java.awt.Dimension( 50, 35 )
+				"editable": false
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 2 1"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button1"
+				"text": "复制"
+				"preferredSize": new java.awt.Dimension( 78, 35 )
+				"actionCommand": "copy_img_name"
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 3 1"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label1"
+				"text": "图片链接："
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 1 2,alignx right,growx 0"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textField_img_url"
+				"preferredSize": new java.awt.Dimension( 50, 35 )
+				"editable": false
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 2 2"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button2"
+				"text": "复制"
+				"preferredSize": new java.awt.Dimension( 78, 35 )
+				"actionCommand": "copy_img_url"
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 3 2"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label3"
+				"text": "网页代码："
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 1 3,alignx right,growx 0"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textField_html_text"
+				"preferredSize": new java.awt.Dimension( 50, 35 )
+				"editable": false
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 2 3"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button3"
+				"text": "复制"
+				"preferredSize": new java.awt.Dimension( 78, 35 )
+				"actionCommand": "copy_html_text"
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 3 3"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label2"
+				"text": "Markdown代码："
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 1 4,alignx right,growx 0"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textField_markdown_text"
+				"preferredSize": new java.awt.Dimension( 50, 35 )
+				"editable": false
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 2 4"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button4"
+				"text": "复制"
+				"preferredSize": new java.awt.Dimension( 78, 35 )
+				"actionCommand": "copy_markdown_text"
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 3 4"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 610, 285 )
+		} )
+	}
+}

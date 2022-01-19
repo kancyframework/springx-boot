@@ -9,6 +9,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Function;
 
 /**
  * FunctionUtils
@@ -21,8 +22,30 @@ public class FunctionUtils {
     private static final Map<String, Field> fieldCache = new HashMap<>();
 
     @FunctionalInterface
-    public interface SerializableFunction<T> extends Serializable {
+    public interface SerializableFunction<T> extends Function<T, Object>, Serializable {
         Object apply(T t);
+
+        default SerializedLambda getSerializedLambda() throws Exception {
+            Method write = this.getClass().getDeclaredMethod("writeReplace");
+            write.setAccessible(true);
+            return (SerializedLambda) write.invoke(this);
+        }
+
+        default String getImplClass() {
+            try {
+                return getSerializedLambda().getImplClass();
+            } catch (Exception e) {
+                return null;
+            }
+        }
+
+        default String getImplMethodName() {
+            try {
+                return getSerializedLambda().getImplMethodName();
+            } catch (Exception e) {
+                return null;
+            }
+        }
     }
 
     public static <T> String getPropertyName(SerializableFunction<T> function) {

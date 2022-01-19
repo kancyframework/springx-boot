@@ -1,5 +1,6 @@
 package com.github.kancyframework.springx.utils;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -272,6 +273,21 @@ public abstract class StringUtils {
         int lastIndexOf = fileName.lastIndexOf(".");
         if (lastIndexOf > 0 && lastIndexOf < fileName.length()){
             return fileName.substring(lastIndexOf + 1);
+        }
+        return null;
+    }
+    /**
+     * 获取文件简单名称
+     * @param fileName
+     * @return
+     */
+    public static String getFileSimpleName(String fileName){
+        if (isBlank(fileName)){
+            return null;
+        }
+        String fileExtName = getFileExtName(fileName);
+        if (Objects.nonNull(fileExtName)){
+            return new File(fileName).getName().replace("." + fileExtName, "");
         }
         return null;
     }
