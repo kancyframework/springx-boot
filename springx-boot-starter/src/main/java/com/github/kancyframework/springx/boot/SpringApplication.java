@@ -1,18 +1,16 @@
 package com.github.kancyframework.springx.boot;
 
 import com.github.kancyframework.springx.context.*;
+import com.github.kancyframework.springx.context.annotation.Async;
 import com.github.kancyframework.springx.context.event.InitializedApplicationEvent;
 import com.github.kancyframework.springx.context.event.StartedApplicationEvent;
 import com.github.kancyframework.springx.log.Logger;
 import com.github.kancyframework.springx.log.LoggerFactory;
-import com.github.kancyframework.springx.utils.OrderUtils;
-import com.github.kancyframework.springx.utils.SpiUtils;
-import com.github.kancyframework.springx.utils.SpringUtils;
+import com.github.kancyframework.springx.utils.*;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.lang.reflect.Method;
+import java.util.*;
+import java.util.concurrent.Executor;
 
 /**
  * SpringBootApplication
@@ -113,11 +111,38 @@ public class SpringApplication {
         List<ApplicationRunner> applicationRunnerList = sortByOrder(applicationRunners.values());
         try {
             for (ApplicationRunner applicationRunner : applicationRunnerList) {
-                applicationRunner.run(commandLineArgument);
+
+                Class<? extends ApplicationRunner> applicationRunnerClass = applicationRunner.getClass();
+
+                Executor executor = null;
+                if (ClassUtils.isAnnotationPresentOnClass(applicationRunnerClass, Async.class)){
+                    Async annotation = applicationRunnerClass.getAnnotation(Async.class);
+                    executor = getTaskExecutor(annotation.value());
+                }else {
+                    Method listenerMethod = ReflectionUtils.findMethod(applicationRunnerClass,"run", CommandLineArgument.class);
+                    if (listenerMethod.isAnnotationPresent(Async.class)){
+                        executor = getTaskExecutor(listenerMethod.getAnnotation(Async.class).value());
+                    }
+                }
+                if (Objects.nonNull(executor)){
+                    executor.execute(() -> {
+                        try {
+                            applicationRunner.run(commandLineArgument);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    });
+                }else {
+                    applicationRunner.run(commandLineArgument);
+                }
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private Executor getTaskExecutor(String beanName) {
+        return applicationContext.getBean(beanName, Executor.class);
     }
 
     /**

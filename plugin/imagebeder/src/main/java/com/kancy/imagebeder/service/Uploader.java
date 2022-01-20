@@ -9,7 +9,6 @@ import net.coobird.thumbnailator.Thumbnails;
 
 import java.io.*;
 import java.net.URLEncoder;
-import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,11 +48,13 @@ public class Uploader {
         params.put("access_token", accessToken);
         params.put("content", content);
         params.put("message", message);
+        params.put("branch", imagebedConfig.getBranchName());
 
         // 'Content-Type: application/json;charset=UTF-8'
         try {
             JdkHttpUtils.postJson(uploadUrl, SimpleJsonUtils.toJSONString(params));
-            String url = "https://gitee.com/kancy666/images/raw/master" + path;
+            String url = String.format("https://gitee.com/%s/%s/raw/%s%s" ,
+                    owner, repo, imagebedConfig.getBranchName(),getURLEncoderString(path));
 
             UploadResult uploadResult = new UploadResult();
             uploadResult.setDownloadUrl(url);
@@ -97,12 +98,14 @@ public class Uploader {
         params.put("access_token", accessToken);
         params.put("content", content);
         params.put("message", message);
+        params.put("branch", imagebedConfig.getBranchName());
 
         // 'Content-Type: application/json;charset=UTF-8'
         try {
             String s = JdkHttpUtils.postJson(uploadUrl, SimpleJsonUtils.toJSONString(params));
             System.out.println(s);
-            String url = String.format("https://gitee.com/%s/%s/raw/master%s" , owner, repo, getURLEncoderString(path));
+            String url = String.format("https://gitee.com/%s/%s/raw/%s%s" ,
+                    owner, repo, imagebedConfig.getBranchName(),getURLEncoderString(path));
 
             UploadResult uploadResult = new UploadResult();
             uploadResult.setDownloadUrl(url);

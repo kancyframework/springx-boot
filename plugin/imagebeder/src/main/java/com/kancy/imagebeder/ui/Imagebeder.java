@@ -155,6 +155,7 @@ public class Imagebeder extends JFrame implements InitializingBean {
             imagebedConfig.setBasePath("upload");
             imagebedConfig.setAccessToken("2d6c78c1e13ff10b0f6a001f0b4a2cdf");
             imagebedConfig.setRemark("默认公开图床");
+            imagebedConfig.setBranchName("default");
             configs.put(imagebedConfig.toString(), imagebedConfig);
             refreshConfigComboBox();
         }

@@ -5,10 +5,12 @@
 package com.kancy.imagebeder.ui;
 
 import com.github.kancyframework.springx.swing.Swing;
+import com.github.kancyframework.springx.swing.exception.AlertException;
 import com.github.kancyframework.springx.swing.utils.ImageUtils;
 import com.github.kancyframework.springx.swing.utils.SystemUtils;
 import com.github.kancyframework.springx.utils.StringUtils;
 import com.kancy.imagebeder.config.ImagebedConfig;
+import com.kancy.imagebeder.service.Giteer;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -16,6 +18,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -39,6 +42,7 @@ public class ConfigDialog extends JDialog {
             textField_repo.setText(imagebedConfig.getRepoName());
             textField_upload_path.setText(imagebedConfig.getBasePath());
             textField_remark.setText(imagebedConfig.getRemark());
+            textField_namespace.setText(imagebedConfig.getBranchName());
         }
 
         label_tip_username.setToolTipText("去申请账号");
@@ -47,9 +51,10 @@ public class ConfigDialog extends JDialog {
         label_tip_token.setIcon(ImageUtils.getQuestionMarkIcon());
         label_tip_repo.setToolTipText("访问图床仓库");
         label_tip_repo.setIcon(ImageUtils.getQuestionMarkIcon());
+        label_tip_namespace.setToolTipText("访问命名空间");
+        label_tip_namespace.setIcon(ImageUtils.getQuestionMarkIcon());
         label_tip_upload_path.setToolTipText("访问上传路径");
         label_tip_upload_path.setIcon(ImageUtils.getQuestionMarkIcon());
-
     }
 
     public ConfigDialog(Imagebeder owner) {
@@ -81,10 +86,27 @@ public class ConfigDialog extends JDialog {
         String repoName = textField_repo.getText().trim();
         String uploadPath = textField_upload_path.getText().trim();
         String remark = textField_remark.getText().trim();
+        String branchName = textField_namespace.getText().trim();
 
-        if (!StringUtils.isNotAllBlank(username,accessToken,repoName,uploadPath,remark)){
+        if (StringUtils.isAnyBlank(username,accessToken,repoName,uploadPath,remark,branchName)){
             Swing.msg(this, "请输入完整的配置！");
             return;
+        }
+
+        // 创建git项目
+        try {
+            Giteer.createProject(accessToken, repoName);
+        } catch (IOException ioException) {
+            if (!ioException.getMessage().contains("Server returned HTTP response code: 422")){
+                throw new AlertException("创建图床仓库失败！");
+            }
+        }
+        try {
+            Giteer.createBranch(username, repoName,branchName, accessToken);
+        } catch (IOException ioException) {
+            if (!ioException.getMessage().contains("Server returned HTTP response code: 400")){
+                throw new AlertException("创建图床仓库失败！");
+            }
         }
 
         this.imagebedConfig = new ImagebedConfig();
@@ -93,6 +115,7 @@ public class ConfigDialog extends JDialog {
         this.imagebedConfig.setRepoName(repoName);
         this.imagebedConfig.setBasePath(uploadPath);
         this.imagebedConfig.setRemark(remark);
+        this.imagebedConfig.setBranchName(branchName);
 
         owner.getSettings().getConfigs().put(imagebedConfig.toString(), imagebedConfig);
         owner.getSettings().save();
@@ -106,13 +129,14 @@ public class ConfigDialog extends JDialog {
         String username = textField_username.getText().trim();
         String repoName = textField_repo.getText().trim();
         String uploadPath = textField_upload_path.getText().trim();
+        String branchName = textField_namespace.getText().trim();
 
         StringBuffer sb = new StringBuffer();
         sb.append(username).append("@");
         if (uploadPath.startsWith("/")){
-            sb.append(repoName).append(":/").append(uploadPath);
+            sb.append(repoName).append("@").append(branchName).append(":/").append(uploadPath);
         }else {
-            sb.append(repoName).append("://").append(uploadPath);
+            sb.append(repoName).append("@").append(branchName).append("://").append(uploadPath);
         }
         return sb.toString();
     }
@@ -139,12 +163,28 @@ public class ConfigDialog extends JDialog {
     private void label_tip_upload_pathMouseClicked(MouseEvent e) {
         if (StringUtils.isNotBlank(textField_username.getText())
                 && StringUtils.isNotBlank(textField_repo.getText())
+                && StringUtils.isNotBlank(textField_namespace.getText())
                 && StringUtils.isNotBlank(textField_upload_path.getText())){
-            SystemUtils.openBrowser(String.format("https://gitee.com/%s/%s/tree/master/%s",
-                    textField_username.getText().trim(), textField_repo.getText().trim(),
+            SystemUtils.openBrowser(String.format("https://gitee.com/%s/%s/tree/%s/%s",
+                    textField_username.getText().trim(),
+                    textField_repo.getText().trim(),
+                    textField_namespace.getText().trim(),
                     textField_upload_path.getText().trim()));
         } else {
-            Swing.msg(this, "请输入用户名称、图床仓库和上传路径");
+            Swing.msg(this, "请输入用户名称、图床仓库、命名空间和上传路径");
+        }
+    }
+
+    private void label_tip_namespaceMouseClicked(MouseEvent e) {
+        if (StringUtils.isNotBlank(textField_username.getText())
+                && StringUtils.isNotBlank(textField_repo.getText())
+                && StringUtils.isNotBlank(textField_namespace.getText())){
+            SystemUtils.openBrowser(String.format("https://gitee.com/%s/%s/tree/%s",
+                    textField_username.getText().trim(),
+                    textField_repo.getText().trim(),
+                    textField_namespace.getText().trim()));
+        } else {
+            Swing.msg(this, "请输入用户名称、图床仓库和命名空间");
         }
     }
 
@@ -159,6 +199,9 @@ public class ConfigDialog extends JDialog {
         label3 = new JLabel();
         textField_repo = new JTextField();
         label_tip_repo = new JLabel();
+        label5 = new JLabel();
+        textField_namespace = new JTextField();
+        label_tip_namespace = new JLabel();
         label4 = new JLabel();
         textField_upload_path = new JTextField();
         label_tip_upload_path = new JLabel();
@@ -188,6 +231,7 @@ public class ConfigDialog extends JDialog {
             "[]" +
             "[]" +
             "[]" +
+            "[]" +
             "[]"));
 
         //---- label1 ----
@@ -196,6 +240,7 @@ public class ConfigDialog extends JDialog {
 
         //---- textField_username ----
         textField_username.setPreferredSize(new Dimension(50, 35));
+        textField_username.setToolTipText("<html>\n<p>1.gitee\u7684\u7528\u6237\u540d</p>\n<p>2.\u5982\u679c\u6ca1\u6709\u53ef\u4ee5\u53bbgitee\u5b98\u7f51\u514d\u8d39\u6ce8\u518c</p>\n</html>");
         contentPane.add(textField_username, "cell 2 1");
 
         //---- label_tip_username ----
@@ -213,6 +258,7 @@ public class ConfigDialog extends JDialog {
 
         //---- passwordField_token ----
         passwordField_token.setPreferredSize(new Dimension(50, 35));
+        passwordField_token.setToolTipText("<html>\n<p>\u53ef\u4ee5\u5728\u201c\u4e2a\u4eba\u4e2d\u5fc3/\u5b89\u5168\u8bbe\u7f6e/\u79c1\u4eba\u4ee4\u724c\u201d\u521b\u5efa</p>\n</html>");
         contentPane.add(passwordField_token, "cell 2 2");
 
         //---- label_tip_token ----
@@ -230,6 +276,8 @@ public class ConfigDialog extends JDialog {
 
         //---- textField_repo ----
         textField_repo.setPreferredSize(new Dimension(50, 35));
+        textField_repo.setText("images");
+        textField_repo.setToolTipText("<html>\n<p>1.\u56fe\u5e8a\u4ed3\u5e93\u9879\u76ee\u540d\u79f0\u5efa\u8bae\u4f7f\u7528\u82f1\u6587</p>\n<p>2.\u56fe\u5e8a\u4ed3\u5e93\u9879\u76ee\u4f1a\u81ea\u52a8\u521b\u5efa</p>\n</html>");
         contentPane.add(textField_repo, "cell 2 3");
 
         //---- label_tip_repo ----
@@ -241,13 +289,34 @@ public class ConfigDialog extends JDialog {
         });
         contentPane.add(label_tip_repo, "cell 3 3");
 
+        //---- label5 ----
+        label5.setText("\u547d\u540d\u7a7a\u95f4\uff1a");
+        contentPane.add(label5, "cell 1 4");
+
+        //---- textField_namespace ----
+        textField_namespace.setPreferredSize(new Dimension(49, 35));
+        textField_namespace.setText("default");
+        textField_namespace.setToolTipText("<html>\n<p>1.\u547d\u540d\u7a7a\u95f4\u540d\u79f0\u5efa\u8bae\u4f7f\u7528\u82f1\u6587</p>\n<p>2.\u547d\u540d\u7a7a\u95f4\u4f1a\u81ea\u52a8\u521b\u5efa</p>\n</html>");
+        contentPane.add(textField_namespace, "cell 2 4");
+
+        //---- label_tip_namespace ----
+        label_tip_namespace.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                label_tip_namespaceMouseClicked(e);
+            }
+        });
+        contentPane.add(label_tip_namespace, "cell 3 4");
+
         //---- label4 ----
         label4.setText("\u4e0a\u4f20\u8def\u5f84\uff1a");
-        contentPane.add(label4, "cell 1 4,alignx right,growx 0");
+        contentPane.add(label4, "cell 1 5,alignx right,growx 0");
 
         //---- textField_upload_path ----
         textField_upload_path.setPreferredSize(new Dimension(50, 35));
-        contentPane.add(textField_upload_path, "cell 2 4");
+        textField_upload_path.setText("upload");
+        textField_upload_path.setToolTipText("\u4e0a\u4f20\u8def\u5f84\u4f5c\u4e3a\u6700\u5c0f\u7684\u5206\u7c7b\u5355\u5143");
+        contentPane.add(textField_upload_path, "cell 2 5");
 
         //---- label_tip_upload_path ----
         label_tip_upload_path.addMouseListener(new MouseAdapter() {
@@ -256,15 +325,15 @@ public class ConfigDialog extends JDialog {
                 label_tip_upload_pathMouseClicked(e);
             }
         });
-        contentPane.add(label_tip_upload_path, "cell 3 4");
+        contentPane.add(label_tip_upload_path, "cell 3 5");
 
         //---- label6 ----
         label6.setText("\u56fe\u5e8a\u5907\u6ce8\uff1a");
-        contentPane.add(label6, "cell 1 5");
+        contentPane.add(label6, "cell 1 6");
 
         //---- textField_remark ----
         textField_remark.setPreferredSize(new Dimension(49, 35));
-        contentPane.add(textField_remark, "cell 2 5");
+        contentPane.add(textField_remark, "cell 2 6");
 
         //---- button1 ----
         button1.setText("\u5220\u9664");
@@ -272,13 +341,14 @@ public class ConfigDialog extends JDialog {
         button1.setMinimumSize(new Dimension(78, 35));
         button1.setPreferredSize(new Dimension(78, 35));
         button1.addActionListener(e -> button1ActionPerformed(e));
-        contentPane.add(button1, "cell 2 7,alignx right,growx 0");
+        contentPane.add(button1, "cell 2 8,alignx right,growx 0");
 
         //---- button_ok ----
         button_ok.setText("\u4fdd\u5b58");
         button_ok.setPreferredSize(new Dimension(78, 35));
+        button_ok.setToolTipText("<html>\n<p>\u65b0\u589e\u6216\u8005\u4fee\u6539</p>\n</html>");
         button_ok.addActionListener(e -> button_okActionPerformed(e));
-        contentPane.add(button_ok, "cell 2 7,alignx right,growx 0");
+        contentPane.add(button_ok, "cell 2 8,alignx right,growx 0");
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
@@ -294,6 +364,9 @@ public class ConfigDialog extends JDialog {
     private JLabel label3;
     private JTextField textField_repo;
     private JLabel label_tip_repo;
+    private JLabel label5;
+    private JTextField textField_namespace;
+    private JLabel label_tip_namespace;
     private JLabel label4;
     private JTextField textField_upload_path;
     private JLabel label_tip_upload_path;

@@ -17,6 +17,7 @@ public class ImagebedConfig implements Serializable {
     private String username;
     private String accessToken;
     private String repoName;
+    private String branchName = "default";
     private String basePath;
     private String remark;
 
@@ -25,9 +26,9 @@ public class ImagebedConfig implements Serializable {
         StringBuffer sb = new StringBuffer();
         sb.append(username).append("@");
         if (basePath.startsWith("/")){
-            sb.append(repoName).append(":/").append(basePath);
+            sb.append(repoName).append("@").append(branchName).append(":/").append(basePath);
         }else {
-            sb.append(repoName).append("://").append(basePath);
+            sb.append(repoName).append("@").append(branchName).append("://").append(basePath);
         }
         return sb.toString();
     }

@@ -6,7 +6,7 @@ new FormModel {
 		add( new FormWindow( "javax.swing.JDialog", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 			"$layoutConstraints": "hidemode 3"
 			"$columnConstraints": "[fill][fill][351,fill][fill][fill]"
-			"$rowConstraints": "[][][][][][][][][]"
+			"$rowConstraints": "[][][][][][][][][][]"
 		} ) {
 			name: "this"
 			"title": "配置图床源"
@@ -20,6 +20,7 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "textField_username"
 				"preferredSize": new java.awt.Dimension( 50, 35 )
+				"toolTipText": "<html>\n<p>1.gitee的用户名</p>\n<p>2.如果没有可以去gitee官网免费注册</p>\n</html>"
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 				"value": "cell 2 1"
 			} )
@@ -38,6 +39,7 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JPasswordField" ) {
 				name: "passwordField_token"
 				"preferredSize": new java.awt.Dimension( 50, 35 )
+				"toolTipText": "<html>\n<p>可以在“个人中心/安全设置/私人令牌”创建</p>\n</html>"
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 				"value": "cell 2 2"
 			} )
@@ -56,6 +58,8 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "textField_repo"
 				"preferredSize": new java.awt.Dimension( 50, 35 )
+				"text": "images"
+				"toolTipText": "<html>\n<p>1.图床仓库项目名称建议使用英文</p>\n<p>2.图床仓库项目会自动创建</p>\n</html>"
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 				"value": "cell 2 3"
 			} )
@@ -66,34 +70,56 @@ new FormModel {
 				"value": "cell 3 3"
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label5"
+				"text": "命名空间："
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 1 4"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textField_namespace"
+				"preferredSize": new java.awt.Dimension( 49, 35 )
+				"text": "default"
+				"toolTipText": "<html>\n<p>1.命名空间名称建议使用英文</p>\n<p>2.命名空间会自动创建</p>\n</html>"
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 2 4"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label_tip_namespace"
+				addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "label_tip_namespaceMouseClicked", true ) )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 3 4"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label4"
 				"text": "上传路径："
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 1 4,alignx right,growx 0"
+				"value": "cell 1 5,alignx right,growx 0"
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "textField_upload_path"
 				"preferredSize": new java.awt.Dimension( 50, 35 )
+				"text": "upload"
+				"toolTipText": "上传路径作为最小的分类单元"
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 2 4"
+				"value": "cell 2 5"
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label_tip_upload_path"
 				addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "label_tip_upload_pathMouseClicked", true ) )
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 3 4"
+				"value": "cell 3 5"
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label6"
 				"text": "图床备注："
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 1 5"
+				"value": "cell 1 6"
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "textField_remark"
 				"preferredSize": new java.awt.Dimension( 49, 35 )
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 2 5"
+				"value": "cell 2 6"
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "button1"
@@ -103,19 +129,20 @@ new FormModel {
 				"preferredSize": new java.awt.Dimension( 78, 35 )
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button1ActionPerformed", true ) )
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 2 7,alignx right,growx 0"
+				"value": "cell 2 8,alignx right,growx 0"
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "button_ok"
 				"text": "保存"
 				"preferredSize": new java.awt.Dimension( 78, 35 )
+				"toolTipText": "<html>\n<p>新增或者修改</p>\n</html>"
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button_okActionPerformed", true ) )
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 2 7,alignx right,growx 0"
+				"value": "cell 2 8,alignx right,growx 0"
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
-			"size": new java.awt.Dimension( 520, 300 )
+			"size": new java.awt.Dimension( 520, 320 )
 		} )
 	}
 }

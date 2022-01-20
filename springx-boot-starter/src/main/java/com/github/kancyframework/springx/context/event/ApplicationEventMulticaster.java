@@ -79,9 +79,18 @@ public class ApplicationEventMulticaster {
         }
         Type[] genericInterfaces = searchClass.getGenericInterfaces();
         if (genericInterfaces.length == 0){
-            searchClass = (Class<?>) searchClass.getGenericSuperclass();
-            if (Objects.nonNull(searchClass)){
-                genericInterfaces = searchClass.getGenericInterfaces();
+            Type genericSuperclass = searchClass.getGenericSuperclass();
+            if (genericSuperclass instanceof ParameterizedType){
+                Type[] actualTypeArguments = ((ParameterizedType) genericSuperclass).getActualTypeArguments();
+                Type type = actualTypeArguments[0];
+                if (type instanceof ParameterizedType){
+                    return (Class<?>) ((ParameterizedType) type).getActualTypeArguments()[0];
+                }else {
+                    return (Class<?>) type;
+                }
+            } else {
+                // 父类的事件类型
+                genericInterfaces = ((Class<?>) genericSuperclass).getGenericInterfaces();
                 ParameterizedType parameterizedType = null;
                 if (genericInterfaces.length != 0){
                     parameterizedType = (ParameterizedType) genericInterfaces[0];
@@ -103,30 +112,6 @@ public class ApplicationEventMulticaster {
         ParameterizedType parameterizedType = (ParameterizedType) genericInterfaces[0];
         Class<?> paramType = (Class<?>) parameterizedType.getActualTypeArguments()[0];
         applicationListenerGenericMap.put(applicationListener.getClass(), paramType);
-        return paramType;
-    }
-
-    private Class sss(Class searchClass){
-        Type[] genericInterfaces = searchClass.getGenericInterfaces();
-        if (genericInterfaces.length == 0){
-            searchClass = (Class<?>) searchClass.getGenericSuperclass();
-            if (Objects.nonNull(searchClass)){
-                genericInterfaces = searchClass.getGenericInterfaces();
-                ParameterizedType parameterizedType = null;
-                if (genericInterfaces.length != 0){
-                    parameterizedType = (ParameterizedType) genericInterfaces[0];
-                }else {
-                    parameterizedType = (ParameterizedType) searchClass.getGenericSuperclass();
-                }
-                if (Objects.nonNull(parameterizedType)){
-                    Class<?> paramType = (Class<?>) parameterizedType.getActualTypeArguments()[0];
-                    return paramType;
-                }else {
-                }
-            }
-        }
-        ParameterizedType parameterizedType = (ParameterizedType) genericInterfaces[0];
-        Class<?> paramType = (Class<?>) parameterizedType.getActualTypeArguments()[0];
         return paramType;
     }
 }

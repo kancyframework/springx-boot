@@ -5,7 +5,6 @@ import com.github.kancyframework.springx.context.annotation.Component;
 import com.github.kancyframework.springx.swing.action.AbstractActionApplicationListener;
 import com.github.kancyframework.springx.swing.action.Action;
 import com.github.kancyframework.springx.swing.action.ActionApplicationEvent;
-import com.github.kancyframework.springx.swing.action.KeyStroke;
 import com.kancy.imagebeder.config.ImagebedConfig;
 import com.kancy.imagebeder.config.Settings;
 import com.kancy.imagebeder.ui.ConfigDialog;
