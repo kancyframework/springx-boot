@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -41,6 +42,10 @@ public class ImageUtils {
         return new ImageIcon(ImageUtils.class.getClassLoader().getResource(classResourcePath));
     }
 
+    public static Icon createImageIcon(byte[] imageBytes) throws IOException {
+        return new ImageIcon(createImage(imageBytes));
+    }
+
     public static Icon createImageIcon(File file) throws MalformedURLException {
         return new ImageIcon(file.toURL());
     }
@@ -55,6 +60,10 @@ public class ImageUtils {
     public static Image createImage(File file) throws MalformedURLException {
         ImageIcon icon = new ImageIcon(file.toURL());
         return icon.getImage();
+    }
+
+    public static Image createImage(byte[] imageBytes) throws IOException {
+        return ImageIO.read(new ByteArrayInputStream(imageBytes));
     }
 
     public static byte[] getImageBytes(Image image){
