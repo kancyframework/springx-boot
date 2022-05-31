@@ -4,6 +4,8 @@ import com.github.kancyframework.springx.boot.CommandLineArgument;
 import com.github.kancyframework.springx.context.ApplicationContext;
 import com.github.kancyframework.springx.context.env.Environment;
 import com.github.kancyframework.springx.context.event.ApplicationEvent;
+import com.github.kancyframework.springx.context.task.ScheduleTask;
+import com.github.kancyframework.springx.context.task.ScheduleTaskManager;
 
 import java.util.List;
 import java.util.Map;
@@ -98,6 +100,26 @@ public abstract class SpringUtils {
      */
     public static void publishEvent(ApplicationEvent applicationEvent){
         applicationContext.publishEvent(applicationEvent);
+    }
+
+    /**
+     * 发布定时任务
+     * @param scheduleTask
+     */
+    public static void publishScheduleTask(ScheduleTask scheduleTask){
+        ScheduleTaskManager scheduleTaskManager = applicationContext.getBean(ScheduleTaskManager.class);
+        if (Objects.nonNull(scheduleTaskManager)){
+            scheduleTaskManager.submitTask(scheduleTask);
+        }
+    }
+
+    /**
+     * 发布定时任务
+     * @param period
+     * @param task
+     */
+    public static void publishScheduleTask(String period, Runnable task){
+        publishScheduleTask(new ScheduleTask(period, task));
     }
 
     public static String getApplicationName(){

@@ -38,7 +38,11 @@ public abstract class DateUtils {
         return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS"));
     }
     public static String getNowStr(){
-        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+        return getNowStr(false);
+    }
+
+    public static String getNowStr(boolean millis){
+        return new SimpleDateFormat(millis?"yyyy-MM-dd HH:mm:ss.SSS":"yyyy-MM-dd HH:mm:ss").format(new Date());
     }
     public static String getNowPathStr(){
         return new SimpleDateFormat("yyyy/MM/dd").format(new Date());
