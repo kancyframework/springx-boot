@@ -17,12 +17,15 @@ import java.util.Map;
 public class JavaDynamicUtilsTests {
     @Test
     public void test1() throws Exception {
+        JavaDynamicUtils.forClass(FileUtils.readClasspathFileToString("/javafile/HelloDynamicHandler1.java"));
+        JavaDynamicUtils.forClass(FileUtils.readClasspathFileToString("/javafile/HelloDynamicHandler2.java"));
+        JavaDynamicUtils.forClass(FileUtils.readClasspathFileToString("/javafile/HelloDynamicHandler3.java"));
+
         String javaSrc = FileUtils.readClasspathFileToString("/javafile/HelloDynamicHandler.java");
-        Class<?> aClass = JavaDynamicUtils.forClass(javaSrc);
-        Object instance = aClass.newInstance();
-        Method main = aClass.getMethod("handle", Map.class);
-        Object invoke = main.invoke(instance, new HashMap<>());
-        System.out.println(invoke);
+        for (int i = 0; i < 10; i++) {
+            Object invoke = JavaDynamicUtils.invoke(javaSrc, new HashMap<>());
+            System.out.println(invoke);
+        }
     }
 
     @Test

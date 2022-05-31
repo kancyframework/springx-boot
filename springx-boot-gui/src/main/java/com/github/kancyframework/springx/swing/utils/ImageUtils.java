@@ -2,6 +2,7 @@ package com.github.kancyframework.springx.swing.utils;
 
 import com.github.kancyframework.springx.utils.FileUtils;
 import com.github.kancyframework.springx.utils.StringUtils;
+import sun.awt.image.ToolkitImage;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -74,6 +75,15 @@ public class ImageUtils {
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             try {
                 ImageIO.write((RenderedImage)image, "png", outputStream);
+                return outputStream.toByteArray();
+            } catch (IOException e) {
+                // ignore
+            }
+        }
+        if (image instanceof ToolkitImage){
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            try {
+                ImageIO.write(((ToolkitImage)image).getBufferedImage(), "png", outputStream);
                 return outputStream.toByteArray();
             } catch (IOException e) {
                 // ignore

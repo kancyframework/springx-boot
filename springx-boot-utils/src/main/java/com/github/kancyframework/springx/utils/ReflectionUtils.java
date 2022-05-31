@@ -188,7 +188,7 @@ public abstract class ReflectionUtils {
                         Class<?>[] parameterTypes = method.getParameterTypes();
                         for (int i = 0; i < parameterTypes.length; i++) {
                             if (paramTypes.length > i){
-                                if (!ClassUtils.isAssignableFrom(paramTypes[i], parameterTypes[i])){
+                                if (!ClassUtils.isAssignableFrom(parameterTypes[i], paramTypes[i])){
                                     hasMatch = false;
                                     break;
                                 }
@@ -210,7 +210,7 @@ public abstract class ReflectionUtils {
     }
 
     public static Method findMethod(Class<?> clazz, String name,  Class<?>... paramTypes) {
-        return findMethod(clazz, name, true, paramTypes);
+        return findMethod(clazz, name, false, paramTypes);
     }
 
     /**
