@@ -78,7 +78,9 @@ public class ApplicationEventMulticaster {
             return applicationListenerGenericMap.get(searchClass);
         }
         Type[] genericInterfaces = searchClass.getGenericInterfaces();
+        // 1.接口泛型
         if (genericInterfaces.length == 0){
+            // 2.继承类泛型
             Type genericSuperclass = searchClass.getGenericSuperclass();
             if (genericSuperclass instanceof ParameterizedType){
                 Type[] actualTypeArguments = ((ParameterizedType) genericSuperclass).getActualTypeArguments();
@@ -93,9 +95,11 @@ public class ApplicationEventMulticaster {
                 genericInterfaces = ((Class<?>) genericSuperclass).getGenericInterfaces();
                 ParameterizedType parameterizedType = null;
                 if (genericInterfaces.length != 0){
+                    // 父类接口泛型
                     parameterizedType = (ParameterizedType) genericInterfaces[0];
                 }else {
-                    parameterizedType = (ParameterizedType) searchClass.getGenericSuperclass();
+                    // 父类继承类泛型
+                    parameterizedType = (ParameterizedType) ((Class<?>) genericSuperclass).getGenericSuperclass();
                 }
                 if (Objects.nonNull(parameterizedType)){
                     Class<?> paramType = (Class<?>) parameterizedType.getActualTypeArguments()[0];
