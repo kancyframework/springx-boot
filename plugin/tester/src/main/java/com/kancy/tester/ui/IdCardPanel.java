@@ -349,42 +349,42 @@ public class IdCardPanel extends JPanel implements InitializingBean {
             imageNameLabel.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 16));
             imageNameLabel.setForeground(Color.black);
             idCardFrontImagePanel.add(imageNameLabel);
-            imageNameLabel.setBounds(115, 50, 70, 30);
+            imageNameLabel.setBounds(120, 70, 70, 30);
 
             //---- imageSexLabel ----
             imageSexLabel.setText("\u7537");
             imageSexLabel.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 16));
             imageSexLabel.setForeground(Color.black);
             idCardFrontImagePanel.add(imageSexLabel);
-            imageSexLabel.setBounds(115, 95, 45, 30);
+            imageSexLabel.setBounds(120, 114, 45, 30);
 
             //---- imageNationLabel ----
             imageNationLabel.setText("\u6c49");
             imageNationLabel.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 16));
             imageNationLabel.setForeground(Color.black);
             idCardFrontImagePanel.add(imageNationLabel);
-            imageNationLabel.setBounds(245, 95, 45, 30);
+            imageNationLabel.setBounds(245, 114, 45, 30);
 
             //---- imageYearLabel ----
             imageYearLabel.setText("1982");
             imageYearLabel.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 16));
             imageYearLabel.setForeground(Color.black);
             idCardFrontImagePanel.add(imageYearLabel);
-            imageYearLabel.setBounds(115, 140, 60, 30);
+            imageYearLabel.setBounds(120, 157, 60, 30);
 
             //---- imageMonthLabel ----
             imageMonthLabel.setText("7");
             imageMonthLabel.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 16));
             imageMonthLabel.setForeground(Color.black);
             idCardFrontImagePanel.add(imageMonthLabel);
-            imageMonthLabel.setBounds(215, 140, 35, 30);
+            imageMonthLabel.setBounds(220, 157, 35, 30);
 
             //---- imageDayLabel ----
             imageDayLabel.setText("16");
             imageDayLabel.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 16));
             imageDayLabel.setForeground(Color.black);
             idCardFrontImagePanel.add(imageDayLabel);
-            imageDayLabel.setBounds(265, 140, 35, 30);
+            imageDayLabel.setBounds(275, 157, 35, 30);
 
             //---- imageAddressLabel ----
             imageAddressLabel.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 16));
@@ -392,25 +392,25 @@ public class IdCardPanel extends JPanel implements InitializingBean {
             imageAddressLabel.setVerticalAlignment(SwingConstants.TOP);
             imageAddressLabel.setText("<html>\u798f\u5efa\u7701\u798f\u5dde\u5e02\u53f0\u6c5f\u533a\u53d7\u6761\u8def\u70ed\u8863\u5c0f\u533a<br/>17\u5355\u51432154\u5ba4</html>");
             idCardFrontImagePanel.add(imageAddressLabel);
-            imageAddressLabel.setBounds(115, 190, 280, 95);
+            imageAddressLabel.setBounds(120, 205, 280, 95);
 
             //---- imageIdCardLabel ----
             imageIdCardLabel.setText("3 5 0 1 0 3 1 9 8 2 0 7 1 6 0 3 5 3");
             imageIdCardLabel.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 18));
             imageIdCardLabel.setForeground(Color.black);
             idCardFrontImagePanel.add(imageIdCardLabel);
-            imageIdCardLabel.setBounds(200, 305, 380, 35);
+            imageIdCardLabel.setBounds(190, 310, 380, 35);
 
             //---- imageHeadPhotoLabel ----
             imageHeadPhotoLabel.setIcon(new ImageIcon(getClass().getResource("/images/id_card_front_photo_200x200_boy_3.png")));
             idCardFrontImagePanel.add(imageHeadPhotoLabel);
-            imageHeadPhotoLabel.setBounds(375, 55, 200, 200);
+            imageHeadPhotoLabel.setBounds(380, 55, 200, 200);
 
             //---- frontImage ----
             frontImage.setIcon(new ImageIcon(getClass().getResource("/images/id_card_front_600x400.png")));
             frontImage.setToolTipText("\u5355\u51fb\u5207\u6362\u5230\u8eab\u4efd\u8bc1\u53cd\u9762\u54e6\uff01");
             idCardFrontImagePanel.add(frontImage);
-            frontImage.setBounds(0, 0, 600, 380);
+            frontImage.setBounds(2, 3, 600, 390);
 
             {
                 // compute preferred size
@@ -437,20 +437,20 @@ public class IdCardPanel extends JPanel implements InitializingBean {
             imageQfjgLabel.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 16));
             imageQfjgLabel.setForeground(Color.black);
             idCardBackImagePanel.add(imageQfjgLabel);
-            imageQfjgLabel.setBounds(260, 265, 320, 30);
+            imageQfjgLabel.setBounds(255, 269, 320, 30);
 
             //---- imageCardValidDateLabel ----
             imageCardValidDateLabel.setText("2021.06.05-2041.06.05");
             imageCardValidDateLabel.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 16));
             imageCardValidDateLabel.setForeground(Color.black);
             idCardBackImagePanel.add(imageCardValidDateLabel);
-            imageCardValidDateLabel.setBounds(260, 310, 230, 35);
+            imageCardValidDateLabel.setBounds(255, 312, 230, 35);
 
             //---- backImage ----
             backImage.setIcon(new ImageIcon(getClass().getResource("/images/id_card_back_600x400.png")));
             backImage.setToolTipText("\u5355\u51fb\u5207\u6362\u5230\u8eab\u4efd\u8bc1\u6b63\u9762\u54e6\uff01");
             idCardBackImagePanel.add(backImage);
-            backImage.setBounds(0, 0, 600, 380);
+            backImage.setBounds(-5, 3, 600, 390);
 
             {
                 // compute preferred size

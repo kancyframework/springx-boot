@@ -83,8 +83,8 @@ new FormModel {
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"width": 70
 				"height": 30
-				"x": 115
-				"y": 50
+				"x": 120
+				"y": 70
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "imageSexLabel"
@@ -94,8 +94,8 @@ new FormModel {
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"width": 45
 				"height": 30
-				"x": 115
-				"y": 95
+				"x": 120
+				"y": 114
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "imageNationLabel"
@@ -106,7 +106,7 @@ new FormModel {
 				"width": 45
 				"height": 30
 				"x": 245
-				"y": 95
+				"y": 114
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "imageYearLabel"
@@ -116,8 +116,8 @@ new FormModel {
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"width": 60
 				"height": 30
-				"x": 115
-				"y": 140
+				"x": 120
+				"y": 157
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "imageMonthLabel"
@@ -127,8 +127,8 @@ new FormModel {
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"width": 35
 				"height": 30
-				"x": 215
-				"y": 140
+				"x": 220
+				"y": 157
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "imageDayLabel"
@@ -138,8 +138,8 @@ new FormModel {
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"width": 35
 				"height": 30
-				"x": 265
-				"y": 140
+				"x": 275
+				"y": 157
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "imageAddressLabel"
@@ -150,8 +150,8 @@ new FormModel {
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"width": 280
 				"height": 95
-				"x": 115
-				"y": 190
+				"x": 120
+				"y": 205
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "imageIdCardLabel"
@@ -161,8 +161,8 @@ new FormModel {
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"width": 380
 				"height": 35
-				"x": 200
-				"y": 305
+				"x": 190
+				"y": 310
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "imageHeadPhotoLabel"
@@ -170,7 +170,7 @@ new FormModel {
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"width": 200
 				"height": 200
-				"x": 375
+				"x": 380
 				"y": 55
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
@@ -178,14 +178,14 @@ new FormModel {
 				"icon": new com.jformdesigner.model.SwingIcon( 0, "/images/id_card_front_600x400.png" )
 				"toolTipText": "单击切换到身份证反面哦！"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 0
-				"y": 0
+				"y": 3
 				"width": 600
-				"height": 380
+				"height": 390
+				"x": 2
 			} )
 		}, new FormLayoutConstraints( null ) {
-			"location": new java.awt.Point( 0, 325 )
-			"size": new java.awt.Dimension( 610, 400 )
+			"location": new java.awt.Point( 0, 320 )
+			"size": new java.awt.Dimension( 610, 415 )
 		} )
 		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
 			name: "idCardBackImagePanel"
@@ -197,8 +197,8 @@ new FormModel {
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"width": 320
 				"height": 30
-				"x": 260
-				"y": 265
+				"x": 255
+				"y": 269
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "imageCardValidDateLabel"
@@ -208,18 +208,18 @@ new FormModel {
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"width": 230
 				"height": 35
-				"x": 260
-				"y": 310
+				"x": 255
+				"y": 312
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "backImage"
 				"icon": new com.jformdesigner.model.SwingIcon( 0, "/images/id_card_back_600x400.png" )
 				"toolTipText": "单击切换到身份证正面哦！"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 0
-				"y": 0
+				"x": -5
+				"y": 3
 				"width": 600
-				"height": 380
+				"height": 390
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 741 )
