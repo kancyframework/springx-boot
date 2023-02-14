@@ -337,6 +337,10 @@ new FormModel {
 				name: "separator2"
 			} )
 			add( new FormComponent( "javax.swing.JMenuItem" ) {
+				name: "menuItem17"
+				"text": "复制当前图片"
+			} )
+			add( new FormComponent( "javax.swing.JMenuItem" ) {
 				name: "menuItem5"
 				"text": "身份证另存为"
 			} )

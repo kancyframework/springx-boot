@@ -279,6 +279,7 @@ public class IdCardPanel extends JPanel implements InitializingBean {
         menuItem15 = new JMenuItem();
         menuItem2 = new JMenuItem();
         menuItem3 = new JMenuItem();
+        menuItem17 = new JMenuItem();
         menuItem5 = new JMenuItem();
         menuItem11 = new JMenuItem();
         menuItem12 = new JMenuItem();
@@ -572,6 +573,10 @@ public class IdCardPanel extends JPanel implements InitializingBean {
             idCardPopupMenu.add(menuItem3);
             idCardPopupMenu.addSeparator();
 
+            //---- menuItem17 ----
+            menuItem17.setText("\u590d\u5236\u5f53\u524d\u56fe\u7247");
+            idCardPopupMenu.add(menuItem17);
+
             //---- menuItem5 ----
             menuItem5.setText("\u8eab\u4efd\u8bc1\u53e6\u5b58\u4e3a");
             idCardPopupMenu.add(menuItem5);
@@ -631,6 +636,7 @@ public class IdCardPanel extends JPanel implements InitializingBean {
     private JMenuItem menuItem15;
     private JMenuItem menuItem2;
     private JMenuItem menuItem3;
+    private JMenuItem menuItem17;
     private JMenuItem menuItem5;
     private JMenuItem menuItem11;
     private JMenuItem menuItem12;
