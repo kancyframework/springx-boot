@@ -28,7 +28,7 @@ import java.io.IOException;
  * @date 2021/8/27 18:51
  */
 @Action({"身份证另存为"})
-@KeyStroke("alt 3")
+@KeyStroke("alt 4")
 @Component
 public class SaveIdCardImageActionListener extends JFrameApplicationListener {
     @Autowired
