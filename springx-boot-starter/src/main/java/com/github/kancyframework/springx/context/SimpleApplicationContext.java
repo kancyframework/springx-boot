@@ -181,9 +181,11 @@ public class SimpleApplicationContext implements ApplicationContext {
         importClasses.forEach(this::processSingleClass);
 
         // 动态bean注册
+        Set<Class<?>> allClasses = new LinkedHashSet<>(classes);
+        allClasses.addAll(importClasses);
         List<DynamicBeanRegistry> beanDefinitionRegistries = SpiUtils.findServices(DynamicBeanRegistry.class);
         for (DynamicBeanRegistry beanRegistry : beanDefinitionRegistries) {
-            Map<String, BeanDefinition> definitionMap = beanRegistry.registerBeans(this);
+            Map<String, BeanDefinition> definitionMap = beanRegistry.registerBeans(this, allClasses);
             for (Map.Entry<String, BeanDefinition> entry : definitionMap.entrySet()) {
                 String beanName = entry.getKey();
                 Object instance = entry.getValue().getObject();

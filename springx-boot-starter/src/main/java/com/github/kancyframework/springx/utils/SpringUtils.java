@@ -85,7 +85,7 @@ public abstract class SpringUtils {
      * hasBean
      */
     public static boolean existBean(Class<?> beanClass) {
-        return CollectionUtils.isEmpty(getBeansOfType(beanClass));
+        return !CollectionUtils.isEmpty(getBeansOfType(beanClass));
     }
 
     /**
