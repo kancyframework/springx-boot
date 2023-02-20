@@ -1,7 +1,9 @@
 package com.github.kancyframework.springx.swing.rsyntax;
 
 import com.github.kancyframework.springx.utils.CollectionUtils;
+import com.github.kancyframework.springx.utils.RandomUtils;
 import com.github.kancyframework.springx.utils.ReflectionUtils;
+import com.github.kancyframework.springx.utils.StringUtils;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 import org.fife.ui.rsyntaxtextarea.Theme;
@@ -13,6 +15,7 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * RSyntaxTextComponent
@@ -30,13 +33,20 @@ public class RSyntaxTextComponent extends RTextScrollPane {
 
     private void init() {
         textArea = new RSyntaxTextArea();
+        textArea.setRows(1);
         textArea.setCodeFoldingEnabled(true);
         textArea.setAntiAliasingEnabled(true);
         setViewportView(textArea);
         setLineNumbersEnabled(true);
     }
 
-    public void addSyntaxEditingStylePopMenu( String ... styles) {
+    public void addSyntaxEditingStylePopMenu() {
+        Set<String> allSyntaxStyles = getAllSyntaxStyles();
+        addSyntaxEditingStylePopMenu(getPopupMenu(),
+                CollectionUtils.toStrArray(allSyntaxStyles));
+    }
+
+    public void addSyntaxEditingStylePopMenu(String ... styles) {
         addSyntaxEditingStylePopMenu(getPopupMenu(), styles);
     }
 
@@ -80,21 +90,15 @@ public class RSyntaxTextComponent extends RTextScrollPane {
         Action action = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                InputStream in = getClass().
-                        getResourceAsStream("/org/fife/ui/rsyntaxtextarea/themes/" + e.getActionCommand());
-                try {
-                    Theme theme = Theme.load(in);
-                    theme.apply(getRSyntaxTextArea());
-                } catch (IOException ioe) {
-                    ioe.printStackTrace();
-                }
+                String themeFileName =  e.getActionCommand();
+                setSyntaxEditingTheme(themeFileName);
             }
         };
 
         Set<String> themeSet = CollectionUtils.toSet(themes);
         ButtonGroup bg = new ButtonGroup();
         JMenu menu = new JMenu("主题");
-        Map<String, String> map = new HashMap<>();
+        Map<String, String> map = new TreeMap<>();
         map.put("Default", "default.xml");
         map.put("Default (System Selection)", "default-alt.xml");
         map.put("Dark", "dark.xml");
@@ -117,6 +121,53 @@ public class RSyntaxTextComponent extends RTextScrollPane {
         popupMenu.add(menu);
     }
 
+    public void useDefaultTheme() {
+        setSyntaxEditingTheme("default.xml");
+    }
+
+    public void useIdeaTheme() {
+        setSyntaxEditingTheme("idea.xml");
+    }
+
+    public void useVisualStudioTheme() {
+        setSyntaxEditingTheme("vs.xml");
+    }
+
+    public void useMonokaiTheme() {
+        setSyntaxEditingTheme("monokai.xml");
+    }
+
+    public void useDarkTheme() {
+        setSyntaxEditingTheme("dark.xml");
+    }
+
+    public void useEclipseTheme() {
+        setSyntaxEditingTheme("eclipse.xml");
+    }
+
+    public void useRandomTheme() {
+        String[] themes = new String[]{
+                "default.xml","idea.xml","monokai.xml","vs.xml","dark.xml","eclipse.xml"
+        };
+        String themeFileName = RandomUtils.nextString(themes);
+        setSyntaxEditingTheme(themeFileName);
+    }
+
+    /**
+     * 设置主题
+     * @param themeFileName
+     */
+    public void setSyntaxEditingTheme(String themeFileName) {
+        InputStream in = getClass().
+                getResourceAsStream(String.format("/org/fife/ui/rsyntaxtextarea/themes/%s" , themeFileName));
+        try {
+            Theme theme = Theme.load(in);
+            theme.apply(getRSyntaxTextArea());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * @see SyntaxConstants
      * @param style
@@ -130,10 +181,9 @@ public class RSyntaxTextComponent extends RTextScrollPane {
      * languages will support code folding out of the box.  Those languages
      * which do not support folding will ignore this property.<p>
      * This method fires a property change event of type
-     * {@link #CODE_FOLDING_PROPERTY}.
+     * .
      *
      * @param enabled Whether code folding should be enabled.
-     * @see #isCodeFoldingEnabled()
      */
     public void setCodeFoldingEnabled(boolean enabled) {
         textArea.setCodeFoldingEnabled(enabled);
@@ -141,10 +191,9 @@ public class RSyntaxTextComponent extends RTextScrollPane {
 
     /**
      * Sets whether anti-aliasing is enabled in this editor.  This method
-     * fires a property change event of type {@link #ANTIALIAS_PROPERTY}.
+     * fires a property change event of type .
      *
      * @param enabled Whether anti-aliasing is enabled.
-     * @see #getAntiAliasingEnabled()
      */
     public void setAntiAliasingEnabled(boolean enabled) {
         textArea.setAntiAliasingEnabled(enabled);

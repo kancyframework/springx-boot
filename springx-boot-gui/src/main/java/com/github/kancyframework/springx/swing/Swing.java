@@ -46,6 +46,15 @@ public class Swing {
     }
 
     /**
+     * 設置寬高
+     * @param frame
+     */
+    public static void startUp(JFrame frame, int width, int height){
+        frame.setSize(new Dimension(width, height));
+        frame.setLocationRelativeTo(null);
+    }
+
+    /**
      * Frame默认设置
      * @param frame
      */

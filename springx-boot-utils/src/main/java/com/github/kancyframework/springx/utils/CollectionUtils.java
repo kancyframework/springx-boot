@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 public abstract class CollectionUtils {
 
     private static final Object[] EMPTY_OBJECT_ARRAY = {};
+    private static final String[] EMPTY_STR_ARRAY = {};
 
     /**
      * 是否为空
@@ -43,6 +44,23 @@ public abstract class CollectionUtils {
             int index = 0;
             for (Object item : collection) {
                 objects[index++] = item;
+            }
+            return objects;
+        }
+    }
+    /**
+     * 集合转数组
+     * @param collection
+     * @return
+     */
+    public static String[] toStrArray(Collection<?> collection) {
+        if (isEmpty(collection)){
+            return EMPTY_STR_ARRAY;
+        }else {
+            String[] objects = new String[collection.size()];
+            int index = 0;
+            for (Object item : collection) {
+                objects[index++] = Objects.isNull(item) ? null : String.valueOf(item);
             }
             return objects;
         }
@@ -87,7 +105,6 @@ public abstract class CollectionUtils {
      * 创建Map
      * @param key
      * @param value
-     * @param <T>
      * @return
      */
     public static <K,V> Map<K,V> newHashMap(K key, V value) {
