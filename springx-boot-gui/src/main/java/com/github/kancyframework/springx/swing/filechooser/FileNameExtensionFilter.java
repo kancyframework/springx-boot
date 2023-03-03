@@ -22,6 +22,11 @@ public final class FileNameExtensionFilter extends FileFilter implements Filenam
         this(Arrays.toString(extensions), extensions);
     }
 
+    /**
+     *
+     * @param description 描述
+     * @param extensions 扩展名："png","jpg","gif"
+     */
     public FileNameExtensionFilter(String description, String ... extensions) {
         this.extensions = extensions;
         fileNameExtensionFilter = new javax.swing.filechooser.FileNameExtensionFilter(description, extensions);

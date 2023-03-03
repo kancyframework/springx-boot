@@ -20,10 +20,12 @@ public class SimpleFileDirectoryChooser extends AbstractFileChooser {
     public SimpleFileDirectoryChooser(String title) {
         this();
         this.title = title;
+        setFileSelection();
     }
 
     public SimpleFileDirectoryChooser(Component parentComponent, String title) {
         super(parentComponent);
         this.title = title;
+        setFileSelection();
     }
 }

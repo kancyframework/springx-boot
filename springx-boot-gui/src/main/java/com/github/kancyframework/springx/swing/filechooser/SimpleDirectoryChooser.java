@@ -17,9 +17,11 @@ public class SimpleDirectoryChooser extends SimpleFileDirectoryChooser {
 
     public SimpleDirectoryChooser(String title) {
         super(title);
+        setOnlyDirectorySelection();
     }
 
     public SimpleDirectoryChooser(Component parentComponent, String title) {
         super(parentComponent, title);
+        setOnlyDirectorySelection();
     }
 }

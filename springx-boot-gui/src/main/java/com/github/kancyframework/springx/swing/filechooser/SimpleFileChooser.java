@@ -18,10 +18,12 @@ public class SimpleFileChooser extends SimpleFileDirectoryChooser {
 
     public SimpleFileChooser(String title) {
         super(title);
+        setOnlyFileSelection();
     }
 
     public SimpleFileChooser(Component parentComponent, String title) {
         super(parentComponent, title);
+        setOnlyFileSelection();
     }
 
     public AbstractFileChooser setSelectedFile(File file){
