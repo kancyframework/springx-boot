@@ -47,7 +47,7 @@ public class ObjectConfigBeanRegistry implements DynamicBeanRegistry {
         });
 
         if (!SpringUtils.existBean(MapDb.class)){
-            objectConfigBeanMap.put(String.format("mapObjectDataConfig-%s", IDUtils.getUUIDString()),
+            objectConfigBeanMap.put(String.format("mapDb-%s", IDUtils.getUUIDString()),
                     new BeanDefinition(MapDb.get(), MapDb.class));
         }
         return objectConfigBeanMap;
