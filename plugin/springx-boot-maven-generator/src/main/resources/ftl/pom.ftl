@@ -40,6 +40,24 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>com.github.kancyframework</groupId>
+            <artifactId>springx-boot-registry</artifactId>
+            <version>${springx.boot.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.kancyframework</groupId>
+            <artifactId>springx-boot-webdav</artifactId>
+            <version>${springx.boot.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.kancyframework</groupId>
+            <artifactId>springx-boot-dingtalk-client</artifactId>
+            <version>${springx.boot.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.10</version>
