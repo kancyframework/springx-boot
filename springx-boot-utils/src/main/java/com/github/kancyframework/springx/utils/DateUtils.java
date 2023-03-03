@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Objects;
+
 /**
  * DateUtils
  *
@@ -108,5 +110,15 @@ public abstract class DateUtils {
     }
     public static int getDays(Date date){
         return Integer.parseInt(getDateStr(date, "dd"));
+    }
+
+    public static long getCurrTimeSeconds() {
+        return getTimeSeconds(new Date());
+    }
+    public static long getTimeSeconds(Date date) {
+        if (Objects.isNull(date)){
+            return 0;
+        }
+        return date.getHours() * 60 * 60 + date.getMinutes() * 60 + date.getSeconds();
     }
 }

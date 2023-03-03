@@ -110,6 +110,18 @@ public class RandomUtils {
         return rangeStr.get(nextInt(rangeStr.size()));
     }
 
+    public static String next62TimeStr(boolean today){
+        if (today){
+            return NumberUtils.to62Str(DateUtils.getCurrTimeSeconds());
+        } else {
+            return NumberUtils.to62Str(System.currentTimeMillis());
+        }
+    }
+
+    public static String next62NowStr(){
+        return next62TimeStr(false);
+    }
+
     /**
      * 得到一组符合高斯/正态分布的随机数，是否可以利用nextGaussian方法
      * @return
