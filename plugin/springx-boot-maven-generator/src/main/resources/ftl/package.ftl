@@ -1,2 +1,2 @@
-@cd ../
-@mvn clean package
+cd ../
+mvn -Pjavapackager clean package

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <exe4j version="6.0.2" transformSequenceNumber="2">
     <directoryPresets config="${projectPath}/target" />
-    <application name="${artifactId}" distributionSourceDir="${projectPath}/dist">
+    <application name="${artifactId}" distributionSourceDir="${projectPath}/dist/last-version">
         <languages>
             <principalLanguage id="en" customLocalizationFile="" />
         </languages>
